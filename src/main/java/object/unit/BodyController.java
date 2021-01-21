@@ -73,41 +73,42 @@ public class BodyController {
     private void setPositionLeft() {
         setOdds_LocateLeft();
         setOdds_drawLeft();
-        locationLeft();
+        setCenter_of_rotation_All();
     }
 
     private void setPositionRight() {
         setOdds_LocateRight();
         setOdds_drawRight();
-        locationRight();
+        setCenter_of_rotation_All();
     }
 
     private void setOdds_LocateLeft() {
-        bodyParts[1].setOdds_locate(size[0]*0.45 , size[1]*0.01 );
-        bodyParts[2].setOdds_locate(size[0]*0.25, size[1]*0.95);
-        bodyParts[3].setOdds_locate(size[0]*0.75, size[1] * 0.95);
-        bodyParts[4].setOdds_locate(size[0]*0.1, size[1]*0.2);
-        bodyParts[5].setOdds_locate(size[0]*0.9, size[1]*0.2);
-        weapon.setOdds_locate(size[0] * 0.9, size[1] * 0.2);
+        bodyParts[1].set_Odds_center_of_rotation(size[0]*0.45 , size[1]*0.01 );
+        bodyParts[2].set_Odds_center_of_rotation(size[0]*0.25, size[1]*0.95);
+        bodyParts[3].set_Odds_center_of_rotation(size[0]*0.75, size[1] * 0.95);
+        bodyParts[4].set_Odds_center_of_rotation(size[0]*0.1, size[1]*0.2);
+        bodyParts[5].set_Odds_center_of_rotation(size[0]*0.9, size[1]*0.2);
+        weapon.set_Odds_center_of_rotation(size[0] * 0.9, size[1] * 0.2);
     }
 
     private void setOdds_drawLeft(){
-        bodyParts[1].setOdds_draw(-size[0]*0.19,-size[1]*0.44);
+        bodyParts[1].setOdds_draw(-size[0]*0.25,-size[1]*0.44);
         bodyParts[2].setOdds_draw(-size[0]*0.2,-size[1]*0.1);
         bodyParts[3].setOdds_draw(-size[0]*0.25,-size[1]*0.1);
         bodyParts[4].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
         bodyParts[5].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
         weapon.setOdds_draw(-size[0]*1.3,size[1]*0.2);
+        weapon.set_odds_from_barrelTip_to_Center(-size[0]*1.3,size[1]*0.35);
     }
 
     private void setOdds_LocateRight() {
 
-        bodyParts[1].setOdds_locate(size[0] * 0.5, size[1] * 0.01);
-        bodyParts[2].setOdds_locate(size[0] * 0.25, size[1] * 0.95);
-        bodyParts[3].setOdds_locate(size[0] * 0.75, size[1] * 0.95);
-        bodyParts[4].setOdds_locate(size[0] * 0.9, size[1] * 0.2);
-        bodyParts[5].setOdds_locate(size[0] * 0.1, size[1] * 0.2);
-        weapon.setOdds_locate(size[0] * 0.1, size[1] * 0.2);
+        bodyParts[1].set_Odds_center_of_rotation(size[0] * 0.5, size[1] * 0.01);
+        bodyParts[2].set_Odds_center_of_rotation(size[0] * 0.25, size[1] * 0.95);
+        bodyParts[3].set_Odds_center_of_rotation(size[0] * 0.75, size[1] * 0.95);
+        bodyParts[4].set_Odds_center_of_rotation(size[0] * 0.9, size[1] * 0.2);
+        bodyParts[5].set_Odds_center_of_rotation(size[0] * 0.1, size[1] * 0.2);
+        weapon.set_Odds_center_of_rotation(size[0] * 0.1, size[1] * 0.2);
     }
     private void setOdds_drawRight(){
         bodyParts[1].setOdds_draw(-size[0]*0.19,-size[1]*0.44);
@@ -116,25 +117,16 @@ public class BodyController {
         bodyParts[4].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
         bodyParts[5].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
         weapon.setOdds_draw(-size[0]*0.33,size[1]*0.2);
+        weapon.set_odds_from_barrelTip_to_Center(size[0]*1.23,size[1]*0.35);
     }
 
-    private void locationLeft() {
-        bodyParts[1].setXY(bodyParts[1].getOdds_locate()[0], bodyParts[1].getOdds_locate()[1]);
-        bodyParts[2].setXY(bodyParts[2].getOdds_locate()[0], bodyParts[2].getOdds_locate()[1]);
-        bodyParts[3].setXY(bodyParts[3].getOdds_locate()[0], bodyParts[3].getOdds_locate()[1]);
-        bodyParts[4].setXY(bodyParts[4].getOdds_locate()[0], bodyParts[4].getOdds_locate()[1]);
-        bodyParts[5].setXY(bodyParts[5].getOdds_locate()[0], bodyParts[5].getOdds_locate()[1]);
-        weapon.setXY(weapon.getOdds_locate()[0], weapon.getOdds_locate()[1]);
-
-    }
-
-    private void locationRight() {
-        bodyParts[1].setXY(bodyParts[1].getOdds_locate()[0], bodyParts[1].getOdds_locate()[1]);
-        bodyParts[2].setXY(bodyParts[2].getOdds_locate()[0], bodyParts[2].getOdds_locate()[1]);
-        bodyParts[3].setXY(bodyParts[3].getOdds_locate()[0], bodyParts[3].getOdds_locate()[1]);
-        bodyParts[4].setXY(bodyParts[4].getOdds_locate()[0], bodyParts[4].getOdds_locate()[1]);
-        bodyParts[5].setXY(bodyParts[5].getOdds_locate()[0], bodyParts[5].getOdds_locate()[1]);
-        weapon.setXY(weapon.getOdds_locate()[0], weapon.getOdds_locate()[1]);
+    private void setCenter_of_rotation_All() {
+        bodyParts[1].setCenter_of_rotation();
+        bodyParts[2].setCenter_of_rotation();
+        bodyParts[3].setCenter_of_rotation();
+        bodyParts[4].setCenter_of_rotation();
+        bodyParts[5].setCenter_of_rotation();
+        weapon.setCenter_of_rotation();
     }
 
 
@@ -207,30 +199,35 @@ public class BodyController {
     }
 
     private void changePointsBodyWhenTorsoRotate() {
-        for(BodyPart bp: bodyParts) {
-            bp.getPosition().setLocation(changePointWhenTorsoRotate(
-                    bp.getOdds_locate()[0], bp.getOdds_locate()[1]));
-            bp.setJoinToRotate(changePointWhenTorsoRotate(
-                    bp.getOdds_locate()[0], bp.getOdds_locate()[1]));
+        for (BodyPart bp : bodyParts) {
+            bp.changePoints(changePointWhenTorsoRotate(
+                    bp.getOdds_center_of_rotation()));
         }
-        weapon.getPosition().setLocation(changePointWhenTorsoRotate(
-                weapon.getOdds_locate()[0], weapon.getOdds_locate()[1]));
-        weapon.setJoinToRotate(changePointWhenTorsoRotate(
-                weapon.getOdds_locate()[0], weapon.getOdds_locate()[1]));
+        weapon.changePoints(changePointWhenTorsoRotate(
+                weapon.getOdds_center_of_rotation()));
+        weapon.setBarrelTip(rotate_around(weapon,weapon.getOddbulletTip()));
     }
-    private Point changePointWhenTorsoRotate(double x, double y){
-        double x0 = bodyParts[0].getPosition().getX();
-        double y0 = bodyParts[0].getPosition().getY();
-        double radians = Math.toRadians(bodyParts[0].getAngle());
+    private Point changePointWhenTorsoRotate(double [] doubles){
+        return rotate_around(bodyParts[0],doubles);
+    }
+    private Point rotate_around(ObjectImage o,double [] doubles){
+        double x0 = o.getPosition().getX();
+        double y0 = o.getPosition().getY();
+        double radians = Math.toRadians(o.getAngle());
         double sinus = Math.sin(radians);
         double cosinus = Math.cos(radians);
+        double x=0;
+        double y=0;
+        if (doubles!=null) {
+            x = doubles[0];
+            y = doubles[1];
+        }
         Point point= new Point(0,0);
         point.setLocation(x0 + (x * cosinus - y * sinus),
                 y0 + (x * sinus + y * cosinus));
         return point;
-
-
     }
+
 
     public synchronized void changeSide(int side) {
         weapon.setImage(imChnger.mirrorImage(weapon.getImage()));
@@ -244,6 +241,5 @@ public class BodyController {
         } else if (side == -1) {
             setPositionLeft();
         }
-
     }
 }

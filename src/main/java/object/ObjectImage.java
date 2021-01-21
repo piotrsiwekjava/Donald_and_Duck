@@ -9,14 +9,14 @@ import java.awt.image.BufferedImage;
 
 public class ObjectImage extends ObjectGame {
     private BufferedImage image;
-    private double[] odds_locate;
+    private double[] odds_center_of_rotation;
     private double[] odds_draw;
     private Point joinToRotate;
     private double angle;
     public ObjectImage(Point position, double[] size, BufferedImage image) {
         super(new Point(position), size);
         this.image = image;
-        this.odds_locate = new double[]{0,0};
+        this.odds_center_of_rotation = new double[]{0,0};
         this.odds_draw = new double[]{0,0};
         angle = 0;
         joinToRotate = position;
@@ -29,13 +29,17 @@ public class ObjectImage extends ObjectGame {
         this.image = image;
     }
 
-    public double[] getOdds_locate() {
-        return odds_locate;
+    public double[] getOdds_center_of_rotation() {
+        return odds_center_of_rotation;
     }
 
-    public void setOdds_locate(double x, double y) {
-        this.odds_locate[0] = x;
-        this.odds_locate[1] = y;
+    public void set_Odds_center_of_rotation(double x, double y) {
+        this.odds_center_of_rotation[0] = x;
+        this.odds_center_of_rotation[1] = y;
+    }
+
+    public void setCenter_of_rotation(){
+        this.setXY(this.getOdds_center_of_rotation()[0],this.getOdds_center_of_rotation()[1]);
     }
 
     public double getAngle() {
@@ -53,6 +57,11 @@ public class ObjectImage extends ObjectGame {
 
     public void setJoinToRotate(Point joinToRotate) {
         this.joinToRotate = joinToRotate;
+    }
+
+    public void changePoints(Point point){
+        this.getPosition().setLocation(point);
+        this.joinToRotate = point;
     }
 
     public double[] getOdds_draw() {

@@ -18,6 +18,7 @@ public class Weapon extends ObjectImage {
     private Point barrelTip;
     public boolean shooting;
     private Unit unit;
+    private double [] oddbulletTip;
 
 
 
@@ -29,7 +30,7 @@ public class Weapon extends ObjectImage {
         this.allleftAmmo = allleftAmmo;
         this.reloadSpeed = reloadSpeed;
         this.fireSpeed=fireSpeed;
-        this.barrelTip= position;
+        this.barrelTip=position;
     }
 
     public synchronized void fire() {
@@ -44,8 +45,7 @@ public class Weapon extends ObjectImage {
         else if(leftAmmoinMagazin>0) {
             leftAmmoinMagazin -= 1;
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(ammo_type,
-                            bulletStartPoint(), target)
+                    AmmoFactory.create(ammo_type, barrelTip, target)
             );
         }
     }
@@ -58,10 +58,6 @@ public class Weapon extends ObjectImage {
             }
             wait((long) reloadSpeed);
             shooting = true;
-    }
-    private synchronized Point bulletStartPoint(){
-        Point p = new Point(barrelTip);
-        return p;
     }
 
     public AmmoType getAmmo_type() {
@@ -92,8 +88,16 @@ public class Weapon extends ObjectImage {
         return barrelTip;
     }
 
-    public void setBarrelTip() {
+    public void setBarrelTip(Point barrelTip) {
         this.barrelTip = barrelTip;
+    }
+
+    public void set_odds_from_barrelTip_to_Center(double x, double y) {
+        this.oddbulletTip = new double[]{x,y};
+    }
+
+    public double[] getOddbulletTip() {
+        return oddbulletTip;
     }
 
     public Unit getUnit() {
