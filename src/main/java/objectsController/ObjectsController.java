@@ -16,7 +16,6 @@ import java.util.Set;
 public class ObjectsController {
     private static int number_of_object =0; //with bullet
     private static Set<ObjectGame> objectGameSet = new HashSet<ObjectGame>();
-    private static Set<Obstacle>obstacleSet = new HashSet<Obstacle>();
     private static Set<Ammo>bulletSet = new HashSet<Ammo>();
     private MoveModule moveModule = new MoveModule();
     private EnemiesGeneratorModule enemiesGeneratorModule = new EnemiesGeneratorModule();
@@ -63,13 +62,9 @@ public class ObjectsController {
         System.out.println("number of object in game : "+number_of_object);
     }
     public void addObstacle(Obstacle o){
-        this.obstacleSet.add(o);
+        this.objectGameSet.add(o);
         number_of_object++;
         System.out.println("number of object in game : "+number_of_object);
-    }
-
-    public Set<Obstacle> getObstacleSet() {
-        return obstacleSet;
     }
 
     public void removeOutObject (ObjectGame o){
@@ -81,12 +76,11 @@ public class ObjectsController {
         return bulletSet;
     }
 
-    public MoveModule getMoveModule() {
-        return moveModule;
-    }
-
     public Point getRandomPointMove(Unit unit){
         return moveModule.randomPointMove(unit);
+    }
+    public boolean checkTrack(Point ownPoint, double[] doubles){
+        return moveModule.checkTrack(ownPoint,doubles);
     }
 
     public Player getPlayer() {

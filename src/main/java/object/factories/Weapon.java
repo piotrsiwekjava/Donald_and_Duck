@@ -108,8 +108,4 @@ public class Weapon extends ObjectImage {
         this.unit = unit;
     }
 
-    public void test(){
-
-    }
-
 }

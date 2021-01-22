@@ -8,21 +8,25 @@ import settings.Sizes;
 import java.awt.*;
 
 public class Patrolls implements MoveInterfejs {
+    private ObjectsController objectsController = ObjectsController.getInstance();
     @Override
     public void move(Unit unit) {
         Point ptarget = unit.getMoveTarget().getPosition();
         double[] dXY = getCourseOfOneStep(ptarget.getLocation(),unit.getPosition());
         if (dXY[0]==0 || dXY[1]==0) {
-            unit.getMoveTarget().setPosition(ObjectsController.getInstance().getRandomPointMove(unit));
+            unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
         }
-        if (dXY[0]>0) unit.setCourse(1);
-        else if (dXY[0]<0) unit.setCourse(-1);
-        unit.setXY(dXY[0], dXY[1]);
-        for (ObjectImage o : unit.getBodyParts()) {
-            o.setXY(dXY[0], dXY[1]);
+        if (objectsController.checkTrack(unit.getPosition(),dXY)) {
+            if (dXY[0] > 0) unit.setCourse(1);
+            else if (dXY[0] < 0) unit.setCourse(-1);
+            unit.setXY(dXY[0], dXY[1]);
+            for (ObjectImage o : unit.getBodyParts()) {
+                o.setXY(dXY[0], dXY[1]);
+            }
+            unit.getWeapon().setXY(dXY[0], dXY[1]);
+            unit.getBodyController().moveBody(Sizes.WALK_Speed);
         }
-        unit.getWeapon().setXY(dXY[0], dXY[1]);
-        unit.getBodyController().moveBody(Sizes.WALK_Speed);
+        else unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
     }
     private double[] getCourseOfOneStep (Point target, Point own) {
         double [] dXY = new double[2];

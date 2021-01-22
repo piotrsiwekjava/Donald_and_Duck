@@ -12,6 +12,8 @@ import settings.Sizes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Drawer {
@@ -27,9 +29,8 @@ public class Drawer {
     public void drawAll(Graphics2D g2d){
         this.g2d = g2d;
         drawLevel();
-        drawUnits();
+        drawObjects();
         draw_Bullets();
-        drawObstacle();
     }
     private void drawLevel(){
         BackGround back = level.getBackground();
@@ -39,15 +40,24 @@ public class Drawer {
         for (Building building: level.getBuildings())
             drawObject(building);
     }
-    private void drawUnits(){
+
+    private void drawObjects(){
+
         for (ObjectGame og : objectsController.getObjectGSet()){
+
             if (og instanceof Unit) {
-                int x = (int)og.getPosition().getX();
-                int xm = Sizes.Screen_Width;
-                if (x>(-xm*0.1) && x<(xm*1.1))
-                    drawUnit((Unit) og);
+                drawUnits((Unit)og);
+            }
+            else if(og instanceof Obstacle){
+                drawObstacle((Obstacle) og);
             }
         }
+    }
+    private void drawUnits(Unit unit){
+        int x = (int)unit.getPosition().getX();
+        int xm = Sizes.Screen_Width;
+        if (x>(-xm*0.1) && x<(xm*1.1))
+            drawUnit(unit);
     }
     private void drawUnit(Unit unit){
         for (BodyPart bp: unit.getBodyParts()){
@@ -64,13 +74,11 @@ public class Drawer {
         if(o.getAngle()!=0)rotateAndDraw(o);
         else drawObject(o);
     }
-    private void drawObstacle(){
-        for (Obstacle ob: objectsController.getObstacleSet()){
+    private void drawObstacle(Obstacle ob){
             int x = (int)ob.getPosition().getX();
             int xm = Sizes.Screen_Width;
             if (x>(-xm*0.1) && x<(xm*1.1))
                 drawObject(ob);
-        }
     }
     private void drawObject (ObjectImage o){
         g2d.drawImage( o.getImage(),

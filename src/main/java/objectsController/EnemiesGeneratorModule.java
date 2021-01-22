@@ -11,12 +11,12 @@ import settings.Sizes;
 import java.awt.*;
 import java.util.Random;
 
-public class EnemiesGeneratorModule {
+class EnemiesGeneratorModule {
     private int level;
     private int minY;
     private int maxY;
     private final int amount_of_enemy = 4;
-    public EnemiesGeneratorModule (){
+    EnemiesGeneratorModule (){
     }
     private void getValues(){
         Level plevel = ObjectsController.getInstance().getLevel();
