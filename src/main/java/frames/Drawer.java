@@ -7,6 +7,7 @@ import object.ObjectImage;
 import object.Obstacle;
 import object.factories.*;
 import object.unit.Unit;
+import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.Sizes;
 
@@ -21,6 +22,7 @@ public class Drawer {
     private ObjectsController objectsController;
     private Graphics2D g2d;
     private Level level;
+    private PlayerStatus playerStatus;
     public Drawer(JPanel panel){
         objectsController = ObjectsController.getInstance();
         this.panel = panel;
@@ -31,6 +33,7 @@ public class Drawer {
         drawLevel();
         drawObjects();
         draw_Bullets();
+        playerStatus.loadStatus(g2d);
     }
     private void drawLevel(){
         BackGround back = level.getBackground();
@@ -94,5 +97,8 @@ public class Drawer {
         drawObject(o);
         g2d.rotate(-theta,o.getJoinToRotate().getX(),o.getJoinToRotate().getY());
     }
-
+    public void loadPlayerStatus(){
+        Player player = ObjectsController.getInstance().getPlayer();
+        playerStatus = player.getPlayerStatus();
+    }
 }

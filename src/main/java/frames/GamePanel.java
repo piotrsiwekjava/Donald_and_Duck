@@ -33,6 +33,7 @@ class GamePanel extends JPanel {
     private JButton keylistener;
     private Drawer drawer;
     private int time;
+    private boolean canDraw =false;
 
     public GamePanel() {
         super();
@@ -71,7 +72,9 @@ class GamePanel extends JPanel {
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        drawer.drawAll(g2d);
+        if (canDraw) drawer.drawAll(g2d);
+        else if(objectsController.isCanPlay())
+            tryGetPlayerStatus();
     }
 
     private void redraw (){
@@ -81,5 +84,9 @@ class GamePanel extends JPanel {
         keylistener =new JButton("");
         this.add(keylistener);
         keylistener.addKeyListener(KeyGameListener.getInstance());
+    }
+    private void tryGetPlayerStatus(){
+        drawer.loadPlayerStatus();
+        this.canDraw = true;
     }
 }

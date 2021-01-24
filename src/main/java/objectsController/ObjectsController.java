@@ -21,6 +21,7 @@ public class ObjectsController {
     private EnemiesGeneratorModule enemiesGeneratorModule = new EnemiesGeneratorModule();
     private Player player;
     private Level level;
+    private boolean canPlay = false;
 
     private static ObjectsController objectsController= new ObjectsController();
 
@@ -90,6 +91,7 @@ public class ObjectsController {
     public void setPlayer(Player player) {
         this.player = player;
         addUnit(player);
+        canPlay = true;
     }
 
     public Level getLevel() {
@@ -99,5 +101,9 @@ public class ObjectsController {
     public void setLevel(Level level) {
         this.level = level;
         this.moveModule.setLevel(level);
+    }
+
+    public boolean isCanPlay() {
+        return canPlay;
     }
 }

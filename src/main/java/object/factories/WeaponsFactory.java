@@ -15,7 +15,7 @@ public class WeaponsFactory{
         switch (type){
             case PISTOL: imagePath = "weapons\\psm";
             case AK_47: imagePath = "weapons\\ak47";
-            case BAZOOKA: imagePath = "weapons\\ak47";
+            case BAZOOKA: imagePath = "weapons\\Bazooka";
 
         }
 
@@ -23,11 +23,11 @@ public class WeaponsFactory{
 
         switch (type){
             case PISTOL:
-                return new Weapon(AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,2500,1000);
+                return new Weapon("psmall",AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,2500,1000);
             case AK_47:
-                return new Weapon(AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,2500,400);
+                return new Weapon("ak47all",AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,2500,400);
             case BAZOOKA:
-                return new Weapon(AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000);
+                return new Weapon("Bazookaall",AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000);
             default:
                 throw new UnsupportedOperationException("No such type");
         }

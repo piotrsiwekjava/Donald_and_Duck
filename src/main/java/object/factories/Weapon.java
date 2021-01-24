@@ -19,12 +19,14 @@ public class Weapon extends ObjectImage {
     public boolean shooting;
     private Unit unit;
     private double [] oddbulletTip;
+    private String weapontype;
 
 
 
-    public Weapon(AmmoType ammo_type, Point position, double[] size, BufferedImage image,
+    public Weapon(String weapontype, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
                   int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed) {
         super(position, size, image);
+        this.weapontype=weapontype;
         this.ammo_type = ammo_type;
         MaxAmmoInMagazin = maxAmmoInMagazin;
         this.allleftAmmo = allleftAmmo;
@@ -108,4 +110,7 @@ public class Weapon extends ObjectImage {
         this.unit = unit;
     }
 
+    public String getWeapontype() {
+        return weapontype;
+    }
 }
