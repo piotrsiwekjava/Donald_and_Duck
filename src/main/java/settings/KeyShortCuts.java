@@ -2,13 +2,19 @@ package settings;
 
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 
 public class KeyShortCuts {
-    public static int UP = 87;  //38up
-    public static int DOWN = 83;    //40down
-    public static int LEFT = 65;       //37left
-    public static int RIGHT = 68;       //39right
-    public static int RUN = 16;     //16shift
+    public static int UP = 87;  //38 up
+    public static int DOWN = 83;    //40 down
+    public static int LEFT = 65;       //37 left
+    public static int RIGHT = 68;       //39 right
+    public static int RUN = 16;     //16 L-shift
+    public static int SWITHGUN = 81; // 81 - Q
+    public static int fstWeapons = 1; //49 - 1
+    public static int secWeapons = 2; //50 - 2
+    public static int thirdWeapons = 3; // 51 - 3
+    public static int fourthWeapons = 4; // 52 - 4
 
     public KeyShortCuts() {
     }

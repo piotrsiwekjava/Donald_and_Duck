@@ -33,6 +33,7 @@ class GamePanel extends JPanel {
     private JButton keylistener;
     private Drawer drawer;
     private int time;
+    private int periodOfTime;
     private boolean canDraw =false;
 
     public GamePanel() {
@@ -42,6 +43,7 @@ class GamePanel extends JPanel {
         this.setBackground(Color.GRAY);
         addTimer();
         time=0;
+        periodOfTime=0;
         setFrameSizeAndLocation();
         addListener();
         this.addMouseListener(MouseGameListeners.getInstance());
@@ -66,6 +68,11 @@ class GamePanel extends JPanel {
             redraw();
             time+=myTimer.getDelay();
             lastPoint=MouseInfo.getPointerInfo().getLocation();
+            periodOfTime++;
+            if (periodOfTime>=3) {
+                showTimeLapseToKeyListener();
+                periodOfTime=0;
+            }
         }
     };
     @Override
@@ -88,5 +95,8 @@ class GamePanel extends JPanel {
     private void tryGetPlayerStatus(){
         drawer.loadPlayerStatus();
         this.canDraw = true;
+    }
+    private void showTimeLapseToKeyListener(){
+        KeyGameListener.getInstance().timeLapse();
     }
 }

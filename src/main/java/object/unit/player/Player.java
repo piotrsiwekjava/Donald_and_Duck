@@ -1,7 +1,6 @@
 package object.unit.player;
 
 import frames.PlayerStatus;
-import listeners.KeyGameListener;
 import object.enumTypes.RankType;
 import object.factories.BodyFactory;
 import listeners.MouseGameListeners;
@@ -11,27 +10,29 @@ import object.factories.Weapon;
 import object.factories.WeaponsFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
-import object.unit.behavior.enemy.looking.LookingInterfejs;
 import object.unit.behavior.enemy.looking.LookingPlayer;
 import objectsController.ObjectsController;
 import settings.Sizes;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Player extends Unit {
     private ArrayList<Weapon> weaponSet;
     private PlayerStatus playerStatus;
     private int whichWeapon=0;
+    private int energy;
+    private int energySuperAttack = 0;
     public Player() {
+
         super(build_Player_Position(),
                 Sizes.Soldier_Size,
                 build_Body_Parts(),
-                100000,null
+                1000,WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120)
                 );
+        energy = 100;
         weaponSet= new ArrayList<Weapon>();
+        loadWeaponSet();
         this.setSide(1);
         loadData();
         MouseGameListeners.getInstance().addPlayer(this);
@@ -74,23 +75,55 @@ public class Player extends Unit {
         System.out.println(ObjectsController.getInstance().getBulletSet().size());
         System.out.println(getWeapon().getAllleftAmmo());
     }
-    private void setWeaponSet(){
+    private void loadWeaponSet(){
         Weapon weapon = WeaponsFactory.create(
-                WeaponsType.AK_47,
-                build_Player_Position(),
+                WeaponsType.PISTOL,
+                getPosition(),
                 120);
         weaponSet.add(weapon);
-    }
-    private void setWeapon(){
+        weaponSet.add(getWeapon());
 
-        setWeapon(weaponSet.get(whichWeapon));
     }
-    private void setWeapon(int number){
+    public void changeWeapon(){
+        if (weaponSet.size()>(whichWeapon+1))whichWeapon++;
+        else whichWeapon=0;
+        setWeapon(weaponSet.get(whichWeapon));
+        getBodyController().setWeapon(getWeapon());
+        System.out.println("zmiana 1");
+    }
+    public void changeWeapon(int number){
+
         if (number==0 && number<weaponSet.size())
             whichWeapon = number;
         setWeapon(weaponSet.get(whichWeapon));
+        getBodyController().setWeapon(getWeapon());
+        System.out.println("zmiana 2");
     }
 
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+    public void changeEnergy(int value) {
+        this.energy+=value;
+        if (this.energy<0)energy=0;
+        else if (this.energy>100) energy=100;
+    }
+
+    public int getEnergySuperAttack() {
+        return energySuperAttack;
+    }
+
+    public void setEnergySuperAttack(int energySuperAttack) {
+        this.energySuperAttack = energySuperAttack;
+    }
+    public void changeEnergySuperAttack(int value) {
+        this.energySuperAttack += value;
+        if (this.energySuperAttack<0) this.energySuperAttack=0;
+    }
 
     public void mouseIsClick(){
         attack();

@@ -41,10 +41,10 @@ class EnemiesGeneratorModule {
     private Unit getUnitByNumber(Point point, int i){
         Unit unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierAK,point,level);
         switch (i){
-                case(1):unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierAK,point,level);
-                case(2):unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierPistol,point,level);
-                case(3):unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierAK,point,level);
-                case(4):unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierPistol,point,level);
+                case(1): return unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierAK,point,level);
+                case(2): return unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierPistol,point,level);
+                case(3): return unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierAK,point,level);
+                case(4): return unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierPistol,point,level);
         }
         return unit;
     }

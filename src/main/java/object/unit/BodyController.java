@@ -4,6 +4,7 @@ import object.ImageChanger;
 import object.ObjectImage;
 import object.factories.BodyPart;
 import object.factories.Weapon;
+import object.unit.WeaponsLocate.WeaponLocate;
 import object.unit.player.Player;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class BodyController {
     private ImageChanger imChnger;
     private Weapon weapon;
     private boolean isPlayer = false;
+    private WeaponLocate weaponLocate;
 
     public BodyController(Unit unit) {
         this.unit = unit;
@@ -241,5 +243,8 @@ public class BodyController {
         } else if (side == -1) {
             setPositionLeft();
         }
+    }
+    public void setWeapon(Weapon weapon){
+        this.weapon = weapon;
     }
 }

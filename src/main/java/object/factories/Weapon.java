@@ -2,6 +2,7 @@ package object.factories;
 
 import object.ObjectImage;
 import object.enumTypes.AmmoType;
+import object.enumTypes.WeaponsType;
 import object.unit.Unit;
 import objectsController.ObjectsController;
 
@@ -13,20 +14,21 @@ public class Weapon extends ObjectImage {
     private final int MaxAmmoInMagazin;
     private final int reloadSpeed;
     private final int fireSpeed;
+    private final WeaponsType type;
     private int leftAmmoinMagazin;
     private int allleftAmmo;
     private Point barrelTip;
     public boolean shooting;
     private Unit unit;
     private double [] oddbulletTip;
-    private String weapontype;
 
 
 
-    public Weapon(String weapontype, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
+
+    public Weapon(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
                   int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed) {
         super(position, size, image);
-        this.weapontype=weapontype;
+        this.type=type;
         this.ammo_type = ammo_type;
         MaxAmmoInMagazin = maxAmmoInMagazin;
         this.allleftAmmo = allleftAmmo;
@@ -110,7 +112,7 @@ public class Weapon extends ObjectImage {
         this.unit = unit;
     }
 
-    public String getWeapontype() {
-        return weapontype;
+    public WeaponsType getWeapontype() {
+        return type;
     }
 }

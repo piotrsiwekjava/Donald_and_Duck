@@ -1,6 +1,7 @@
 package objectsController;
 
 import level.Level;
+import listeners.KeyGameListener;
 import object.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
@@ -92,6 +93,7 @@ public class ObjectsController {
         this.player = player;
         addUnit(player);
         canPlay = true;
+        KeyGameListener.getInstance().setPlayer(player);
     }
 
     public Level getLevel() {

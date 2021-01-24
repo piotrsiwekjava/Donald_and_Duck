@@ -58,14 +58,14 @@ public class Unit extends ObjectGame {
         return hp;
     }
 
-    public void lowerHp(int damage) {
-        this.hp-= damage;
+    public void changeHp(int value) {
+        this.hp+= value;
         if(hp<=0) alive=false;
     }
     public void attack(){
         this.weapon.shooting=true;
         attackInerfejs.attack(weapon);
-    };
+    }
     public void stopAtck(){this.weapon.shooting =false;}
     public void move() {
         moveInterfejs.move(this);

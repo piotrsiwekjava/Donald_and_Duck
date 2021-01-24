@@ -1,6 +1,7 @@
 package listeners;
 
 import object.ObjectGame;
+import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.KeyShortCuts;
 import settings.Sizes;
@@ -15,6 +16,7 @@ public class KeyGameListener extends KeyAdapter {
     private Set<ObjectGame> registeredObjectsG = new HashSet<ObjectGame>();
     private Set<Object> registeredComponentsG = new HashSet<Object>();
     private ObjectsController objectsController = ObjectsController.getInstance();
+    private Player player;
     private int position[];
     private boolean uppress;
     private boolean downpress;
@@ -22,6 +24,7 @@ public class KeyGameListener extends KeyAdapter {
     private boolean rightpress;
     private boolean runpress;
     private int keytyped;
+    private boolean gamestarted = false;
 
 
     private static KeyGameListener keyListener = new KeyGameListener();
@@ -39,11 +42,13 @@ public class KeyGameListener extends KeyAdapter {
         int dy = 0;
         double s = Sizes.Game_Speed;
         double speed = Sizes.RUN_Speed;
-        if (runpress) s=speed;
+        if (runpress && player.getEnergy()>0) s=speed;
         if (uppress && this.position[1] > Sizes.Y_MAX_MIN_WALK[0]) dy += s;
         else if (downpress && this.position[1] < Sizes.Y_MAX_MIN_WALK[1]) dy -= s;
         if (leftpress && this.position[0] > Sizes.X_MAX_MIN_WALK[0]) dx += s;
         else if (rightpress && this.position[0] < Sizes.LEVELWidth) dx -= s;
+
+        if (runpress && (dx!=0 || dy!=0)) player.changeEnergy(-1);
 
         this.position[0] -= dx;
         this.position[1] -= dy;
@@ -53,40 +58,52 @@ public class KeyGameListener extends KeyAdapter {
 
     @Override
     public void keyTyped(KeyEvent e) {
+        if (gamestarted) {
+            if (e.getKeyCode() == KeyShortCuts.SWITHGUN) {
+                player.changeWeapon();
+            }
+            else if (e.getKeyChar() == KeyShortCuts.fstWeapons)
+                player.changeWeapon(0);
+            else if (e.getKeyChar() == KeyShortCuts.secWeapons)
+                player.changeWeapon(1);
+            else if (e.getKeyChar() == KeyShortCuts.thirdWeapons)
+                player.changeWeapon(2);
+            else if (e.getKeyChar() == KeyShortCuts.fourthWeapons)
+                player.changeWeapon(3);
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()== KeyShortCuts.UP)
-            this.uppress=true;
-        else if(e.getKeyCode()==KeyShortCuts.DOWN)
-            this.downpress=true;
-        else if(e.getKeyCode()==KeyShortCuts.LEFT)
-            this.leftpress=true;
-        else if(e.getKeyCode()==KeyShortCuts.RIGHT)
-            this.rightpress=true;
-        else if(e.getKeyCode()==KeyShortCuts.RUN)
-            this.runpress=true;
+        if (e.getKeyCode() == KeyShortCuts.UP)
+            this.uppress = true;
+        if (e.getKeyCode() == KeyShortCuts.DOWN)
+            this.downpress = true;
+        if (e.getKeyCode() == KeyShortCuts.LEFT)
+            this.leftpress = true;
+        if (e.getKeyCode() == KeyShortCuts.RIGHT)
+            this.rightpress = true;
+        if (e.getKeyCode() == KeyShortCuts.RUN)
+            this.runpress = true;
 
-        keytyped=e.getKeyCode();
-        action();
+        keytyped = e.getKeyCode();
+        if (gamestarted) action();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
-        if(e.getKeyCode()== KeyShortCuts.UP)
-            this.uppress=false;
-        else if(e.getKeyCode()==KeyShortCuts.DOWN)
-            this.downpress=false;
-        else if(e.getKeyCode()==KeyShortCuts.LEFT)
-            this.leftpress=false;
-        else if(e.getKeyCode()==KeyShortCuts.RIGHT)
-            this.rightpress=false;
-        else if(e.getKeyCode()==KeyShortCuts.RUN)
-            this.runpress=false;
+        if (e.getKeyCode() == KeyShortCuts.UP)
+            this.uppress = false;
+        if (e.getKeyCode() == KeyShortCuts.DOWN)
+            this.downpress = false;
+        if (e.getKeyCode() == KeyShortCuts.LEFT)
+            this.leftpress = false;
+        if (e.getKeyCode() == KeyShortCuts.RIGHT)
+            this.rightpress = false;
+        if (e.getKeyCode() == KeyShortCuts.RUN)
+            this.runpress = false;
         action();
-
     }
 
     public void registerObjectG(ObjectGame o){
@@ -105,9 +122,16 @@ public class KeyGameListener extends KeyAdapter {
         for (ObjectGame o: registeredObjectsG){
             o.setXY(x,y);
         }
-    };
-
+    }
     public int getKeytyped() {
         return keytyped;
+    }
+    public void setPlayer(Player player){
+        this.player=player;
+        gamestarted=true;
+    }
+    public void timeLapse(){
+        if (!runpress && (!rightpress && !leftpress && !downpress  && !uppress))
+            player.changeEnergy(+1);
     }
 }
