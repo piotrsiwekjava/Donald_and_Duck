@@ -3,10 +3,9 @@ package object.unit.behavior.enemy.move;
 import object.unit.Unit;
 import settings.Sizes;
 
-public class Wait implements MoveInterfejs {
-
+public class PlayerMove implements MoveInterfejs{
     @Override
     public void move(Unit unit) {
-        unit.getBodyController().moveBody(0);
+        unit.getBodyController().moveBody(unit.getOwnLegfast());
     }
 }

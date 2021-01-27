@@ -27,7 +27,7 @@ public class Walk_Look_Runnable implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 this.unit.move();
                 this.unit.look();
-                Thread.sleep(10);
+                Thread.sleep(30);
                 if (!unit.isAlive()) {
                     ObjectsController.getInstance().removeOutObject(unit);
                     Thread.sleep(1000);

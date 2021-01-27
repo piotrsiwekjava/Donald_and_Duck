@@ -11,8 +11,8 @@ public class Patrolls implements MoveInterfejs {
     private ObjectsController objectsController = ObjectsController.getInstance();
     @Override
     public void move(Unit unit) {
-        Point ptarget = unit.getMoveTarget().getPosition();
-        double[] dXY = getCourseOfOneStep(ptarget.getLocation(),unit.getPosition());
+
+        double[] dXY = getCourseOfOneStep(unit);
         if (dXY[0]==0 || dXY[1]==0) {
             unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
         }
@@ -24,11 +24,13 @@ public class Patrolls implements MoveInterfejs {
                 o.setXY(dXY[0], dXY[1]);
             }
             unit.getWeapon().setXY(dXY[0], dXY[1]);
-            unit.getBodyController().moveBody(Sizes.WALK_Speed);
+            unit.getBodyController().moveBody(unit.getOwnLegfast());
         }
         else unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
     }
-    private double[] getCourseOfOneStep (Point target, Point own) {
+    private double[] getCourseOfOneStep (Unit unit) {
+        Point own = unit.getPosition();
+        Point target = unit.getMoveTarget().getPosition();
         double [] dXY = new double[2];
         double dX=(target.getX()-own.getX());
         double dY=(target.getY()-own.getY());
@@ -39,7 +41,7 @@ public class Patrolls implements MoveInterfejs {
         }
         double dC=(Math.sqrt(Math.pow(dX,2)+Math.pow(dY,2)));
         dXY[0] = (dX* Sizes.WALK_Speed)/dC;
-        dXY[1] = (dY*Sizes.WALK_Speed)/dC;
+        dXY[1] = (dY* Sizes.WALK_Speed)/dC;
         return dXY;
     }
 

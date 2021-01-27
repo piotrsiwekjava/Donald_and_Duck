@@ -40,7 +40,7 @@ public class KeyGameListener extends KeyAdapter {
     private void action() {
         int dx = 0;
         int dy = 0;
-        double s = Sizes.Game_Speed;
+        double s = Sizes.WALK_Speed;
         double speed = Sizes.RUN_Speed;
         if (runpress && player.getEnergy()>0) s=speed;
         if (uppress && this.position[1] > Sizes.Y_MAX_MIN_WALK[0]) dy += s;
@@ -48,7 +48,13 @@ public class KeyGameListener extends KeyAdapter {
         if (leftpress && this.position[0] > Sizes.X_MAX_MIN_WALK[0]) dx += s;
         else if (rightpress && this.position[0] < Sizes.LEVELWidth) dx -= s;
 
-        if (runpress && (dx!=0 || dy!=0)) player.changeEnergy(-1);
+        if (dx!=0 || dy!=0) {
+            player.setMoveInterfejsInMove();
+            if (runpress) {
+                player.changeEnergy(-1);
+                player.setOwnLegfast(speed);
+            }
+        }
 
         this.position[0] -= dx;
         this.position[1] -= dy;
@@ -101,8 +107,11 @@ public class KeyGameListener extends KeyAdapter {
             this.leftpress = false;
         if (e.getKeyCode() == KeyShortCuts.RIGHT)
             this.rightpress = false;
-        if (e.getKeyCode() == KeyShortCuts.RUN)
+        if (e.getKeyCode() == KeyShortCuts.RUN) {
             this.runpress = false;
+            player.setOwnLegfast(Sizes.Leg_Speed);
+        }
+
         action();
     }
 
@@ -131,7 +140,11 @@ public class KeyGameListener extends KeyAdapter {
         gamestarted=true;
     }
     public void timeLapse(){
-        if (!runpress && (!rightpress && !leftpress && !downpress  && !uppress))
-            player.changeEnergy(+1);
+        if (!runpress && (!rightpress && !leftpress && !downpress  && !uppress)) {
+            player.changeEnergy(+2);
+            player.setMoveInterfejsInWait();
+
+        }
+        player.changeEnergySuperAttack(+1);
     }
 }

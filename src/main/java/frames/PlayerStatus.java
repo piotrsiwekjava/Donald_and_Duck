@@ -2,16 +2,18 @@ package frames;
 
 import object.ImageChanger;
 import object.enumTypes.WeaponsType;
+import object.factories.Weapon;
 import object.unit.player.Player;
-import settings.Pathes_and_Links;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PlayerStatus {
     private Player player;
-    private BufferedImage head;
-    private BufferedImage weapon;
+    private Weapon weapon;
+    private BufferedImage headIm;
+    private BufferedImage weaponIm;
+    private Font stringFont;
     private int liveBelt = 10;
     private int energyBelt = 10;
     private int superAttackBelt = 0;
@@ -20,11 +22,14 @@ public class PlayerStatus {
 
     public PlayerStatus(Player player){
         this.player = player;
-        this.head = player.getBodyParts()[1].getImage();
+        this.weapon = player.getWeapon();
+        this.headIm = player.getBodyParts()[1].getImage();
         setWeaponImage();
+        setFont();
     }
     void loadStatus(Graphics2D g2d){
         loadImages(g2d);
+        loadAmmo(g2d);
         loadBelts(g2d);
     }
     private void loadImages(Graphics2D g2d){
@@ -32,10 +37,17 @@ public class PlayerStatus {
         loadWeapon(g2d);
     }
     private void loadHead(Graphics2D g2d){
-        g2d.drawImage(head,20,20,null);
+        g2d.drawImage(headIm,20,20,null);
     }
     private void loadWeapon(Graphics2D g2d){
-        g2d.drawImage(weapon, 150,20,null);
+        g2d.drawImage(weaponIm, 150,20,null);
+    }
+    private void loadAmmo(Graphics2D g2d){
+        int ammoInMagazin = weapon.getLeftAmmoinMagazin();
+        int leftAmmo = weapon.getAllleftAmmo();
+        g2d.setFont(stringFont);
+        g2d.drawString(""+ammoInMagazin,400,60);
+        g2d.drawString(""+leftAmmo,400,100);
     }
     private void loadBelts(Graphics2D g2d){
        redBelt(g2d);
@@ -60,15 +72,23 @@ public class PlayerStatus {
             g2d.fillRect(k+500, 100, 30, 20);
         }
     }
+    public void changeWeapon(){
+        this.weapon = player.getWeapon();
+        setWeaponImage();
+    }
     private void setWeaponImage(){
-        WeaponsType type = player.getWeapon().getWeapontype();
+        WeaponsType type = weapon.getWeapontype();
         String path="";
         if (type==WeaponsType.PISTOL) path="psm";
         else if (type==WeaponsType.AK_47) path="ak47";
         else if (type==WeaponsType.BAZOOKA) path="bazooka";
         else if (type==WeaponsType.FIST) path="fist";
-        this.weapon = ImageChanger.getInstance().getTransImg(
+        this.weaponIm = ImageChanger.getInstance().getTransImg(
                 "\\weapons\\"+path+"all");
 //        this.weapon = player.getWeapon().getImage();
+    }
+
+    private void setFont(){
+        stringFont = new Font( "Dialog", Font.BOLD, 50 );
     }
 }

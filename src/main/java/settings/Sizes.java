@@ -21,7 +21,7 @@ public class Sizes {
     public static int LEVELWidth = 5000;
     public static int LEVELHeight = (int)(Screen_Height*0.45);
     public static double[] STREETSSIZE = {Screen_Width*0.25,Screen_Height*0.8};
-    public static double Game_Speed = 3;
-    public static double WALK_Speed = 2;
-    public static double RUN_Speed = 5;
+    public static double Leg_Speed = 4;
+    public static double WALK_Speed = 3.5;
+    public static double RUN_Speed = 6;
 }

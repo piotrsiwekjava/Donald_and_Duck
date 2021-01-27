@@ -10,6 +10,7 @@ import object.unit.behavior.enemy.looking.LookingInterfejs;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
 import objectsController.ObjectsController;
+import settings.Sizes;
 
 import java.awt.*;
 
@@ -31,6 +32,7 @@ public class Unit extends ObjectGame {
      */
     private int side;
     private int course;
+    private double ownLegfast;
 
     public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon) {
         super(position, size);
@@ -50,6 +52,7 @@ public class Unit extends ObjectGame {
         this.bodyController = new BodyController(this);
         this.side = -1;
         this.weapon.setUnit(this);
+        this.ownLegfast = Sizes.Leg_Speed;
     }
     public boolean isAlive(){
         return alive;
@@ -147,5 +150,11 @@ public class Unit extends ObjectGame {
         return this.bodyController;
     }
 
+    public void setOwnLegfast(double ownLegfast){
+        this.ownLegfast = ownLegfast;
+    }
 
+    public double getOwnLegfast(){
+        return this.ownLegfast;
+    }
 }

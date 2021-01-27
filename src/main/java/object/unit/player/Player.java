@@ -11,6 +11,10 @@ import object.factories.WeaponsFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
 import object.unit.behavior.enemy.looking.LookingPlayer;
+import object.unit.behavior.enemy.move.MoveInterfejs;
+import object.unit.behavior.enemy.move.Patrolls;
+import object.unit.behavior.enemy.move.PlayerMove;
+import object.unit.behavior.enemy.move.Wait;
 import objectsController.ObjectsController;
 import settings.Sizes;
 
@@ -20,6 +24,8 @@ import java.util.ArrayList;
 public class Player extends Unit {
     private ArrayList<Weapon> weaponSet;
     private PlayerStatus playerStatus;
+    private PlayerMove movelegs;
+    private Wait waitlegs;
     private int whichWeapon=0;
     private int energy;
     private int energySuperAttack = 0;
@@ -42,6 +48,8 @@ public class Player extends Unit {
         setLookingInterfejs(new LookingPlayer());
         setAttackInerfejs(new Attack());
         this.playerStatus = new PlayerStatus(this);
+        this.waitlegs = new Wait();
+        this.movelegs = new PlayerMove();
     }
     private void loadData(){
 
@@ -89,7 +97,7 @@ public class Player extends Unit {
         else whichWeapon=0;
         setWeapon(weaponSet.get(whichWeapon));
         getBodyController().setWeapon(getWeapon());
-        System.out.println("zmiana 1");
+        playerStatus.changeWeapon();
     }
     public void changeWeapon(int number){
 
@@ -123,6 +131,14 @@ public class Player extends Unit {
     public void changeEnergySuperAttack(int value) {
         this.energySuperAttack += value;
         if (this.energySuperAttack<0) this.energySuperAttack=0;
+        else if (this.energySuperAttack>100) this.energySuperAttack = 100;
+    }
+
+    public void setMoveInterfejsInWait(){
+        this.setMoveInterfejs(waitlegs);
+    }
+    public void setMoveInterfejsInMove(){
+        this.setMoveInterfejs(movelegs);
     }
 
     public void mouseIsClick(){
