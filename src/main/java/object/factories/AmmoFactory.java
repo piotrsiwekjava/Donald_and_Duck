@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class AmmoFactory{
 
 
-    public static Ammo create(AmmoType type, Point barrelTip, Point target) {
+    public static Ammo create(AmmoType type, Point barrelTip, Point target, int side) {
         BufferedImage image = null;
         String imagePath = "";
         switch (type){
@@ -19,6 +19,8 @@ public class AmmoFactory{
             case MISSILE: imagePath = "weapons\\bL";
         }
         image = ImageChanger.getInstance().getTransImg(imagePath);
+        if (side==1) image = ImageChanger.getInstance().mirrorImage(image);
+
         Ammo ammo;
 
         switch (type) {

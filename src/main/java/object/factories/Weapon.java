@@ -49,7 +49,7 @@ public class Weapon extends ObjectImage {
         else if(leftAmmoinMagazin>0) {
             leftAmmoinMagazin -= 1;
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(ammo_type, barrelTip, target)
+                    AmmoFactory.create(ammo_type, barrelTip, target, unit.getSide())
             );
         }
     }

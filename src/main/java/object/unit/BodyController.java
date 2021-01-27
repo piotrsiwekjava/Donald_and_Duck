@@ -2,8 +2,11 @@ package object.unit;
 
 import object.ImageChanger;
 import object.ObjectImage;
+import object.enumTypes.WeaponsType;
 import object.factories.BodyPart;
 import object.factories.Weapon;
+import object.unit.WeaponsLocate.Ak47Locate;
+import object.unit.WeaponsLocate.PistolLocate;
 import object.unit.WeaponsLocate.WeaponLocate;
 import object.unit.player.Player;
 
@@ -21,6 +24,7 @@ public class BodyController {
     private Weapon weapon;
     private boolean isPlayer = false;
     private WeaponLocate weaponLocate;
+    private double[] angle_start_for_arms_weapon;
 
     public BodyController(Unit unit) {
         this.unit = unit;
@@ -31,6 +35,7 @@ public class BodyController {
     private void initiation(){
         this.bodyParts = unit.getBodyParts();
         this.weapon = unit.getWeapon();
+        setWeaponLocate();
         size[0] = (bodyParts[0].getImage().getWidth()) * unit.getSize()[0];
         size[1] = (bodyParts[0].getImage().getHeight()) * unit.getSize()[0];
         setSize();
@@ -66,10 +71,9 @@ public class BodyController {
         }
     }
     private void resetAngle(){
-        for (BodyPart bp: bodyParts){
+        for(BodyPart bp: bodyParts){
             setAnglePart(bp,0);
         }
-        weapon.setAngle(0);
     }
 
     private void setPositionLeft() {
@@ -88,19 +92,14 @@ public class BodyController {
         bodyParts[1].set_Odds_center_of_rotation(size[0]*0.45 , size[1]*0.01 );
         bodyParts[2].set_Odds_center_of_rotation(size[0]*0.25, size[1]*0.95);
         bodyParts[3].set_Odds_center_of_rotation(size[0]*0.75, size[1] * 0.95);
-        bodyParts[4].set_Odds_center_of_rotation(size[0]*0.1, size[1]*0.2);
-        bodyParts[5].set_Odds_center_of_rotation(size[0]*0.9, size[1]*0.2);
-        weapon.set_Odds_center_of_rotation(size[0] * 0.9, size[1] * 0.2);
+        weaponLocate.set_Odds_center_of_rotation_Left(bodyParts,weapon,size);
     }
 
     private void setOdds_drawLeft(){
         bodyParts[1].setOdds_draw(-size[0]*0.25,-size[1]*0.44);
         bodyParts[2].setOdds_draw(-size[0]*0.2,-size[1]*0.1);
         bodyParts[3].setOdds_draw(-size[0]*0.25,-size[1]*0.1);
-        bodyParts[4].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
-        bodyParts[5].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
-        weapon.setOdds_draw(-size[0]*1.3,size[1]*0.2);
-        weapon.set_odds_from_barrelTip_to_Center(-size[0]*1.3,size[1]*0.35);
+        weaponLocate.set_Odds_draw_Left(bodyParts,weapon,size);
     }
 
     private void setOdds_LocateRight() {
@@ -108,18 +107,13 @@ public class BodyController {
         bodyParts[1].set_Odds_center_of_rotation(size[0] * 0.5, size[1] * 0.01);
         bodyParts[2].set_Odds_center_of_rotation(size[0] * 0.25, size[1] * 0.95);
         bodyParts[3].set_Odds_center_of_rotation(size[0] * 0.75, size[1] * 0.95);
-        bodyParts[4].set_Odds_center_of_rotation(size[0] * 0.9, size[1] * 0.2);
-        bodyParts[5].set_Odds_center_of_rotation(size[0] * 0.1, size[1] * 0.2);
-        weapon.set_Odds_center_of_rotation(size[0] * 0.1, size[1] * 0.2);
+        weaponLocate.set_Odds_center_of_rotation_Right(bodyParts,weapon,size);
     }
     private void setOdds_drawRight(){
         bodyParts[1].setOdds_draw(-size[0]*0.19,-size[1]*0.44);
         bodyParts[2].setOdds_draw(-size[0]*0.2,-size[1]*0.1);
         bodyParts[3].setOdds_draw(-size[0]*0.25,-size[1]*0.1);
-        bodyParts[4].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
-        bodyParts[5].setOdds_draw(-size[0]*0.3,-size[1]*0.1);
-        weapon.setOdds_draw(-size[0]*0.33,size[1]*0.2);
-        weapon.set_odds_from_barrelTip_to_Center(size[0]*1.23,size[1]*0.35);
+        weaponLocate.set_Odds_draw_Right(bodyParts,weapon,size);
     }
 
     private void setCenter_of_rotation_All() {
@@ -194,9 +188,17 @@ public class BodyController {
         changePointsBodyWhenTorsoRotate();
     }
     private void setAnglePart(BodyPart bodyPart,double angle){
-        if (bodyPart.equals(bodyParts[5]))
-            weapon.setAngle(angle);
-        bodyPart.setAngle(angle);
+//        if (!weaponLocate.angleChanged()) {
+//            if (bodyPart.equals(bodyParts[4]))
+//                bodyPart.setAngle(angle+angle_start_for_arms_weapon[0]);
+//            else if (bodyPart.equals(bodyParts[5]))
+//                bodyPart.setAngle(angle+angle_start_for_arms_weapon[1]);
+//                weapon.setAngle(angle+angle_start_for_arms_weapon[2]);
+//        }
+//        else {
+            if (bodyPart.equals(bodyParts[5])) weapon.setAngle(angle);
+            bodyPart.setAngle(angle);
+//        }
         changePointsBodyWhenTorsoRotate();
     }
 
@@ -246,5 +248,11 @@ public class BodyController {
     }
     public void setWeapon(Weapon weapon){
         this.weapon = weapon;
+        setWeaponLocate();
+    }
+    private void setWeaponLocate(){
+        if (weapon.getWeapontype()== WeaponsType.AK_47) weaponLocate = new Ak47Locate();
+        else if (weapon.getWeapontype()== WeaponsType.PISTOL) weaponLocate = new PistolLocate();
+        this.angle_start_for_arms_weapon = weaponLocate.setAngleForStart();
     }
 }

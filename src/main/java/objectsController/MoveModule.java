@@ -39,7 +39,6 @@ public class MoveModule {
                 int yd = (int)(yo + o.getSize()[1]*2+1);
                 for(;xo<=xd; xo++){
                     if ((own.getX() + doubles[0])==xo) {
-                        System.out.println("Blokada");
                         return false;
 //                        for (; yo <= yd ; yo++) ;
 //                        {
