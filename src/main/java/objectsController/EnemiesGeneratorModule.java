@@ -5,6 +5,7 @@ import object.enumTypes.RankType;
 import object.enumTypes.UnitType;
 import object.factories.SoldierFactory;
 import object.unit.Unit;
+import object.unit.behavior.enemy.looking.Stare;
 import object.unit.behavior.enemy.move.Patrolls;
 import settings.Sizes;
 
@@ -34,7 +35,7 @@ class EnemiesGeneratorModule {
             int r = new Random().nextInt(amount_of_enemy)+1;
             units[i]=getUnitByNumber(new Point((int) (Sizes.Screen_Width*1.1), h),r);
             units[i].setMoveTarget(units[i].getPosition());
-            units[i].setMoveInterfejs(new Patrolls());
+//            units[i].setMoveInterfejs(new Patrolls());
         }
         return units;
     }

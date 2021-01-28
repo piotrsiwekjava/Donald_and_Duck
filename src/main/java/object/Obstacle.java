@@ -13,4 +13,9 @@ public class Obstacle extends ObjectImage {
         this.unbreakable=unbreakable;
     }
 
+    @Override
+    public void getDamage(int count) {
+        if(!unbreakable)
+            this.hp-=count;
+    }
 }

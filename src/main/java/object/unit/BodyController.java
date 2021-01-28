@@ -188,17 +188,17 @@ public class BodyController {
         changePointsBodyWhenTorsoRotate();
     }
     private void setAnglePart(BodyPart bodyPart,double angle){
-//        if (!weaponLocate.angleChanged()) {
-//            if (bodyPart.equals(bodyParts[4]))
-//                bodyPart.setAngle(angle+angle_start_for_arms_weapon[0]);
-//            else if (bodyPart.equals(bodyParts[5]))
-//                bodyPart.setAngle(angle+angle_start_for_arms_weapon[1]);
-//                weapon.setAngle(angle+angle_start_for_arms_weapon[2]);
-//        }
-//        else {
+        if (weaponLocate.angleChanged()) {
+            if (bodyPart.equals(bodyParts[4]))
+                bodyPart.setAngle(angle+angle_start_for_arms_weapon[0]);
+            else if (bodyPart.equals(bodyParts[5]))
+                bodyPart.setAngle(angle+angle_start_for_arms_weapon[1]);
+                weapon.setAngle(angle+angle_start_for_arms_weapon[2]);
+        }
+        else {
             if (bodyPart.equals(bodyParts[5])) weapon.setAngle(angle);
             bodyPart.setAngle(angle);
-//        }
+        }
         changePointsBodyWhenTorsoRotate();
     }
 

@@ -14,11 +14,6 @@ public class PlayerStatus {
     private BufferedImage headIm;
     private BufferedImage weaponIm;
     private Font stringFont;
-    private int liveBelt = 10;
-    private int energyBelt = 10;
-    private int superAttackBelt = 0;
-    private int headsize = 20;
-    private int weaponsize = 20;
 
     public PlayerStatus(Player player){
         this.player = player;

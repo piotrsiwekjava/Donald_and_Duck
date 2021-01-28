@@ -29,7 +29,7 @@ public class BulletFly_Runnable implements Runnable {
                 Thread.sleep(10);
                 int x = Toolkit.getDefaultToolkit().getScreenSize().width;
                 int y = Toolkit.getDefaultToolkit().getScreenSize().height;
-                if (ammo.getPosition().getX()>(100+x)
+                if (this.ammo.isBlocked || ammo.getPosition().getX()>(100+x)
                     || ammo.getPosition().getX()<(100-x)
                     || ammo.getPosition().getY()>(100+y)
                     || ammo.getPosition().getY()<(100-y)) {

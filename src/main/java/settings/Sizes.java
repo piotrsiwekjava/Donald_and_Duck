@@ -7,7 +7,7 @@ import java.awt.*;
 public class Sizes {
     public static int Screen_Width = Toolkit.getDefaultToolkit().getScreenSize().width;
     public static int Screen_Height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    public static double SIZE = Screen_Width*0.001;
+    public static double SIZE = Screen_Width*0.0003;
     public static double [] X_MAX_MIN_WALK = {-Screen_Width*0.3, Screen_Width*0};
     public static double [] Y_MAX_MIN_WALK = {-Screen_Height*0.05, Screen_Height*0.2};
     public static double [] Soldier_Size = {SIZE,SIZE};

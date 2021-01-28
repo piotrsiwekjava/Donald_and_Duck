@@ -6,6 +6,7 @@ import object.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
 import object.unit.Unit;
+import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
 import threads.BulletFly_Runnable;
 import threads.Walk_Look_Runnable;
@@ -83,6 +84,9 @@ public class ObjectsController {
     }
     public boolean checkTrack(Point ownPoint, double[] doubles){
         return moveModule.checkTrack(ownPoint,doubles);
+    }
+    public ObjectGame whoBlocked(Point ownPoint, double[] doubles){
+        return moveModule.if_Blocked_GiveBack_Responsible_Object(ownPoint,doubles);
     }
 
     public Player getPlayer() {

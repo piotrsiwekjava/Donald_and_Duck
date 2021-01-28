@@ -2,6 +2,7 @@ package objectsController;
 
 import level.Level;
 import object.ObjectGame;
+import object.factories.Ammo;
 import object.unit.Unit;
 import settings.Sizes;
 
@@ -15,7 +16,7 @@ public class MoveModule {
     MoveModule() {
     }
 
-    Point randomPointMove(Unit unit){
+    synchronized Point randomPointMove(Unit unit){
         int yMax = (int) (Sizes.Screen_Height*0.5);
         int yMin = (int) (Sizes.Screen_Height*0.1);
         if(level!=null) {
@@ -28,25 +29,24 @@ public class MoveModule {
 
         return new Point(x,y);
     }
-    boolean checkTrack(Point own, double[] doubles){
+    synchronized boolean checkTrack(Point own, double[] doubles){
         ObjectsController objectsController = ObjectsController.getInstance();
         try {
-
             for (ObjectGame o : objectsController.getObjectGSet()) {
-                double xo = o.getPosition().getX()-1;
-                double yo = o.getPosition().getY()-1;
-                int xd = (int)(xo + o.getSize()[0]+1);
-                int yd = (int)(yo + o.getSize()[1]*2+1);
-                for(;xo<=xd; xo++){
-                    if ((own.getX() + doubles[0])==xo) {
-                        return false;
-//                        for (; yo <= yd ; yo++) ;
-//                        {
-//                            if ((own.getY() + doubles[1])==yo)
-//                                System.out.println("Blokada");
-//                                return false;
-//
-//                        }
+                int xo = (int) o.getPosition().getX() - 1;
+                int yo = (int) o.getPosition().getY() - 1;
+                int xd = (int) (xo + (o.getSize()[0]) + 1);
+                int yd = (int) (yo + (o.getSize()[1]) + 1);
+                for (; xo <= xd; xo++) {
+                    if ((own.getX() + (int)doubles[0]) == xo) {
+                        System.out.println("blokada1");
+                        for (; yo <= yd; yo++) ;
+                        {
+                            if ((own.getY() + (int)doubles[1]) == yo)
+                                System.out.println("blokada2");
+                                return false;
+
+                        }
                     }
                 }
             }
@@ -56,6 +56,27 @@ public class MoveModule {
             return true;
         }
         return true;
+    }
+    synchronized ObjectGame if_Blocked_GiveBack_Responsible_Object(Point own, double[] doubles){
+        ObjectsController objectsController = ObjectsController.getInstance();
+        for (ObjectGame o : objectsController.getObjectGSet()) {
+            double xo = o.getPosition().getX()-1;
+            double yo = o.getPosition().getY()-1;
+            int xd = (int)(xo + o.getSize()[0]+1);
+            int yd = (int)(yo + o.getSize()[1]*2+1);
+            for(;xo<=xd; xo++){
+                if ((own.getX() + doubles[0])==xo) {
+                    return o;
+//                        for (; yo <= yd ; yo++) ;
+//                        {
+//                            if ((own.getY() + doubles[1])==yo)
+//                                return o;
+//
+//                        }
+                }
+            }
+        }
+        return null;
     }
 
     void setLevel(Level level){

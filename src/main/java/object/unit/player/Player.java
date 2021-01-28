@@ -35,11 +35,11 @@ public class Player extends Unit {
                 Sizes.Soldier_Size,
                 build_Body_Parts(),
                 1000,
-//                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120)
-                WeaponsFactory.create(
-                        WeaponsType.PISTOL,
-                        build_Player_Position(),
-                        120)
+                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120)
+//                WeaponsFactory.create(
+//                        WeaponsType.PISTOL,
+//                        build_Player_Position(),
+//                        120)
                 );
         energy = 100;
         weaponSet= new ArrayList<Weapon>();
@@ -85,8 +85,6 @@ public class Player extends Unit {
     @Override
     public void attack() {
         super.attack();
-        System.out.println(ObjectsController.getInstance().getBulletSet().size());
-        System.out.println(getWeapon().getAllleftAmmo());
     }
     private void loadWeaponSet(){
         Weapon weapon = WeaponsFactory.create(

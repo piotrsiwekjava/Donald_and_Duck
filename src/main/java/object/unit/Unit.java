@@ -138,6 +138,11 @@ public class Unit extends ObjectGame {
         super.setXY(ix, iy);
     }
 
+    @Override
+    public void getDamage(int count) {
+        this.changeHp(-count);
+    }
+
     public int getCourse() {
         return course;
     }
