@@ -9,14 +9,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Ammo extends ObjectImage {
+    private Unit whoShoot;
     private int damage;
     private double nX;
     private double nY;
     public boolean isBlocked;
 
-    public Ammo(Point position, double[] size, BufferedImage image, int damage, Point target, int speed) {
+    public Ammo(Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot) {
         super(position, size, image);
         this.damage = damage;
+        this.whoShoot = whoShoot;
         isBlocked = false;
         setFly(target,speed);
 
@@ -51,10 +53,12 @@ public class Ammo extends ObjectImage {
     }
     private void getDamageObject (){
         ObjectGame o = ObjectsController.getInstance().whoBlocked(this.getPosition(),new double[]{nX,nY});
+        System.out.println(o);
+        if (o!=null && !o.equals(whoShoot)) {
             isBlocked = true;
             o.getDamage(this.damage);
             System.out.println("Zadałem obrażenia");
-//        }
+        }
     }
 
     public int getAmmoDamage() {

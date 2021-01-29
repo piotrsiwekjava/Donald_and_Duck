@@ -33,20 +33,18 @@ public class MoveModule {
         ObjectsController objectsController = ObjectsController.getInstance();
         try {
             for (ObjectGame o : objectsController.getObjectGSet()) {
-                int xo = (int) o.getPosition().getX() - 1;
-                int yo = (int) o.getPosition().getY() - 1;
-                int xd = (int) (xo + (o.getSize()[0]) + 1);
-                int yd = (int) (yo + (o.getSize()[1]) + 1);
-                for (; xo <= xd; xo++) {
-                    if ((own.getX() + (int)doubles[0]) == xo) {
-                        System.out.println("blokada1");
-                        for (; yo <= yd; yo++) ;
-                        {
-                            if ((own.getY() + (int)doubles[1]) == yo)
-                                System.out.println("blokada2");
-                                return false;
 
-                        }
+                int xo = (int) o.getPosition().getX() - 10;
+                int xd = (int) (xo + (o.getSize()[0]*100));
+                int ownXd = (int) (own.getX()+ (int)doubles[0]);
+                if (ownXd>=xo && ownXd<=xd){
+                    int yo = (int) o.getPosition().getY() - 10;
+                    int yd = (int) (yo + (o.getSize()[1]*250));
+                    int ownYd = (int) (own.getY()+ (int)doubles[1]);
+                    if (ownYd>=yo && ownYd<=yd) {
+
+                        System.out.println(o+" //Mamy go");
+                        return false;
                     }
                 }
             }
@@ -60,20 +58,15 @@ public class MoveModule {
     synchronized ObjectGame if_Blocked_GiveBack_Responsible_Object(Point own, double[] doubles){
         ObjectsController objectsController = ObjectsController.getInstance();
         for (ObjectGame o : objectsController.getObjectGSet()) {
-            double xo = o.getPosition().getX()-1;
-            double yo = o.getPosition().getY()-1;
-            int xd = (int)(xo + o.getSize()[0]+1);
-            int yd = (int)(yo + o.getSize()[1]*2+1);
-            for(;xo<=xd; xo++){
-                if ((own.getX() + doubles[0])==xo) {
-                    return o;
-//                        for (; yo <= yd ; yo++) ;
-//                        {
-//                            if ((own.getY() + doubles[1])==yo)
-//                                return o;
-//
-//                        }
-                }
+            int xo = (int) o.getPosition().getX() - 10;
+            int xd = (int) (xo + (o.getSize()[0]*100));
+            int ownXd = (int) (own.getX()+ (int)doubles[0]);
+            if (ownXd>=xo && ownXd<=xd){
+                System.out.println(o);
+                int yo = (int) o.getPosition().getY() - 10;
+                int yd = (int) (yo + (o.getSize()[1]*250));
+                int ownYd = (int) (own.getY()+ (int)doubles[1]);
+                if (ownYd>=yo && ownYd<=yd) return o;
             }
         }
         return null;

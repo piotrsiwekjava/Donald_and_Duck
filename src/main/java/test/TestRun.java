@@ -1,9 +1,13 @@
 package test;
 
 import frames.GameFrame;
+import object.enumTypes.RankType;
+import object.enumTypes.UnitType;
+import object.factories.SoldierFactory;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class TestRun {
@@ -24,6 +28,11 @@ public class TestRun {
         ObjectsController objCon = ObjectsController.getInstance();
         objCon.setPlayer(player);
         player.attack();
+
+//        objCon.addUnit(SoldierFactory.create(RankType.OFICER, UnitType.SoldierAK,new Point(1000,800),2));
+////        objCon.addUnit(SoldierFactory.create(RankType.OFICER, UnitType.SoldierAK,new Point(1000,200),2));
+////        objCon.addUnit(SoldierFactory.create(RankType.OFICER, UnitType.SoldierAK,new Point(1000,400),2));
+////        objCon.addUnit(SoldierFactory.create(RankType.OFICER, UnitType.SoldierAK,new Point(-200,400),2));
 
     }
 }

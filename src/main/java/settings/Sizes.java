@@ -10,7 +10,7 @@ public class Sizes {
     public static double SIZE = Screen_Width*0.0003;
     public static double [] X_MAX_MIN_WALK = {-Screen_Width*0.3, Screen_Width*0};
     public static double [] Y_MAX_MIN_WALK = {-Screen_Height*0.05, Screen_Height*0.2};
-    public static double [] Soldier_Size = {SIZE,SIZE};
+    public static double [] Soldier_Size = {SIZE,SIZE}; //size 50x180
     public static double [] LittleGuy_Size = {SIZE,SIZE*0.6};
     public static double [] A5MM = {SIZE*12,SIZE*12};
     public static double [] A7MM = {SIZE*15, SIZE*15};
