@@ -55,12 +55,10 @@ public abstract class ObjectGame {
 
 
     public void setXY(double ix, double iy){
-        this.position.setLocation(
-                this.getPosition().getX()+ix,
-                this.getPosition().getY()+iy
-        );
-        this.posOnLevel.setLocation(this.getPosition().getX()+ix,
-                this.getPosition().getY()+iy);
+        double x = this.getPosition().getX();
+        double y = this.getPosition().getY();
+        this.position.setLocation(x+ix,y+iy);
+        this.posOnLevel.setLocation(x+ix,y+iy);
     }
     public void getDamage(int count){}
 }

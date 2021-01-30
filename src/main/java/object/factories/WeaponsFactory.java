@@ -12,7 +12,6 @@ public class WeaponsFactory{
     public static Weapon create(WeaponsType type, Point position, int leftAmmo) {
         BufferedImage image = null;
         String imagePath = "";
-        System.out.println();
         switch (type) {
             case PISTOL: {
                 imagePath = "weapons\\psm";

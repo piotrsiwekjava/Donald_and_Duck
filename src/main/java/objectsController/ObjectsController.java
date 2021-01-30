@@ -48,8 +48,8 @@ public class ObjectsController {
     public void addUnit(Unit u) {
         objectGameSet.add(u);
         number_of_object++;
-        System.out.println("number of object in game : "+number_of_object);
-        u.setMoveTarget(moveModule.randomPointMove(u));
+        showHowManyObjectsGame();
+        u.setMoveTarget(moveModule.randomPointMove());
         Walk_Look_Runnable.walk(u, String.valueOf(number_of_object));
     }
 
@@ -62,12 +62,12 @@ public class ObjectsController {
     public synchronized void removeBullet(Ammo ammo){
         bulletSet.remove(ammo);
         number_of_object--;
-        System.out.println("number of object in game : "+number_of_object);
+        showHowManyObjectsGame();
     }
     public void addObstacle(Obstacle o){
         this.objectGameSet.add(o);
         number_of_object++;
-        System.out.println("number of object in game : "+number_of_object);
+        showHowManyObjectsGame();
     }
 
     public void removeOutObject (ObjectGame o){
@@ -79,11 +79,11 @@ public class ObjectsController {
         return bulletSet;
     }
 
-    public Point getRandomPointMove(Unit unit){
-        return moveModule.randomPointMove(unit);
+    public Point getRandomPointMove(){
+        return moveModule.randomPointMove();
     }
-    public boolean checkTrack(Point ownPoint, double[] doubles){
-        return moveModule.checkTrack(ownPoint,doubles);
+    public boolean checkTrack(Point ownPoint, double[] doubles, boolean isBullet){
+        return moveModule.checkTrack(ownPoint,doubles, isBullet);
     }
     public ObjectGame whoBlocked(Point ownPoint, double[] doubles){
         return moveModule.if_Blocked_GiveBack_Responsible_Object(ownPoint,doubles);
@@ -111,5 +111,9 @@ public class ObjectsController {
 
     public boolean isCanPlay() {
         return canPlay;
+    }
+
+    private void showHowManyObjectsGame(){
+        System.out.println("Objects in game: " + number_of_object);
     }
 }

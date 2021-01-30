@@ -39,25 +39,20 @@ public class Ammo extends ObjectImage {
     public void fly(){
         if (check_if_you_hit()) {
             getDamageObject();
-
             this.setXY(nX,nY);
-        }
-        if (isBlocked) {
-            System.out.println(isBlocked);
         }
         this.setXY(nX,nY);
     }
 
     private boolean check_if_you_hit(){
-        return !ObjectsController.getInstance().checkTrack(this.getPosition(),new double[]{nX,nY});
+        return !ObjectsController.getInstance().checkTrack(this.getPosition(),new double[]{nX,nY},true);
     }
     private void getDamageObject (){
         ObjectGame o = ObjectsController.getInstance().whoBlocked(this.getPosition(),new double[]{nX,nY});
-        System.out.println(o);
         if (o!=null && !o.equals(whoShoot)) {
             isBlocked = true;
+            System.out.println("In Ammo:"+o+" // "+o.getPosition()+" // "+((Unit)o).getHp()+ " // " + ((Unit)o).getBodyParts()[0].getPosition());
             o.getDamage(this.damage);
-            System.out.println("Zadałem obrażenia");
         }
     }
 

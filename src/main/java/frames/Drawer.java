@@ -34,6 +34,10 @@ public class Drawer {
         drawObjects();
         draw_Bullets();
         playerStatus.loadStatus(g2d);
+        for (int i=0; i<=16; i++){
+//            for (int j=0; i<8;j++);
+                g2d.fillRect(100*i,400,10,10);
+        }
     }
     private void drawLevel(){
         BackGround back = level.getBackground();

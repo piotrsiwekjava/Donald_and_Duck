@@ -6,8 +6,8 @@ import settings.Sizes;
 import java.awt.*;
 
 public class RespawnPoint extends ObjectGame {
-    public RespawnPoint(int high) {
-        super(new Point((int) (Sizes.Screen_Width*1.1), high), new double[]{0.001,0.001});
+    public RespawnPoint(int wight, int high) {
+        super(new Point((int) (Sizes.Screen_Width*0.9+wight), high), new double[]{0.001,0.001});
     }
     @Override
     public void setXY(double ix, double iy) {

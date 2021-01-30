@@ -101,6 +101,7 @@ public class Player extends Unit {
         setWeapon(weaponSet.get(whichWeapon));
         getBodyController().setWeapon(getWeapon());
         playerStatus.changeWeapon();
+        System.out.println("In Player : zmiana broni 1");
     }
     public void changeWeapon(int number){
 
@@ -108,7 +109,7 @@ public class Player extends Unit {
             whichWeapon = number;
         setWeapon(weaponSet.get(whichWeapon));
         getBodyController().setWeapon(getWeapon());
-        System.out.println("zmiana 2");
+        System.out.println("In Player : zmiana broni 2");
     }
 
     public int getEnergy() {

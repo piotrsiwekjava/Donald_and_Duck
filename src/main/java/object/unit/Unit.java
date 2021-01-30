@@ -135,7 +135,6 @@ public class Unit extends ObjectGame {
 
     @Override
     public void setXY(double ix, double iy) {
-        super.setXY(ix, iy);
     }
 
     @Override

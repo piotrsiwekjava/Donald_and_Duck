@@ -23,11 +23,11 @@ class EnemiesGeneratorModule {
         this.respawnPoint = new ArrayList<RespawnPoint>();
         int high0 = (int)(Toolkit.getDefaultToolkit().getScreenSize().height*0.6);
         int hd = (int)(high0/6);
-        this.respawnPoint.add(new RespawnPoint(high0));
-        this.respawnPoint.add(new RespawnPoint(high0 + hd));
-        this.respawnPoint.add(new RespawnPoint(high0 - hd));
-        this.respawnPoint.add(new RespawnPoint(high0 + (hd*2)));
-        this.respawnPoint.add(new RespawnPoint(high0 - (hd*2)));
+        this.respawnPoint.add(new RespawnPoint(0,high0));
+        this.respawnPoint.add(new RespawnPoint(50,(high0 + hd)));
+        this.respawnPoint.add(new RespawnPoint(-50,(high0 - hd)));
+        this.respawnPoint.add(new RespawnPoint(-50,(high0 + (hd*2))));
+        this.respawnPoint.add(new RespawnPoint(50, (high0 - (hd*2))));
     }
     Unit[] newUnits (){
         if (!initiationed) {

@@ -49,7 +49,6 @@ public class BodyPart extends ObjectImage {
     }
 
     private void playerMove(double ix, double iy){
-
         ix*=-1;
         iy*=-1;
         if (ix<0 && (fieldOfWalking.getX() < Sizes.X_MAX_MIN_WALK[0]))

@@ -9,24 +9,29 @@ import java.awt.*;
 
 public class Patrolls implements MoveInterfejs {
     private ObjectsController objectsController = ObjectsController.getInstance();
+    private double[] dXY;
+    public Patrolls(){
+        this.dXY = new double[]{0,0};
+    }
     @Override
     public void move(Unit unit) {
-
-        double[] dXY = getCourseOfOneStep(unit);
+        this.dXY = getCourseOfOneStep(unit);
         if (dXY[0]==0 || dXY[1]==0) {
-            unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
+
+            unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
         }
-        if (objectsController.checkTrack(unit.getPosition(),dXY)) {
+        if (objectsController.checkTrack(unit.getPosition(),dXY,false)) {
             if (dXY[0] > 0) unit.setCourse(1);
             else if (dXY[0] < 0) unit.setCourse(-1);
-            unit.setXY(dXY[0], dXY[1]);
             for (ObjectImage o : unit.getBodyParts()) {
                 o.setXY(dXY[0], dXY[1]);
             }
             unit.getWeapon().setXY(dXY[0], dXY[1]);
+            unit.setPosition(unit.getBodyParts()[0].getPosition());
             unit.getBodyController().moveBody(unit.getOwnLegfast());
+            System.out.println("Patroll: "+unit.getPosition()+" /// " + unit.getBodyParts()[0].getPosition());
         }
-        else unit.getMoveTarget().setPosition(objectsController.getRandomPointMove(unit));
+        else unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
     }
     private double[] getCourseOfOneStep (Unit unit) {
         Point own = unit.getPosition();

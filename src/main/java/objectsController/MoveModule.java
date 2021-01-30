@@ -16,7 +16,7 @@ public class MoveModule {
     MoveModule() {
     }
 
-    synchronized Point randomPointMove(Unit unit){
+    synchronized Point randomPointMove(){
         int yMax = (int) (Sizes.Screen_Height*0.5);
         int yMin = (int) (Sizes.Screen_Height*0.1);
         if(level!=null) {
@@ -26,24 +26,24 @@ public class MoveModule {
             int x = new Random().nextInt((int) Sizes.Screen_Width);
             int y = new Random().nextInt((int) yMax)+ yMin;
             if (y>yMax)y=yMax;
-
+        System.out.println("move module: point move"+x +"/"+y);
         return new Point(x,y);
     }
-    synchronized boolean checkTrack(Point own, double[] doubles){
+    synchronized boolean checkTrack(Point own, double[] doubles, boolean isBullet){
+        int spaceSize=20;
+        if (isBullet)spaceSize=100;
         ObjectsController objectsController = ObjectsController.getInstance();
         try {
             for (ObjectGame o : objectsController.getObjectGSet()) {
 
                 int xo = (int) o.getPosition().getX() - 10;
-                int xd = (int) (xo + (o.getSize()[0]*100));
+                int xd = (int) (xo + (o.getSize()[0]*(spaceSize)));
                 int ownXd = (int) (own.getX()+ (int)doubles[0]);
                 if (ownXd>=xo && ownXd<=xd){
                     int yo = (int) o.getPosition().getY() - 10;
-                    int yd = (int) (yo + (o.getSize()[1]*250));
+                    int yd = (int) (yo + (o.getSize()[1]*(spaceSize*2.5)));
                     int ownYd = (int) (own.getY()+ (int)doubles[1]);
                     if (ownYd>=yo && ownYd<=yd) {
-
-                        System.out.println(o+" //Mamy go");
                         return false;
                     }
                 }
@@ -62,7 +62,6 @@ public class MoveModule {
             int xd = (int) (xo + (o.getSize()[0]*100));
             int ownXd = (int) (own.getX()+ (int)doubles[0]);
             if (ownXd>=xo && ownXd<=xd){
-                System.out.println(o);
                 int yo = (int) o.getPosition().getY() - 10;
                 int yd = (int) (yo + (o.getSize()[1]*250));
                 int ownYd = (int) (own.getY()+ (int)doubles[1]);
