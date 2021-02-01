@@ -1,6 +1,6 @@
 package object.factories;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.enumTypes.RankType;
 import settings.Sizes;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class BodyFactory {
     private double [] size;
     private int nr;
     private static BodyFactory bodyFactory = new BodyFactory();
-    private ImageChanger imageChanger = ImageChanger.getInstance();
+    private ImageGetterAndChanger imageGetterAndChanger = ImageGetterAndChanger.getInstance();
 
 
     private BodyFactory (){
@@ -64,17 +64,17 @@ public class BodyFactory {
 
     private BodyPart addTorso() {
         return new BodyPart(position,size,
-                imageChanger.getTransImg("bodyparts\\torso"+nr)
+                imageGetterAndChanger.getTransImg("bodyparts\\torso"+nr)
         );
     }
     private BodyPart addHead(){
         return new BodyPart(position,size,
-                imageChanger.getTransImg("bodyparts\\head"+nr)
+                imageGetterAndChanger.getTransImg("bodyparts\\head"+nr)
                 );
     }
     private BodyPart[] addLegs() {
         BodyPart [] bodyParts = new BodyPart[2];
-        BufferedImage leg = imageChanger.getTransImg("bodyparts\\legs"+nr);
+        BufferedImage leg = imageGetterAndChanger.getTransImg("bodyparts\\legs"+nr);
         bodyParts[0] = new BodyPart(position,size,leg);
         bodyParts[1] = new BodyPart(position,size,leg);
         return bodyParts;
@@ -82,9 +82,9 @@ public class BodyFactory {
 
     private BodyPart[] addArms(){
         BodyPart [] bodyParts = new BodyPart[2];
-        BufferedImage arm = imageChanger.getTransImg("bodyparts\\arms"+nr);
+        BufferedImage arm = imageGetterAndChanger.getTransImg("bodyparts\\arms"+nr);
         bodyParts[0] = new BodyPart(position,size,arm);
-        bodyParts[1] = new BodyPart(position,size,imageChanger.mirrorImage(arm));
+        bodyParts[1] = new BodyPart(position,size, imageGetterAndChanger.mirrorImage(arm));
 
         return bodyParts;
     }

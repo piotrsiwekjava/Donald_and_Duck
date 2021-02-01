@@ -2,6 +2,7 @@ package frames;
 
 import listeners.KeyGameListener;
 import listeners.MouseGameListeners;
+import object.ImageGetterAndChanger;
 import objectsController.ObjectsController;
 import settings.Sizes;
 
@@ -35,19 +36,20 @@ class GamePanel extends JPanel {
     private int time;
     private int periodOfTime;
     private boolean canDraw =false;
+    private Cursor cursor;
 
     public GamePanel() {
         super();
         this.drawer = new Drawer(this);
         setVisible(true);
         this.setBackground(Color.GRAY);
-        addTimer();
-        time=0;
-        periodOfTime=0;
+        loadTime();
         setFrameSizeAndLocation();
         addListener();
         this.addMouseListener(MouseGameListeners.getInstance());
         objectsController = ObjectsController.getInstance();
+        loadCursor();
+        this.setCursor(cursor);
     }
     private void setFrameSizeAndLocation (){
         panelWindth=Sizes.Screen_Width;
@@ -56,6 +58,11 @@ class GamePanel extends JPanel {
         setPreferredSize(new Dimension(panelWindth,panelHeight));
     }
 
+    private void loadTime(){
+        addTimer();
+        time=0;
+        periodOfTime=0;
+    }
     private void addTimer (){
         this.myTimerDelay=100;
         myTimer = new Timer(myTimerDelay,gameTimer);
@@ -84,6 +91,12 @@ class GamePanel extends JPanel {
             tryGetPlayerStatus();
     }
 
+    private void loadCursor(){
+        cursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                ImageGetterAndChanger.getInstance().getTransImg("weapons\\cursorShoot"),
+                new Point(0,0),
+                "cursorShoot");
+    }
     private void redraw (){
         this.repaint();
     }

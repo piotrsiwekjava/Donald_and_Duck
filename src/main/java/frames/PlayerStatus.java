@@ -1,6 +1,6 @@
 package frames;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.enumTypes.WeaponsType;
 import object.factories.Weapon;
 import object.unit.player.Player;
@@ -41,6 +41,7 @@ public class PlayerStatus {
         int ammoInMagazin = weapon.getLeftAmmoinMagazin();
         int leftAmmo = weapon.getAllleftAmmo();
         g2d.setFont(stringFont);
+        g2d.setColor(Color.WHITE);
         g2d.drawString(""+ammoInMagazin,400,60);
         g2d.drawString(""+leftAmmo,400,100);
     }
@@ -78,9 +79,8 @@ public class PlayerStatus {
         else if (type==WeaponsType.AK_47) path="ak47";
         else if (type==WeaponsType.BAZOOKA) path="bazooka";
         else if (type==WeaponsType.FIST) path="fist";
-        this.weaponIm = ImageChanger.getInstance().getTransImg(
+        this.weaponIm = ImageGetterAndChanger.getInstance().getTransImg(
                 "\\weapons\\"+path+"all");
-//        this.weapon = player.getWeapon().getImage();
     }
 
     private void setFont(){

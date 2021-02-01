@@ -2,13 +2,10 @@ package objectsController;
 
 import level.Level;
 import object.ObjectGame;
-import object.factories.Ammo;
-import object.unit.Unit;
 import settings.Sizes;
 
 import java.awt.*;
 import java.util.Random;
-import java.util.Set;
 
 public class MoveModule {
     private Level level;
@@ -26,25 +23,25 @@ public class MoveModule {
             int x = new Random().nextInt((int) Sizes.Screen_Width);
             int y = new Random().nextInt((int) yMax)+ yMin;
             if (y>yMax)y=yMax;
-        System.out.println("move module: point move"+x +"/"+y);
         return new Point(x,y);
     }
-    synchronized boolean checkTrack(Point own, double[] doubles, boolean isBullet){
+    synchronized boolean checkTrack(Point own, double[] shift, boolean isBullet){
         int spaceSize=20;
         if (isBullet)spaceSize=100;
         ObjectsController objectsController = ObjectsController.getInstance();
         try {
             for (ObjectGame o : objectsController.getObjectGSet()) {
-
-                int xo = (int) o.getPosition().getX() - 10;
-                int xd = (int) (xo + (o.getSize()[0]*(spaceSize)));
-                int ownXd = (int) (own.getX()+ (int)doubles[0]);
-                if (ownXd>=xo && ownXd<=xd){
-                    int yo = (int) o.getPosition().getY() - 10;
-                    int yd = (int) (yo + (o.getSize()[1]*(spaceSize*2.5)));
-                    int ownYd = (int) (own.getY()+ (int)doubles[1]);
-                    if (ownYd>=yo && ownYd<=yd) {
-                        return false;
+                if (!own.equals(o.getPosition())) {                 //check checks if it's not the same object
+                    int xo = (int) o.getPosition().getX() - 2;
+                    int xd = (int) (xo + (o.getSize()[0] * (spaceSize)));
+                    int ownXd = (int) (own.getX() + (int) shift[0]);
+                    if (ownXd >= xo && ownXd <= xd) {
+                        int yo = (int) o.getPosition().getY() - 10;
+                        int yd = (int) (yo + (o.getSize()[1] * (spaceSize * 2.5)));
+                        int ownYd = (int) (own.getY() + (int) shift[1]);
+                        if (ownYd >= yo && ownYd <= yd) {
+                            return false;
+                        }
                     }
                 }
             }

@@ -1,6 +1,6 @@
 package object.factories;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import settings.Sizes;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ public class BuildingsFactory {
         BufferedImage image;
         String imagePath = "buildings\\b";
         int r = new Random().nextInt(8)+2;
-        image = ImageChanger.getInstance().getTransImg(imagePath+r);
+        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath+r);
         double s = new Random().nextInt(100)+75;
         double scale = 1*(s/100);
         point = giveNewRandomPoint(point);

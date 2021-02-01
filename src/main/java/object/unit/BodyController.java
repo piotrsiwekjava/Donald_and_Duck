@@ -1,6 +1,6 @@
 package object.unit;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.ObjectImage;
 import object.enumTypes.WeaponsType;
 import object.factories.BodyPart;
@@ -20,7 +20,7 @@ public class BodyController {
     private Unit unit;
     private BodyPart[] bodyParts;
     private double size[] = new double[2];
-    private ImageChanger imChnger;
+    private ImageGetterAndChanger imChnger;
     private Weapon weapon;
     private boolean isPlayer = false;
     private WeaponLocate weaponLocate;
@@ -40,7 +40,7 @@ public class BodyController {
         size[1] = (bodyParts[0].getImage().getHeight()) * unit.getSize()[0];
         setSize();
         resetPosition();
-        imChnger = ImageChanger.getInstance();
+        imChnger = ImageGetterAndChanger.getInstance();
         setPositionLeft();
     }
 
@@ -234,11 +234,23 @@ public class BodyController {
 
 
     public synchronized void changeSide(int side) {
-        weapon.setImage(imChnger.mirrorImage(weapon.getImage()));
+        mirroning();
+        setBodySide(side);
+    }
+    private void mirroning(){
+        if (!(unit instanceof Player))
+            weapon.setImage(imChnger.mirrorImage(weapon.getImage()));
+        else mirroningAllWeapon();
         for (BodyPart bp : unit.getBodyParts()) {
             bp.setImage(imChnger.mirrorImage(bp.getImage()));
-
         }
+    }
+    private void mirroningAllWeapon(){
+        for (Weapon w: ((Player)unit).getWeaponSet()){
+            w.setImage(imChnger.mirrorImage(w.getImage()));
+        }
+    }
+    private void setBodySide(int side){
         resetPosition();
         if (side == 1) {
             setPositionRight();
@@ -249,6 +261,7 @@ public class BodyController {
     public void setWeapon(Weapon weapon){
         this.weapon = weapon;
         setWeaponLocate();
+        setBodySide(unit.getSide());
     }
     private void setWeaponLocate(){
         if (weapon.getWeapontype()== WeaponsType.AK_47) weaponLocate = new Ak47Locate();

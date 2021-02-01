@@ -65,17 +65,17 @@ public class KeyGameListener extends KeyAdapter {
     @Override
     public void keyTyped(KeyEvent e) {
         if (gamestarted) {
-            if (e.getKeyCode() == KeyShortCuts.SWITHGUN) {
-                player.changeWeapon();
+            if (e.getKeyChar() == KeyShortCuts.SWITHGUN) {
+                player.swiftWeapon();
             }
             else if (e.getKeyChar() == KeyShortCuts.fstWeapons)
-                player.changeWeapon(0);
+                player.swiftWeapon(0);
             else if (e.getKeyChar() == KeyShortCuts.secWeapons)
-                player.changeWeapon(1);
+                player.swiftWeapon(1);
             else if (e.getKeyChar() == KeyShortCuts.thirdWeapons)
-                player.changeWeapon(2);
+                player.swiftWeapon(2);
             else if (e.getKeyChar() == KeyShortCuts.fourthWeapons)
-                player.changeWeapon(3);
+                player.swiftWeapon(3);
         }
     }
 

@@ -1,6 +1,6 @@
 package object.factories;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.enumTypes.AmmoType;
 import object.unit.Unit;
 import settings.Sizes;
@@ -19,8 +19,8 @@ public class AmmoFactory{
             case A7MM: imagePath = "weapons\\bL";
             case MISSILE: imagePath = "weapons\\bL";
         }
-        image = ImageChanger.getInstance().getTransImg(imagePath);
-        if (side==1) image = ImageChanger.getInstance().mirrorImage(image);
+        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
+        if (side==1) image = ImageGetterAndChanger.getInstance().mirrorImage(image);
 
         Ammo ammo;
 
@@ -29,7 +29,7 @@ public class AmmoFactory{
                 ammo = new Ammo(new Point(barrelTip), Sizes.A5MM, image,10,target,(int) Sizes.RUN_Speed, whoShoot);
                 break;
             case A7MM:
-                ammo =  new Ammo(new Point(barrelTip), Sizes.A7MM, image,15,target,(int) Sizes.RUN_Speed, whoShoot);
+                ammo =  new Ammo(new Point(barrelTip), Sizes.A7MM, image,15,target,(int) (Sizes.RUN_Speed*1.5), whoShoot);
                 break;
             case MISSILE:
                 ammo =  new Ammo(new Point(barrelTip), Sizes.MISSILE, image,100, target, (int) (Sizes.RUN_Speed*1.3), whoShoot);

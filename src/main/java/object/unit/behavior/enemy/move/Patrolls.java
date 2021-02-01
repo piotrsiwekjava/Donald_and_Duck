@@ -17,7 +17,6 @@ public class Patrolls implements MoveInterfejs {
     public void move(Unit unit) {
         this.dXY = getCourseOfOneStep(unit);
         if (dXY[0]==0 || dXY[1]==0) {
-
             unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
         }
         if (objectsController.checkTrack(unit.getPosition(),dXY,false)) {
@@ -26,12 +25,14 @@ public class Patrolls implements MoveInterfejs {
             for (ObjectImage o : unit.getBodyParts()) {
                 o.setXY(dXY[0], dXY[1]);
             }
-            unit.getWeapon().setXY(dXY[0], dXY[1]);
             unit.setPosition(unit.getBodyParts()[0].getPosition());
+            unit.getWeapon().setXY(dXY[0], dXY[1]);
             unit.getBodyController().moveBody(unit.getOwnLegfast());
-            System.out.println("Patroll: "+unit.getPosition()+" /// " + unit.getBodyParts()[0].getPosition());
+
         }
-        else unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
+        else {
+            unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
+        }
     }
     private double[] getCourseOfOneStep (Unit unit) {
         Point own = unit.getPosition();

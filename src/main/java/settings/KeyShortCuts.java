@@ -10,11 +10,11 @@ public class KeyShortCuts {
     public static int LEFT = 65;       //37 left
     public static int RIGHT = 68;       //39 right
     public static int RUN = 16;     //16 L-shift
-    public static int SWITHGUN = 81; // 81 - Q
-    public static int fstWeapons = 1; //49 - 1
-    public static int secWeapons = 2; //50 - 2
-    public static int thirdWeapons = 3; // 51 - 3
-    public static int fourthWeapons = 4; // 52 - 4
+    public static char SWITHGUN = 'q'; // 81 - Q
+    public static char fstWeapons = '1'; //49 - 1
+    public static char secWeapons = '2'; //50 - 2
+    public static char thirdWeapons = '3'; // 51 - 3
+    public static char fourthWeapons = '4'; // 52 - 4
 
     public KeyShortCuts() {
     }

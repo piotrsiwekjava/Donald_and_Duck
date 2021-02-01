@@ -82,7 +82,7 @@ public class ObjectsController {
     public Point getRandomPointMove(){
         return moveModule.randomPointMove();
     }
-    public boolean checkTrack(Point ownPoint, double[] doubles, boolean isBullet){
+    public synchronized boolean checkTrack(Point ownPoint, double[] doubles, boolean isBullet){
         return moveModule.checkTrack(ownPoint,doubles, isBullet);
     }
     public ObjectGame whoBlocked(Point ownPoint, double[] doubles){

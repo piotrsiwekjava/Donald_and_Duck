@@ -3,16 +3,17 @@ package object;
 import settings.Pathes_and_Links;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageChanger {
-    private static ImageChanger ImChInstance = new ImageChanger();
-    private ImageChanger (){}
-    public static ImageChanger getInstance(){
+public class ImageGetterAndChanger {
+    private static ImageGetterAndChanger ImChInstance = new ImageGetterAndChanger();
+    private ImageGetterAndChanger(){}
+    public static ImageGetterAndChanger getInstance(){
         return ImChInstance;
     }
     public BufferedImage getImage(String fileName){
@@ -74,49 +75,27 @@ public class ImageChanger {
         if (tolerance < 0 || tolerance > 100) {
 
             System.err.println("The tolerance is a percentage, so the value has to be between 0 and 100.");
-
             temp = 0;
-
         } else {
-
             temp = tolerance * (0xFF000000 | 0xFF000000) / 100;
-
         }
-
         final int toleranceRGB = Math.abs(temp);
 
-
         final ImageFilter filter = new RGBImageFilter() {
-
-            // The color we are looking for (white)... Alpha bits are set to opaque
 
             public int markerRGBFrom = (color.getRGB() | 0xFF000000) - toleranceRGB;
 
             public int markerRGBTo = (color.getRGB() | 0xFF000000) + toleranceRGB;
 
-
             public final int filterRGB(final int x, final int y, final int rgb) {
-
                 if ((rgb | 0xFF000000) >= markerRGBFrom && (rgb | 0xFF000000) <= markerRGBTo) {
-
-                    // Mark the alpha bits as zero - transparent
-
                     return 0x00FFFFFF & rgb;
-
                 } else {
-
-                    // Nothing to do
-
                     return rgb;
-
                 }
-
             }
-
         };
-
         final ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
-
         return Toolkit.getDefaultToolkit().createImage(ip);
     }
 }

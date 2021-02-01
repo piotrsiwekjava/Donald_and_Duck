@@ -1,6 +1,6 @@
 package object.factories;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.enumTypes.AmmoType;
 import object.enumTypes.WeaponsType;
 import settings.Sizes;
@@ -31,7 +31,7 @@ public class WeaponsFactory{
             }
         }
 
-        image = ImageChanger.getInstance().getTransImg(imagePath);
+        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
 
         switch (type){
             case FIST:

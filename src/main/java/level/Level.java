@@ -1,13 +1,12 @@
 package level;
 
 import object.BackGround;
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import object.factories.Building;
 import object.factories.BuildingsFactory;
 import object.factories.Street;
 import object.factories.StreetsFactory;
 import objectsController.ObjectsController;
-import settings.Sizes;
 
 import java.awt.image.BufferedImage;
 
@@ -36,7 +35,7 @@ public class Level {
         buildBuldings();
     }
     private void buildBack(){
-    BufferedImage image = ImageChanger.getInstance().getImage("level\\"+name+"back");
+    BufferedImage image = ImageGetterAndChanger.getInstance().getImage("level\\"+name+"back");
     this.background = new BackGround(image);
     }
     private void buildBuldings(){

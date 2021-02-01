@@ -87,29 +87,29 @@ public class Player extends Unit {
         super.attack();
     }
     private void loadWeaponSet(){
-        Weapon weapon = WeaponsFactory.create(
+        weaponSet.add(WeaponsFactory.create(
                 WeaponsType.PISTOL,
                 getPosition(),
-                120);
-        weaponSet.add(weapon);
+                120));
         weaponSet.add(getWeapon());
 
     }
-    public void changeWeapon(){
+    public void swiftWeapon(){
         if (weaponSet.size()>(whichWeapon+1))whichWeapon++;
         else whichWeapon=0;
+        changeWeapon();
+    }
+    public void swiftWeapon(int number){
+
+        if (number>=0 && number<weaponSet.size())
+            whichWeapon = number;
+        changeWeapon();
+    }
+    private void changeWeapon(){
+        this.getWeapon().shooting=false;
         setWeapon(weaponSet.get(whichWeapon));
         getBodyController().setWeapon(getWeapon());
         playerStatus.changeWeapon();
-        System.out.println("In Player : zmiana broni 1");
-    }
-    public void changeWeapon(int number){
-
-        if (number==0 && number<weaponSet.size())
-            whichWeapon = number;
-        setWeapon(weaponSet.get(whichWeapon));
-        getBodyController().setWeapon(getWeapon());
-        System.out.println("In Player : zmiana broni 2");
     }
 
     public int getEnergy() {
@@ -146,9 +146,16 @@ public class Player extends Unit {
     }
 
     public void mouseIsClick(){
-        attack();
+        int x = (int)(MouseInfo.getPointerInfo().getLocation().getX()-this.getPosition().getX());
+        int y = (int)(MouseInfo.getPointerInfo().getLocation().getY()-this.getPosition().getY());
+        if (Math.abs(x)>this.getSize()[0]*100 || Math.abs(y)>this.getSize()[1]*100)
+            attack();
     }
     public void mouseRealeas(){
         getWeapon().shooting=false;
+    }
+
+    public ArrayList<Weapon> getWeaponSet() {
+        return weaponSet;
     }
 }

@@ -28,7 +28,7 @@ public class Shoot_Runnable implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 this.weapon.fire();
                 Thread.sleep((long) weapon.getFireSpeed());
-                if (!weapon.shooting || weapon.getAllleftAmmo()==0) {
+                if (!weapon.shooting || weapon.getAllleftAmmo()<=0) {
                     break;
                 }
 

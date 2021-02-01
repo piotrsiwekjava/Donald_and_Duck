@@ -1,6 +1,6 @@
 package object.factories;
 
-import object.ImageChanger;
+import object.ImageGetterAndChanger;
 import settings.Sizes;
 
 import java.awt.*;
@@ -17,7 +17,7 @@ public class StreetsFactory {
         int j=1;
         for (int i=0;i<6;i++){
             if (i==4)j=1;
-            image = ImageChanger.getInstance().getImage(imagePath+(j++));
+            image = ImageGetterAndChanger.getInstance().getImage(imagePath+(j++));
             streets[i]= new Street(new Point(width,hight),image);
             width+=(Sizes.Screen_Width*0.25);
 
