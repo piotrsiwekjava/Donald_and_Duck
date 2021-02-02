@@ -64,7 +64,7 @@ class GamePanel extends JPanel {
         periodOfTime=0;
     }
     private void addTimer (){
-        this.myTimerDelay=100;
+        this.myTimerDelay=50;
         myTimer = new Timer(myTimerDelay,gameTimer);
         myTimer.start();
     }

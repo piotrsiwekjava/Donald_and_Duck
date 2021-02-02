@@ -57,13 +57,13 @@ public class AmmoFactory{
                 break;
             case GRENADE:
 
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot);
+                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot,100);
                 break;
             case KONSTYTUCJA:
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot);
+                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 300, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 100);
                 break;
             case PAPER:
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 200, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot);
+                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 200, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 50);
                 break;
             default:
                 throw new UnsupportedOperationException("No such type");

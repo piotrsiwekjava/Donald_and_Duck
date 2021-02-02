@@ -22,14 +22,12 @@ public class MouseGameListeners extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("CLICK");
         super.mouseClicked(e);
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("Press");
         super.mousePressed(e);
         if (e.getButton()==MouseEvent.BUTTON1) {
             player.mouseIsClick();
@@ -38,7 +36,6 @@ public class MouseGameListeners extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Released");
         super.mouseReleased(e);
         if (e.getButton()==MouseEvent.BUTTON1) player.mouseRealeas();
     }

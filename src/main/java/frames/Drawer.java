@@ -4,7 +4,7 @@ import level.Level;
 import object.BackGround;
 import object.ObjectGame;
 import object.ObjectImage;
-import object.Obstacle;
+import object.factories.Obstacle;
 import object.factories.*;
 import object.unit.Unit;
 import object.unit.player.Player;
@@ -13,8 +13,6 @@ import settings.Sizes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
 
 
 public class Drawer {
@@ -34,7 +32,9 @@ public class Drawer {
         drawObjects();
         draw_Bullets();
         playerStatus.loadStatus(g2d);
-//
+        g2d.setColor(Color.BLUE);
+        for (int i=0; i<Sizes.Screen_Width;i+=100)
+        g2d.fillRect(10+i, 500,10,10);
     }
     private void drawLevel(){
         BackGround back = level.getBackground();

@@ -49,7 +49,7 @@ public class Ammo extends ObjectImage {
     private boolean check_if_you_hit(){
         return !ObjectsController.getInstance().checkTrack(this.getPosition(),new double[]{nX,nY},true);
     }
-    private void getDamageObject (){
+    void getDamageObject (){
         ObjectGame o = ObjectsController.getInstance().whoBlocked(this.getPosition(),new double[]{nX,nY});
         if (o!=null && !o.equals(whoShoot)) {
             isBlocked = true;o.getDamage(this.damage);

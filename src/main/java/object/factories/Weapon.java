@@ -55,7 +55,7 @@ public class Weapon extends ObjectImage {
         }
     }
 
-    private synchronized void reload() throws InterruptedException {
+    protected synchronized void reload() throws InterruptedException {
         shooting=false;
            while(allleftAmmo>0 && leftAmmoinMagazin!=MaxAmmoInMagazin) {
                 leftAmmoinMagazin++;
@@ -80,8 +80,8 @@ public class Weapon extends ObjectImage {
         return leftAmmoinMagazin;
     }
 
-    public void setLeftAmmoinMagazin(int leftAmmoinMagazin) {
-        this.leftAmmoinMagazin = leftAmmoinMagazin;
+    public void setLeftAmmoinMagazin(int count) {
+        this.leftAmmoinMagazin += count;
     }
 
     public int getAllleftAmmo() {

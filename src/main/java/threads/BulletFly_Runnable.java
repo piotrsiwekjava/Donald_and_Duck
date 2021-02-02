@@ -3,6 +3,7 @@ package threads;
 import listeners.KeyGameListener;
 import object.factories.Ammo;
 import object.factories.AmmoGrenade;
+import object.factories.Grenade;
 import objectsController.ObjectsController;
 
 import java.awt.*;
@@ -25,15 +26,16 @@ public class BulletFly_Runnable implements Runnable {
         {
 
             while (!Thread.currentThread().isInterrupted()) {
-                System.out.println("BulletFly Runnable pos: " + this.ammo.getClass() + this.ammo.getPosition());
                 this.ammo.fly();
                 Thread.sleep(10);
                 int x = Toolkit.getDefaultToolkit().getScreenSize().width;
                 int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+
                 if (this.ammo.isBlocked || ammo.getPosition().getX() > (100 + x)
                         || ammo.getPosition().getX() < (100 - x)
                         || ammo.getPosition().getY() > (100 + y)
                         || ammo.getPosition().getY() < (100 - y)) {
+                    if (this.ammo instanceof AmmoGrenade) ((AmmoGrenade)ammo).makeExplosion();
                     removeAmmo();
                     break;
                 }

@@ -29,7 +29,7 @@ public class Walk_Look_Runnable implements Runnable {
                 this.unit.look();
                 Thread.sleep(30);
                 if (!unit.isAlive()) {
-                    ObjectsController.getInstance().removeOutObject(unit);
+                    ObjectsController.getInstance().removeThisObject(unit);
                     Thread.sleep(1000);
                     unit = null;
                     break;

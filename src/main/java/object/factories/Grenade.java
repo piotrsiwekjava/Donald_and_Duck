@@ -17,24 +17,24 @@ public class Grenade extends Weapon{
     }
     private void letsgo(){
         Point target = new Point(getUnit().getLookTarget().getPosition());
-//        if (getLeftAmmoinMagazin() == 0) {
-//            try {
-////                this.reload();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        else if(getLeftAmmoinMagazin()>0) {
-//            getLeftAmmoinMagazin()-= 1;
+        if (getLeftAmmoinMagazin() == 0) {
+            try {
+                this.reload();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(getLeftAmmoinMagazin()>0) {
+            setLeftAmmoinMagazin(-1);
             ObjectsController.getInstance().addBullet(
                     AmmoFactory.create(getAmmo_type(), getBarrelTip(), target, getUnit().getSide(),getUnit())
             );
-//        }
+      }
     }
 
     @Override
     public synchronized void fire() {
-        if (longPress<10)this.longPress++;
+        if (longPress<=3)this.longPress++;
         System.out.println("Grenades: long press " +longPress);
     }
 

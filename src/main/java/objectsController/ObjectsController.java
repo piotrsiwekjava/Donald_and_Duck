@@ -2,13 +2,13 @@ package objectsController;
 
 import level.Level;
 import listeners.KeyGameListener;
-import object.Obstacle;
+import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
 import object.unit.Unit;
-import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
 import threads.BulletFly_Runnable;
+import threads.Explosion_Runnable;
 import threads.Walk_Look_Runnable;
 
 import java.awt.*;
@@ -68,9 +68,11 @@ public class ObjectsController {
         this.objectGameSet.add(o);
         number_of_object++;
         showHowManyObjectsGame();
+        if (o.isEffect())
+            Explosion_Runnable.Explosion(o,String.valueOf(number_of_object));
     }
 
-    public void removeOutObject (ObjectGame o){
+    public void removeThisObject(ObjectGame o){
         objectGameSet.remove(o);
         number_of_object--;
     }
