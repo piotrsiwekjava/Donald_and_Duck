@@ -17,7 +17,9 @@ public class Sizes {
     public static double [] MISSILE = {SIZE*15,SIZE*60};
     public static double [] Pistol = {SIZE*50,SIZE*40};
     public static double [] AK = {SIZE*190,SIZE*100};
-    public static double [] Bazooka = {20,100};
+    public static double [] Bazooka = {200,100};
+    public static double [] Grenade = {SIZE*40,SIZE*40};
+    public static double [] Konstytucja = {SIZE*50,SIZE*40};
     public static int LEVELWidth = 5000;
     public static int LEVELHeight = (int)(Screen_Height*0.45);
     public static double[] STREETSSIZE = {Screen_Width*0.25,Screen_Height*0.8};

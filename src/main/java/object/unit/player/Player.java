@@ -35,12 +35,13 @@ public class Player extends Unit {
                 Sizes.Soldier_Size,
                 build_Body_Parts(),
                 1000,
-                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120)
+                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120,null)
 //                WeaponsFactory.create(
 //                        WeaponsType.PISTOL,
 //                        build_Player_Position(),
 //                        120)
                 );
+        getWeapon().setUnit(this);
         energy = 100;
         weaponSet= new ArrayList<Weapon>();
         loadWeaponSet();
@@ -64,7 +65,7 @@ public class Player extends Unit {
                 Toolkit.getDefaultToolkit().getScreenSize().height/2);
     }
     private static BodyPart[] build_Body_Parts(){
-        return BodyFactory.getInstance().Create_Body(RankType.DONALD, build_Player_Position());
+        return BodyFactory.getInstance().Create_Body(RankType.JARO, build_Player_Position());
     }
 
     public PlayerStatus getPlayerStatus() {
@@ -87,11 +88,14 @@ public class Player extends Unit {
         super.attack();
     }
     private void loadWeaponSet(){
-        weaponSet.add(WeaponsFactory.create(
+        Weapon weapon = WeaponsFactory.create(
                 WeaponsType.PISTOL,
                 getPosition(),
-                120));
+                120,this);
+        weaponSet.add(weapon);
         weaponSet.add(getWeapon());
+        weapon = WeaponsFactory.create(WeaponsType.GRENADE,getPosition(),5,this);
+        weaponSet.add(weapon);
 
     }
     public void swiftWeapon(){
@@ -100,7 +104,6 @@ public class Player extends Unit {
         changeWeapon();
     }
     public void swiftWeapon(int number){
-
         if (number>=0 && number<weaponSet.size())
             whichWeapon = number;
         changeWeapon();
@@ -152,7 +155,7 @@ public class Player extends Unit {
             attack();
     }
     public void mouseRealeas(){
-        getWeapon().shooting=false;
+        getWeapon().triggerRelease();
     }
 
     public ArrayList<Weapon> getWeaponSet() {

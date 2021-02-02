@@ -6,6 +6,7 @@ import object.enumTypes.WeaponsType;
 import object.factories.BodyPart;
 import object.factories.Weapon;
 import object.unit.WeaponsLocate.Ak47Locate;
+import object.unit.WeaponsLocate.GrenadeLocate;
 import object.unit.WeaponsLocate.PistolLocate;
 import object.unit.WeaponsLocate.WeaponLocate;
 import object.unit.player.Player;
@@ -181,24 +182,14 @@ public class BodyController {
     }
 
     private void rotatePart(BodyPart bodyPart, double angle, int limit){
-        if (bodyParts[2].getAngle() >= limit || bodyParts[2].getAngle() <= -limit/2)
-            bodyPart.setCourseMove();
         angle *= bodyPart.getCourseMove();
         bodyPart.setAngle(bodyPart.getAngle()+angle);
         changePointsBodyWhenTorsoRotate();
     }
-    private void setAnglePart(BodyPart bodyPart,double angle){
-        if (weaponLocate.angleChanged()) {
-            if (bodyPart.equals(bodyParts[4]))
-                bodyPart.setAngle(angle+angle_start_for_arms_weapon[0]);
-            else if (bodyPart.equals(bodyParts[5]))
-                bodyPart.setAngle(angle+angle_start_for_arms_weapon[1]);
-                weapon.setAngle(angle+angle_start_for_arms_weapon[2]);
-        }
-        else {
-            if (bodyPart.equals(bodyParts[5])) weapon.setAngle(angle);
-            bodyPart.setAngle(angle);
-        }
+    private void setAnglePart(BodyPart bodyPart,double angle) {
+        if (bodyPart.equals(bodyParts[5]))
+            weapon.setAngle(angle);
+        bodyPart.setAngle(angle);
         changePointsBodyWhenTorsoRotate();
     }
 
@@ -266,6 +257,8 @@ public class BodyController {
     private void setWeaponLocate(){
         if (weapon.getWeapontype()== WeaponsType.AK_47) weaponLocate = new Ak47Locate();
         else if (weapon.getWeapontype()== WeaponsType.PISTOL) weaponLocate = new PistolLocate();
+        else if (weapon.getWeapontype()== WeaponsType.GRENADE) weaponLocate = new GrenadeLocate();
+        else if (weapon.getWeapontype()== WeaponsType.KONSTYTUCJA) weaponLocate = new GrenadeLocate();
         this.angle_start_for_arms_weapon = weaponLocate.setAngleForStart();
     }
 }

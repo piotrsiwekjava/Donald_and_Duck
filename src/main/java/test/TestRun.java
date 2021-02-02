@@ -27,6 +27,6 @@ public class TestRun {
         Player player = new Player();
         ObjectsController objCon = ObjectsController.getInstance();
         objCon.setPlayer(player);
-        player.attack();
+//        player.attack();
     }
 }

@@ -26,7 +26,7 @@ public class Weapon extends ObjectImage {
 
 
     public Weapon(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
-                  int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed) {
+                  int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit) {
         super(position, size, image);
         this.type=type;
         this.ammo_type = ammo_type;
@@ -35,6 +35,7 @@ public class Weapon extends ObjectImage {
         this.reloadSpeed = reloadSpeed;
         this.fireSpeed=fireSpeed;
         this.barrelTip=position;
+        this.unit = unit;
     }
 
     public synchronized void fire() {
@@ -62,6 +63,13 @@ public class Weapon extends ObjectImage {
             }
             wait((long) reloadSpeed);
             shooting = true;
+    }
+    public void triggerPull(){
+        shooting = true;
+        fire();
+    }
+    public void triggerRelease (){
+        shooting = false;
     }
 
     public AmmoType getAmmo_type() {
@@ -115,4 +123,6 @@ public class Weapon extends ObjectImage {
     public WeaponsType getWeapontype() {
         return type;
     }
+
+
 }

@@ -25,6 +25,7 @@ public class BulletFly_Runnable implements Runnable {
 
             while (!Thread.currentThread().isInterrupted())
             {
+                System.out.println("BulletFly Runnable pos: "+ this.ammo.getClass()+ this.ammo.getPosition());
                 this.ammo.fly();
                 Thread.sleep(10);
                 int x = Toolkit.getDefaultToolkit().getScreenSize().width;
