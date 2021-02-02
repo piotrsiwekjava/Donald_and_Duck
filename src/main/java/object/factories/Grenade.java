@@ -34,8 +34,8 @@ public class Grenade extends Weapon{
 
     @Override
     public synchronized void fire() {
-        if (longPress<100)this.longPress+=75;
-        System.out.println(longPress);
+        if (longPress<10)this.longPress++;
+        System.out.println("Grenades: long press " +longPress);
     }
 
 //    @Override

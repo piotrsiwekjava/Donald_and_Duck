@@ -56,6 +56,7 @@ public class AmmoFactory{
                 ammo = new Ammo(new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
                 break;
             case GRENADE:
+
                 ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot);
                 break;
             case KONSTYTUCJA:
@@ -68,7 +69,11 @@ public class AmmoFactory{
                 throw new UnsupportedOperationException("No such type");
 
         }
-
+        if (ammo instanceof AmmoGrenade) {
+            Weapon w = whoShoot.getWeapon();
+            int lp = ((Grenade)w).getLongPress();
+            ((AmmoGrenade) ammo).setDistanceBegin(lp);
+        }
         return ammo;
     }
 }

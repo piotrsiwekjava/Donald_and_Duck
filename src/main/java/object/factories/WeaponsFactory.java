@@ -31,7 +31,7 @@ public class WeaponsFactory{
                 break;
             }
             case GRENADE: {
-                imagePath = "weapons\\grenade";
+                imagePath = "weapons\\grenadeweap";
                 break;
             }
             case KONSTYTUCJA: {

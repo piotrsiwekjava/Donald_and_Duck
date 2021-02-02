@@ -79,6 +79,8 @@ public class PlayerStatus {
         else if (type==WeaponsType.AK_47) path="ak47";
         else if (type==WeaponsType.BAZOOKA) path="bazooka";
         else if (type==WeaponsType.FIST) path="fist";
+        else if (type==WeaponsType.GRENADE) path="grenade";
+        else if (type==WeaponsType.KONSTYTUCJA) path="konstytucja";
         this.weaponIm = ImageGetterAndChanger.getInstance().getTransImg(
                 "\\weapons\\"+path+"all");
     }

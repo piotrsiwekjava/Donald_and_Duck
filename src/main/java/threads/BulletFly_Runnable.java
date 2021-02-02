@@ -2,6 +2,7 @@ package threads;
 
 import listeners.KeyGameListener;
 import object.factories.Ammo;
+import object.factories.AmmoGrenade;
 import objectsController.ObjectsController;
 
 import java.awt.*;
@@ -23,19 +24,21 @@ public class BulletFly_Runnable implements Runnable {
         try
         {
 
-            while (!Thread.currentThread().isInterrupted())
-            {
-                System.out.println("BulletFly Runnable pos: "+ this.ammo.getClass()+ this.ammo.getPosition());
+            while (!Thread.currentThread().isInterrupted()) {
+                System.out.println("BulletFly Runnable pos: " + this.ammo.getClass() + this.ammo.getPosition());
                 this.ammo.fly();
                 Thread.sleep(10);
                 int x = Toolkit.getDefaultToolkit().getScreenSize().width;
                 int y = Toolkit.getDefaultToolkit().getScreenSize().height;
-                if (this.ammo.isBlocked || ammo.getPosition().getX()>(100+x)
-                    || ammo.getPosition().getX()<(100-x)
-                    || ammo.getPosition().getY()>(100+y)
-                    || ammo.getPosition().getY()<(100-y)) {
-                    ObjectsController.getInstance().removeBullet(ammo);
-                    KeyGameListener.getInstance().unregisterObjectG(ammo);
+                if (this.ammo.isBlocked || ammo.getPosition().getX() > (100 + x)
+                        || ammo.getPosition().getX() < (100 - x)
+                        || ammo.getPosition().getY() > (100 + y)
+                        || ammo.getPosition().getY() < (100 - y)) {
+                    removeAmmo();
+                    break;
+                }
+                if (ammo instanceof AmmoGrenade && ((AmmoGrenade) ammo).isExploded()) {
+                    removeAmmo();
                     break;
                 }
 
@@ -45,5 +48,9 @@ public class BulletFly_Runnable implements Runnable {
         {
             System.out.println(ex.getMessage());
         }
+    }
+    private void removeAmmo(){
+        ObjectsController.getInstance().removeBullet(ammo);
+        KeyGameListener.getInstance().unregisterObjectG(ammo);
     }
 }

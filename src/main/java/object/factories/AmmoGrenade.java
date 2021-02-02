@@ -7,36 +7,51 @@ import java.awt.image.BufferedImage;
 
 public class AmmoGrenade extends Ammo {
 
-    private int longPress;
     private int distanceBegin;
     private int distanceLeft;
-    private double additionHigh;
+    private boolean exploded;
+    private Point target;
     public AmmoGrenade(Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot) {
         super(position, size, image, damage, target, speed, whoShoot);
-        Grenade grenade = (Grenade)whoShoot.getWeapon();
-        this.longPress = grenade.getLongPress();
-        this.distanceBegin = longPress*750;
-        this.distanceLeft = this.distanceBegin;
-        this.setSpeed(longPress/10);
-        this.additionHigh=0;
-        System.out.println("Ammo Granade: "+ longPress);
+        this.target = target;
+        this.exploded = false;
+    }
+
+    public void setDistanceBegin(int distance) {
+        this.distanceBegin = distance*100;
+        this.distanceLeft = distanceBegin;
+        this.setSpeed(distanceBegin/50);
+        this.setFly(this.target, this.getSpeed());
     }
 
     @Override
     public void fly() {
+        System.out.println("speed "+getSpeed());
+        this.distanceLeft-=getSpeed();
+        System.out.println("Ammo grenades: distance left " + distanceLeft);
+        System.out.println("Ammo grenades: distance begin " + distanceBegin);
         if (distanceLeft >0) {
-            super.fly();
             setPositionY();
-            setnY(this.getnY()+this.additionHigh);
-            this.distanceLeft-=getSpeed();
+
+            super.fly();
         }
+        else makeExplosion();
 
     }
 
-    public void setPositionY(){
-        if (distanceLeft>=(distanceBegin/2))
-            this.additionHigh++;
-        else this.additionHigh--;
-        if (additionHigh<0) additionHigh=0;
+    private void setPositionY(){
+        if (distanceLeft>distanceBegin/2)
+            setnY(this.getnY()-1);
+        else {
+            setnY(this.getnY() + 2);
+        }
     }
+    public void makeExplosion (){
+        exploded = true;
+    }
+
+    public boolean isExploded() {
+        return exploded;
+    }
+
 }

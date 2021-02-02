@@ -30,7 +30,7 @@ public class Ammo extends ObjectImage {
     public void setXY(double ix, double iy) {
         super.setXY(ix, iy);
     }
-    private void setFly(Point target, double speed){
+    void setFly(Point target, double speed){
         double dX=(target.getX()-getPosition().getX());
         double dY=(target.getY()-getPosition().getY());
         double dC=(Math.sqrt(Math.pow(dX,2)+Math.pow(dY,2)));
@@ -74,6 +74,10 @@ public class Ammo extends ObjectImage {
 
     public int getAmmoDamage() {
         return damage;
+    }
+
+    public Unit getWhoShoot() {
+        return whoShoot;
     }
 }
 
