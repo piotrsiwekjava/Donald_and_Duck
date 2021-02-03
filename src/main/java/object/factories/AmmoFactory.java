@@ -47,23 +47,23 @@ public class AmmoFactory{
 
         switch (type) {
             case A5MM:
-                ammo = new Ammo(new Point(barrelTip), Sizes.A5MM, image, 10, target, (int) Sizes.RUN_Speed, whoShoot);
+                ammo = new Ammo(type, new Point(barrelTip), Sizes.A5MM, image, 10, target, (int) Sizes.RUN_Speed, whoShoot);
                 break;
             case A7MM:
-                ammo = new Ammo(new Point(barrelTip), Sizes.A7MM, image, 15, target, (int) (Sizes.RUN_Speed * 1.5), whoShoot);
+                ammo = new Ammo(type, new Point(barrelTip), Sizes.A7MM, image, 15, target, (int) (Sizes.RUN_Speed * 1.5), whoShoot);
                 break;
             case MISSILE:
-                ammo = new Ammo(new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
+                ammo = new Ammo(type, new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
                 break;
             case GRENADE:
 
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot,100);
+                ammo = new AmmoGrenade(type, new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot,100,false);
                 break;
             case KONSTYTUCJA:
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 300, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 100);
+                ammo = new AmmoGrenade(type, new Point(barrelTip), Sizes.Konstytucja, image, 300, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 100, true);
                 break;
             case PAPER:
-                ammo = new AmmoGrenade(new Point(barrelTip), Sizes.Konstytucja, image, 200, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 50);
+                ammo = new AmmoGrenade(type, new Point(barrelTip), Sizes.Konstytucja, image, 200, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 50,false);
                 break;
             default:
                 throw new UnsupportedOperationException("No such type");
@@ -72,7 +72,9 @@ public class AmmoFactory{
         if (ammo instanceof AmmoGrenade) {
             Weapon w = whoShoot.getWeapon();
             int lp = ((Grenade)w).getLongPress();
-            ((AmmoGrenade) ammo).setDistanceBegin(lp);
+            if (type.equals(AmmoType.PAPER))((AmmoGrenade) ammo).setDistanceBegin(0.75);
+                else ((AmmoGrenade) ammo).setDistanceBegin(lp);
+
         }
         return ammo;
     }

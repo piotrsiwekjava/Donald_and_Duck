@@ -1,12 +1,15 @@
 package object.factories;
 
 import object.ObjectGame;
+import object.enumTypes.AmmoType;
 import object.enumTypes.ObstacleType;
+import object.unit.Move_Look_Target;
 import object.unit.Unit;
 import objectsController.ObjectsController;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class AmmoGrenade extends Ammo {
 
@@ -15,11 +18,13 @@ public class AmmoGrenade extends Ammo {
     private boolean exploded;
     private Point target;
     private int sizeField_of_fire;
-    public AmmoGrenade(Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot, int sizeField_of_fire ) {
-        super(position, size, image, damage, target, speed, whoShoot);
+    private boolean clusterbomb;
+    public AmmoGrenade(AmmoType type, Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot, int sizeField_of_fire, boolean isClusterBomb ) {
+        super(type, position, size, image, damage, target, speed, whoShoot);
         this.target = target;
         this.exploded = false;
         this.sizeField_of_fire = sizeField_of_fire;
+        this.clusterbomb = isClusterBomb;
     }
 
     @Override
@@ -38,8 +43,8 @@ public class AmmoGrenade extends Ammo {
     void getDamageObject() {
     }
 
-    public void setDistanceBegin(int distance) {
-        this.distanceBegin = distance*300;
+    public void setDistanceBegin(double distance) {
+        this.distanceBegin = (int)(distance*200);
         this.distanceLeft = distanceBegin;
         this.setSpeed(distanceBegin/50);
         this.setFly(this.target, this.getSpeed());
@@ -58,6 +63,8 @@ public class AmmoGrenade extends Ammo {
         ObjectsController obj = ObjectsController.getInstance();
         obj.addObstacle(obstacle);
         makeDamage();
+        if (clusterbomb)
+            clusterBombExploded();
         exploded = true;
     }
 
@@ -80,5 +87,30 @@ public class AmmoGrenade extends Ammo {
         }
 
     }
-
+    private void clusterBombExploded(){
+        AmmoType ammoType=null;
+        if (getAmmoType()==AmmoType.KONSTYTUCJA) ammoType= AmmoType.PAPER;
+        int r = new Random().nextInt(4)+4;
+        for (int i =0; i<r; i++){
+            Point pTarget = randomPoint();
+            int side = (int) (pTarget.getX() - this.getPosition().getX());
+            if (side >0) side=1;
+            else side=-1;
+            ObjectsController.getInstance().addBullet(
+                    AmmoFactory.create(ammoType, this.getPosition(), pTarget, side,this.getWhoShoot())
+            );
+        }
+    }
+    private Point randomPoint(){
+        int wr = new Random().nextInt(500)-250;
+        int hr = new Random().nextInt(500)-250;
+        int wo = (int) this.getPosition().getX();
+        int ho = (int) this.getPosition().getY();
+        return new Point(wo-wr,ho-hr);
+    }
+    private AmmoType getAmmoType(){
+        Unit u = this.getWhoShoot();
+        Weapon w = u.getWeapon();
+     return w.getAmmo_type();
+    }
 }

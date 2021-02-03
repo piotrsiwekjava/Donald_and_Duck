@@ -4,7 +4,6 @@ import object.enumTypes.AmmoType;
 import object.enumTypes.WeaponsType;
 import object.unit.Unit;
 import objectsController.ObjectsController;
-import settings.Sizes;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +14,7 @@ public class Grenade extends Weapon{
         super(type, ammo_type, position, size, image, maxAmmoInMagazin, allleftAmmo, reloadSpeed, fireSpeed,unit);
         this.longPress=0;
     }
-    private void letsgo(){
+    private void throwGrenade(){
         Point target = new Point(getUnit().getLookTarget().getPosition());
         if (getLeftAmmoinMagazin() == 0) {
             try {
@@ -35,18 +34,12 @@ public class Grenade extends Weapon{
     @Override
     public synchronized void fire() {
         if (longPress<=3)this.longPress++;
-        System.out.println("Grenades: long press " +longPress);
     }
-
-//    @Override
-//    public void triggerPull() {
-//
-//    }
 
     @Override
     public void triggerRelease() {
         shooting=true;
-        letsgo();
+        throwGrenade();
         shooting=false;
         this.longPress=0;
     }

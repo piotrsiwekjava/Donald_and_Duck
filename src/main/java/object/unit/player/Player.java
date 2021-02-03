@@ -96,6 +96,8 @@ public class Player extends Unit {
         weaponSet.add(getWeapon());
         weapon = WeaponsFactory.create(WeaponsType.GRENADE,getPosition(),5,this);
         weaponSet.add(weapon);
+        weapon = WeaponsFactory.create(WeaponsType.KONSTYTUCJA,getPosition(),5,this);
+        weaponSet.add(weapon);
 
     }
     public void swiftWeapon(){

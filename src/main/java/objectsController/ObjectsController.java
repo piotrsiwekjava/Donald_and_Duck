@@ -9,7 +9,7 @@ import object.unit.Unit;
 import object.unit.player.Player;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
-import threads.Walk_Look_Runnable;
+import threads.Live_Walk_Look_Runnable;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -50,7 +50,7 @@ public class ObjectsController {
         number_of_object++;
         showHowManyObjectsGame();
         u.setMoveTarget(moveModule.randomPointMove());
-        Walk_Look_Runnable.walk(u, String.valueOf(number_of_object));
+        Live_Walk_Look_Runnable.walk(u, String.valueOf(number_of_object));
     }
 
     public synchronized void addBullet(Ammo ammo){

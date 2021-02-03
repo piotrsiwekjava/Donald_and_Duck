@@ -3,19 +3,19 @@ package threads;
 import object.unit.Unit;
 import objectsController.ObjectsController;
 
-public class Walk_Look_Runnable implements Runnable {
+public class Live_Walk_Look_Runnable implements Runnable {
 
     private Unit unit;
     public Thread thread;
 
-    public Walk_Look_Runnable(Unit unit, String str) {
+    public Live_Walk_Look_Runnable(Unit unit, String str) {
         this.thread = new Thread(this, str);
         this.unit = unit;
 
     }
 
-    public static Walk_Look_Runnable walk(Unit unit, String str) {
-        Walk_Look_Runnable wt = new Walk_Look_Runnable(unit, str);
+    public static Live_Walk_Look_Runnable walk(Unit unit, String str) {
+        Live_Walk_Look_Runnable wt = new Live_Walk_Look_Runnable(unit, str);
         wt.thread.start();
         return wt;
     }
@@ -27,7 +27,7 @@ public class Walk_Look_Runnable implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 this.unit.move();
                 this.unit.look();
-                Thread.sleep(30);
+                Thread.sleep(40);
                 if (!unit.isAlive()) {
                     ObjectsController.getInstance().removeThisObject(unit);
                     Thread.sleep(1000);

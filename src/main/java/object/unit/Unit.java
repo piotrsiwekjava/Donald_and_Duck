@@ -1,5 +1,6 @@
 package object.unit;
 
+import listeners.KeyGameListener;
 import object.factories.BodyPart;
 import object.ObjectGame;
 import object.factories.Weapon;
@@ -161,4 +162,25 @@ public class Unit extends ObjectGame {
     public double getOwnLegfast(){
         return this.ownLegfast;
     }
+
+//    public boolean removeThisUnit(){
+//        KeyGameListener keyListener = KeyGameListener.getInstance();
+//        try{
+//            for (BodyPart bp: bodyParts){
+//                keyListener.unregisterObjectG(bp);
+//                bp = null;
+//            }
+//            keyListener.unregisterObjectG(this.getWeapon());
+//            keyListener.unregisterObjectG(moveTarget);
+//            keyListener.unregisterObjectG(lookTarget);
+//            objectsController.removeThisObject(this);
+//
+//        }
+//        catch (Exception e){
+//            System.out.println("failure with deletion unit's parts");
+//            return false;
+//        }
+//
+//        return false;
+//    }
 }

@@ -2,6 +2,7 @@ package object.factories;
 
 import object.ObjectGame;
 import object.ObjectImage;
+import object.enumTypes.AmmoType;
 import object.unit.Unit;
 import objectsController.ObjectsController;
 
@@ -10,14 +11,16 @@ import java.awt.image.BufferedImage;
 
 public class Ammo extends ObjectImage {
     private Unit whoShoot;
+    private AmmoType type;
     private int damage;
     private double speed;
     private double nX;
     private double nY;
     public boolean isBlocked;
 
-    public Ammo(Point position, double[] size, BufferedImage image, int damage, Point target, double speed, Unit whoShoot) {
+    public Ammo(AmmoType type, Point position, double[] size, BufferedImage image, int damage, Point target, double speed, Unit whoShoot) {
         super(position, size, image);
+        this.type = type;
         this.damage = damage;
         this.speed = speed;
         this.whoShoot = whoShoot;
@@ -51,7 +54,7 @@ public class Ammo extends ObjectImage {
     }
     void getDamageObject (){
         ObjectGame o = ObjectsController.getInstance().whoBlocked(this.getPosition(),new double[]{nX,nY});
-        if (o!=null && !o.equals(whoShoot)) {
+        if ((o!=null && !o.equals(whoShoot)) || (o instanceof Obstacle && !(((Obstacle)o).isEffect()))) {
             isBlocked = true;o.getDamage(this.damage);
         }
     }
@@ -78,6 +81,10 @@ public class Ammo extends ObjectImage {
 
     public Unit getWhoShoot() {
         return whoShoot;
+    }
+
+    public AmmoType getType() {
+        return type;
     }
 }
 
