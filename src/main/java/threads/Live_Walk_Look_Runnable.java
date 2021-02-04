@@ -28,12 +28,12 @@ public class Live_Walk_Look_Runnable implements Runnable {
                 this.unit.move();
                 this.unit.look();
                 Thread.sleep(40);
-                if (!unit.isAlive()) {
-                    ObjectsController.getInstance().removeThisObject(unit);
-                    Thread.sleep(1000);
-                    unit = null;
-                    break;
-                }
+//                if (!unit.isAlive()) {
+//                    ObjectsController.getInstance().removeThisObject(unit);
+//                    Thread.sleep(1000);
+//                    unit = null;
+//                    break;
+//                }
 
 
             }

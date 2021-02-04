@@ -166,13 +166,13 @@ public class BodyController {
         return angle;
     }
 
-    private void rotateAllBody(double angle){
+    public void rotateAllBody(double angle){
         rotateBody(angle);
         for (int i=1;i<6;i++)
             bodyParts[i].setAngle(angle);
         weapon.setAngle(angle);
     }
-    private void rotateBody(double angle ){
+    public void rotateBody(double angle ){
         bodyParts[0].setAngle(bodyParts[0].getAngle() + angle);
         changePointsBodyWhenTorsoRotate();
     }

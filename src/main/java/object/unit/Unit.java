@@ -8,6 +8,7 @@ import object.unit.behavior.enemy.attack.AttackInerfejs;
 import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.LookingInterfejs;
+import object.unit.behavior.enemy.move.Death;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
 import objectsController.ObjectsController;
@@ -63,22 +64,28 @@ public class Unit extends ObjectGame {
     }
 
     public void changeHp(int value) {
-        this.hp+= value;
-        if(hp<=0) alive=false;
+        if (alive) {
+            this.hp += value;
+            if (hp <= 0) moveInterfejs = new Death();
+        }
     }
     public void attack(){
         this.weapon.shooting=true;
         attackInerfejs.attack(weapon);
     }
     public void stopAtck(){this.weapon.shooting =false;}
+
     public void move() {
         moveInterfejs.move(this);
     }
+
     public void look(){
         lookingInterfejs.look(this);
     }
 
-
+    private void death(){
+        alive=false;
+    }
 
     public void setMoveInterfejs(MoveInterfejs moveIn){
         this.moveInterfejs =moveIn;
