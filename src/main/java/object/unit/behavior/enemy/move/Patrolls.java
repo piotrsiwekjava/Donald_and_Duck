@@ -25,9 +25,9 @@ public class Patrolls implements MoveInterfejs {
             for (ObjectImage o : unit.getBodyParts()) {
                 o.setXY(dXY[0], dXY[1]);
             }
-            unit.setPosition(unit.getBodyParts()[0].getPosition());
             unit.getWeapon().setXY(dXY[0], dXY[1]);
             unit.getBodyController().moveBody(unit.getOwnLegfast());
+            unit.setPosition(unit.getBodyParts()[0].getPosition());
 
         }
         else {

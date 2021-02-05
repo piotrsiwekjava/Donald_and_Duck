@@ -176,7 +176,8 @@ public class BodyController {
         bodyParts[0].setAngle(bodyParts[0].getAngle() + angle);
         changePointsBodyWhenTorsoRotate();
     }
-    private void rotatePart(ObjectImage objectImage, double angle){
+
+    public void rotatePart(ObjectImage objectImage, double angle){
         objectImage.setAngle(objectImage.getAngle()+angle);
         changePointsBodyWhenTorsoRotate();
     }
