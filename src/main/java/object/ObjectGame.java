@@ -60,5 +60,5 @@ public abstract class ObjectGame {
         this.position.setLocation(x+ix,y+iy);
         this.posOnLevel.setLocation(x+ix,y+iy);
     }
-    public void getDamage(int count){}
+    public void getDamage(int count, Point dmgPoint){}
 }

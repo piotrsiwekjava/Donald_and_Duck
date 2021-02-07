@@ -55,20 +55,21 @@ public class BodyController {
         bodyParts[5].setSize(new double[]{size[0] / 1.5, size[1] / 1.5});
     }
     private void resetPosition(){
-        resetAngle();
-        if (!isPlayer) {
-            for (BodyPart bp : bodyParts) {
-                bp.getPosition().setLocation(new Point(bodyParts[0].getPosition()));
-                bp.getJoinToRotate().setLocation(new Point(bodyParts[0].getPosition()));
+        if (unit.isAlive()) {
+            resetAngle();
+            if (!isPlayer) {
+                for (BodyPart bp : bodyParts) {
+                    bp.getPosition().setLocation(new Point(bodyParts[0].getPosition()));
+                    bp.getJoinToRotate().setLocation(new Point(bodyParts[0].getPosition()));
+                }
+                weapon.getPosition().setLocation(new Point(bodyParts[0].getPosition()));
+            } else if (isPlayer) {
+                for (BodyPart bp : bodyParts) {
+                    bp.getPosition().setLocation(bodyParts[0].getPosition());
+                    bp.getJoinToRotate().setLocation(bodyParts[0].getPosition());
+                }
+                weapon.getPosition().setLocation(bodyParts[0].getPosition());
             }
-            weapon.getPosition().setLocation(new Point(bodyParts[0].getPosition()));
-        }
-        else if(isPlayer){
-            for (BodyPart bp : bodyParts) {
-                bp.getPosition().setLocation(bodyParts[0].getPosition());
-                bp.getJoinToRotate().setLocation(bodyParts[0].getPosition());
-            }
-            weapon.getPosition().setLocation(bodyParts[0].getPosition());
         }
     }
     private void resetAngle(){
@@ -194,7 +195,7 @@ public class BodyController {
         changePointsBodyWhenTorsoRotate();
     }
 
-    private void changePointsBodyWhenTorsoRotate() {
+    public void changePointsBodyWhenTorsoRotate() {
         for (BodyPart bp : bodyParts) {
             bp.changePoints(changePointWhenTorsoRotate(
                     bp.getOdds_center_of_rotation()));

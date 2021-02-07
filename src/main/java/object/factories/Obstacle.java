@@ -11,6 +11,7 @@ public class Obstacle extends ObjectImage {
     private boolean unbreakable;
     private boolean effect;
     private String imagePath;
+    private Point damagePoint;
     public Obstacle(Point position, double[] size, BufferedImage image, int hp, boolean unbreakable, boolean iseffect, String imagePath) {
         super(position, size, image);
         this.hp = hp;
@@ -20,8 +21,9 @@ public class Obstacle extends ObjectImage {
     }
 
     @Override
-    public void getDamage(int count) {
+    public void getDamage(int count, Point dmgPoint) {
         if(!unbreakable)
+            this.damagePoint = dmgPoint;
             this.hp-=count;
     }
 
@@ -31,5 +33,9 @@ public class Obstacle extends ObjectImage {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    public Point getDamagePoint() {
+        return damagePoint;
     }
 }

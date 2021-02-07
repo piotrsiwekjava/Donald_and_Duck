@@ -8,6 +8,7 @@ import object.unit.behavior.enemy.attack.AttackInerfejs;
 import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.LookingInterfejs;
+import object.unit.behavior.enemy.looking.Stare;
 import object.unit.behavior.enemy.move.Death;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
@@ -35,6 +36,7 @@ public class Unit extends ObjectGame {
     private int side;
     private int course;
     private double ownLegfast;
+    private Point damagePoint;
 
     public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon) {
         super(position, size);
@@ -66,7 +68,7 @@ public class Unit extends ObjectGame {
     public void changeHp(int value) {
         if (alive) {
             this.hp += value;
-            if (hp <= 0) moveInterfejs = new Death();
+            if (hp <= 0) death();
         }
     }
     public void attack(){
@@ -84,7 +86,9 @@ public class Unit extends ObjectGame {
     }
 
     private void death(){
-        alive=false;
+        if (moveInterfejs instanceof Death)
+            lookingInterfejs = new Stare();
+            moveInterfejs = new Death();
     }
 
     public void setMoveInterfejs(MoveInterfejs moveIn){
@@ -146,7 +150,8 @@ public class Unit extends ObjectGame {
     }
 
     @Override
-    public void getDamage(int count) {
+    public void getDamage(int count, Point dmgPoint) {
+        this.damagePoint = dmgPoint;
         this.changeHp(-count);
     }
 
@@ -170,7 +175,11 @@ public class Unit extends ObjectGame {
         return this.ownLegfast;
     }
 
-//    public boolean removeThisUnit(){
+    public Point getDamagePoint() {
+        return damagePoint;
+    }
+
+    //    public boolean removeThisUnit(){
 //        KeyGameListener keyListener = KeyGameListener.getInstance();
 //        try{
 //            for (BodyPart bp: bodyParts){

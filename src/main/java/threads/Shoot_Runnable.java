@@ -24,7 +24,6 @@ public class Shoot_Runnable implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("shoot runable: "+weapon.getWeapontype());
             while (!Thread.currentThread().isInterrupted()) {
                 this.weapon.triggerPull();
                 Thread.sleep((long) weapon.getFireSpeed());
