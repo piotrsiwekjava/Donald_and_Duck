@@ -88,7 +88,7 @@ public class Unit extends ObjectGame {
     private void death(){
         if (moveInterfejs instanceof Death)
             lookingInterfejs = new Stare();
-            moveInterfejs = new Death();
+            moveInterfejs = new Death(this);
     }
 
     public void setMoveInterfejs(MoveInterfejs moveIn){
