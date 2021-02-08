@@ -68,7 +68,7 @@ public class Unit extends ObjectGame {
     public void changeHp(int value) {
         if (alive) {
             this.hp += value;
-            if (hp <= 0) death();
+            if (hp <= 0) death(Math.abs(value));
         }
     }
     public void attack(){
@@ -85,10 +85,10 @@ public class Unit extends ObjectGame {
         lookingInterfejs.look(this);
     }
 
-    private void death(){
+    private void death(int ammoStrenght){
         if (moveInterfejs instanceof Death)
             lookingInterfejs = new Stare();
-            moveInterfejs = new Death(this);
+            moveInterfejs = new Death(this, ammoStrenght);
     }
 
     public void setMoveInterfejs(MoveInterfejs moveIn){

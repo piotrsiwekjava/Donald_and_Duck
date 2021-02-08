@@ -81,7 +81,7 @@ public class AmmoGrenade extends Ammo {
                 double y = og.getPosition().getX();
                 double yown = this.getPosition().getX();
                 if (y>(yown-sizeField_of_fire)&& y<(yown+sizeField_of_fire)) {
-                    og.getDamage(this.getAmmoDamage(),this.getPosition());
+                    og.getDamage(this.getAmmoDamage(),new Point(this.getPosition()));
                 }
             }
         }
