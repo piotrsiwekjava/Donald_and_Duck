@@ -6,6 +6,11 @@ import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
 import object.unit.Unit;
+import object.unit.behavior.enemy.attack.Attack;
+import object.unit.behavior.enemy.attack.NoAttack;
+import object.unit.behavior.enemy.looking.LookingEnemy;
+import object.unit.behavior.enemy.looking.LookingPlayer;
+import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
@@ -23,7 +28,9 @@ public class ObjectsController {
     private EnemiesGeneratorModule enemiesGeneratorModule = new EnemiesGeneratorModule();
     private Player player;
     private Level level;
+    private int howManyEnemyNow;
     private boolean canPlay = false;
+    private boolean enemySeePlayer = false;
 
     private static ObjectsController objectsController= new ObjectsController();
 
@@ -51,6 +58,7 @@ public class ObjectsController {
         showHowManyObjectsGame();
         u.setMoveTarget(moveModule.randomPointMove());
         Live_Walk_Look_Runnable.walk(u, String.valueOf(number_of_object));
+        howManyEnemyNow++;
     }
 
     public synchronized void addBullet(Ammo ammo){
@@ -75,6 +83,8 @@ public class ObjectsController {
     public void removeThisObject(ObjectGame o){
         objectGameSet.remove(o);
         number_of_object--;
+        if(o instanceof Unit) howManyEnemyNow--;
+        if (howManyEnemyNow==0) setEnemySeePlayer(false);
     }
 
     public Set<Ammo> getBulletSet() {
@@ -117,5 +127,24 @@ public class ObjectsController {
 
     private void showHowManyObjectsGame(){
         System.out.println("Objects in game: " + number_of_object);
+    }
+
+    public void setEnemySeePlayer(boolean enemySeePlayer) {
+        this.enemySeePlayer = enemySeePlayer;
+        if (enemySeePlayer) {
+            for (ObjectGame og: objectGameSet){
+                if (og instanceof Unit && !(og instanceof Player)){
+                    ((Unit)og).setLookingInterfejs(new Stare());
+                    ((Unit)og).setLookTarget(player.getPosition());
+                    ((Unit)og).setAttackInerfejs(new Attack());
+                }
+            }
+        }
+        else for (ObjectGame og: objectGameSet){
+            if (og instanceof Unit && !(og instanceof Player)){
+                ((Unit)og).setLookingInterfejs(new LookingEnemy());
+                ((Unit)og).setAttackInerfejs(new NoAttack());
+            }
+        }
     }
 }

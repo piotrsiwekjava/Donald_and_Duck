@@ -33,7 +33,6 @@ public class Death implements MoveInterfejs {
         unit.alive = false;
         if (angle < maxAngle) {
             BodyController bc = unit.getBodyController();
-            System.out.println(recoil[0]+"//"+recoil[1]);
             makeUnitRecoilOneStep();
             bc.rotatePart(unit.getBodyParts()[0],increment);
             for (int i = 1; i<6;i++) {
@@ -59,7 +58,6 @@ public class Death implements MoveInterfejs {
         if ((ydp - yo - y0size)>increment) increment*=(-1);
     }
     private void setRecoilCourse(int ammoStrenght){
-        System.out.println(ammoStrenght);
         Point punit = unit.getPosition();
         Point pammo = unit.getDamagePoint();
         double dX=(punit.getX()-pammo.getX());
@@ -73,13 +71,15 @@ public class Death implements MoveInterfejs {
     }
     private double getRecoilOneStep(){
         double heigth = 0;
-        if (angle>maxAngle*0.5) {
-            this.recoil[0] = this.recoil[1] + this.recoil[1];
+        if (this.recoil[1]<0) {
+            if (angle < maxAngle * 0.5) {
+                heigth += this.recoil[1];
+            } else {
+                heigth -= (this.recoil[1]);
+            }
         }
-        else {
-            this.recoil[0] = this.recoil[1] - this.recoil[1];
-        }
-        heigth = this.recoil[0]+falling;
+        else heigth +=recoil[1];
+        heigth += falling;
         return heigth;
     }
 }
