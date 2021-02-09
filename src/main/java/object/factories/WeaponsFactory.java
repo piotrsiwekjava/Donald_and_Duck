@@ -44,17 +44,17 @@ public class WeaponsFactory{
 
         switch (type){
             case FIST:
-                return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, null, Integer.MAX_VALUE, Integer.MAX_VALUE,2500,1000,unit);
+                return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, null, Integer.MAX_VALUE, Integer.MAX_VALUE,2500,1000,unit, false);
             case PISTOL:
-                return new Weapon(type,AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,10000,1000,unit);
+                return new Weapon(type,AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,10000,1000,unit, false);
             case AK_47:
-                return new Weapon(type,AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,10000,400,unit);
+                return new Weapon(type,AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,10000,400,unit, false);
             case BAZOOKA:
-                return new Weapon(type,AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000,unit);
+                return new Weapon(type,AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000,unit, false);
             case GRENADE:
-                return new Grenade(type, AmmoType.GRENADE, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit);
+                return new Grenade(type, AmmoType.GRENADE, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit, false);
             case KONSTYTUCJA:
-                return new Grenade(type, AmmoType.KONSTYTUCJA, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit);
+                return new Grenade(type, AmmoType.KONSTYTUCJA, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit, true);
             default:
                 throw new UnsupportedOperationException("No such type");
         }

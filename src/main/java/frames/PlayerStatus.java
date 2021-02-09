@@ -14,6 +14,7 @@ public class PlayerStatus {
     private BufferedImage headIm;
     private BufferedImage weaponIm;
     private Font stringFont;
+    private int blueBeltFlashes;
 
     public PlayerStatus(Player player){
         this.player = player;
@@ -21,6 +22,7 @@ public class PlayerStatus {
         this.headIm = player.getBodyParts()[1].getImage();
         setWeaponImage();
         setFont();
+        blueBeltFlashes=0;
     }
     void loadStatus(Graphics2D g2d){
         loadImages(g2d);
@@ -63,10 +65,18 @@ public class PlayerStatus {
         }
     }
     private void blueBelt(Graphics2D g2d){
+        int esa = player.getEnergySuperAttack();
+        if (esa>=100 && blueBeltFlashes<4) {
+            g2d.setColor(Color.YELLOW);
+            g2d.fillRect(497,97,1016,26);
+
+        }
         g2d.setColor(Color.BLUE);
-        for (int i=0, k=0; i<player.getEnergySuperAttack();i+=2,k+=20) {
+        for (int i=0, k=0; i<esa;i+=2,k+=20) {
             g2d.fillRect(k+500, 100, 30, 20);
         }
+        blueBeltFlashes++;
+        if (blueBeltFlashes ==6)blueBeltFlashes=0;
     }
     public void changeWeapon(){
         this.weapon = player.getWeapon();

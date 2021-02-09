@@ -96,7 +96,7 @@ public class Player extends Unit {
         weaponSet.add(getWeapon());
         weapon = WeaponsFactory.create(WeaponsType.GRENADE,getPosition(),5,this);
         weaponSet.add(weapon);
-        weapon = WeaponsFactory.create(WeaponsType.KONSTYTUCJA,getPosition(),5,this);
+        weapon = WeaponsFactory.create(WeaponsType.KONSTYTUCJA,getPosition(),0,this);
         weaponSet.add(weapon);
 
     }
@@ -140,7 +140,10 @@ public class Player extends Unit {
     public void changeEnergySuperAttack(int value) {
         this.energySuperAttack += value;
         if (this.energySuperAttack<0) this.energySuperAttack=0;
-        else if (this.energySuperAttack>100) this.energySuperAttack = 100;
+        else if (this.energySuperAttack>=100) {
+            this.energySuperAttack = 100;
+            weaponSet.get(3).setAmmoInMagazin(1);
+        }
     }
 
     public void setMoveInterfejsInWait(){

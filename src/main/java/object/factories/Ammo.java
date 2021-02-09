@@ -54,7 +54,8 @@ public class Ammo extends ObjectImage {
     }
     void getDamageObject (){
         ObjectGame o = ObjectsController.getInstance().whoBlocked(this.getPosition(),new double[]{nX,nY});
-        if ((o!=null && !o.equals(whoShoot)) || (o instanceof Obstacle && !(((Obstacle)o).isEffect()))) {
+        if ((o!=null && !o.equals(whoShoot))  || (o instanceof Obstacle && !(((Obstacle)o).isEffect()))) {
+            if (o instanceof Unit && !((Unit)o).isAlive())return;
             isBlocked = true;o.getDamage(this.damage, new Point(this.getPosition()));
         }
     }

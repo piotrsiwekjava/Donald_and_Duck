@@ -4,6 +4,7 @@ import object.ObjectImage;
 import object.enumTypes.AmmoType;
 import object.enumTypes.WeaponsType;
 import object.unit.Unit;
+import object.unit.player.Player;
 import objectsController.ObjectsController;
 
 import java.awt.*;
@@ -21,12 +22,13 @@ public class Weapon extends ObjectImage {
     public boolean shooting;
     private Unit unit;
     private double [] oddbulletTip;
+    private boolean superweapon;
 
 
 
 
     public Weapon(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
-                  int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit) {
+                  int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit, boolean isSuperWeapon) {
         super(position, size, image);
         this.type=type;
         this.ammo_type = ammo_type;
@@ -36,6 +38,7 @@ public class Weapon extends ObjectImage {
         this.fireSpeed=fireSpeed;
         this.barrelTip=position;
         this.unit = unit;
+        this.superweapon = isSuperWeapon;
     }
 
     public synchronized void fire() {
@@ -53,6 +56,7 @@ public class Weapon extends ObjectImage {
                     AmmoFactory.create(ammo_type, barrelTip, target, unit.getSide(),unit)
             );
         }
+        if (superweapon)((Player)unit).setEnergySuperAttack(0);
     }
 
     protected synchronized void reload() throws InterruptedException {
@@ -84,12 +88,16 @@ public class Weapon extends ObjectImage {
         this.leftAmmoinMagazin += count;
     }
 
+    public void setAmmoInMagazin(int count) {
+        this.leftAmmoinMagazin = count;
+    }
+
     public int getAllleftAmmo() {
         return allleftAmmo;
     }
 
-    public void setAllleftAmmo(int allleftAmmo) {
-        allleftAmmo = allleftAmmo;
+    public void setAllleftAmmo(int allLeftAmmo) {
+        this.allleftAmmo = allLeftAmmo;
     }
 
     public int getFireSpeed() {
@@ -124,5 +132,7 @@ public class Weapon extends ObjectImage {
         return type;
     }
 
-
+    public boolean isSuperweapon() {
+        return superweapon;
+    }
 }

@@ -3,6 +3,7 @@ package object.factories;
 import object.enumTypes.AmmoType;
 import object.enumTypes.WeaponsType;
 import object.unit.Unit;
+import object.unit.player.Player;
 import objectsController.ObjectsController;
 
 import java.awt.*;
@@ -10,11 +11,11 @@ import java.awt.image.BufferedImage;
 
 public class Grenade extends Weapon{
     private int longPress;
-    public Grenade(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image, int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit) {
-        super(type, ammo_type, position, size, image, maxAmmoInMagazin, allleftAmmo, reloadSpeed, fireSpeed,unit);
+    public Grenade(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image, int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit, boolean isSuperWeapon) {
+        super(type, ammo_type, position, size, image, maxAmmoInMagazin, allleftAmmo, reloadSpeed, fireSpeed,unit,isSuperWeapon);
         this.longPress=0;
     }
-    private void throwGrenade(){
+    private void throwGrenade() {
         Point target = new Point(getUnit().getLookTarget().getPosition());
         if (getLeftAmmoinMagazin() == 0) {
             try {
@@ -22,13 +23,13 @@ public class Grenade extends Weapon{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-        else if(getLeftAmmoinMagazin()>0) {
+        } else if (getLeftAmmoinMagazin() > 0) {
             setLeftAmmoinMagazin(-1);
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(getAmmo_type(), getBarrelTip(), target, getUnit().getSide(),getUnit())
+                    AmmoFactory.create(getAmmo_type(), getBarrelTip(), target, getUnit().getSide(), getUnit())
             );
-      }
+            if (this.isSuperweapon())((Player)this.getUnit()).setEnergySuperAttack(0);
+        }
     }
 
     @Override
