@@ -1,6 +1,5 @@
 package object.unit;
 
-import listeners.KeyGameListener;
 import object.factories.BodyPart;
 import object.ObjectGame;
 import object.factories.Weapon;
@@ -23,8 +22,8 @@ public class Unit extends ObjectGame {
     public boolean alive;
     private int hp;
     private Weapon weapon;
-    private Move_Look_Target moveTarget;
-    private Move_Look_Target lookTarget;
+    private Move_Look_Point moveTarget;
+    private Move_Look_Point lookTarget;
     private BodyController bodyController;
     private MoveInterfejs moveInterfejs;
     private AttackInerfejs attackInerfejs;
@@ -48,8 +47,8 @@ public class Unit extends ObjectGame {
     }
     private void initiation(){
         this.alive=true;
-        this.moveTarget = new Move_Look_Target(this.getPosition());
-        this.lookTarget = new Move_Look_Target(MouseInfo.getPointerInfo().getLocation());
+        this.moveTarget = new Move_Look_Point(this.getPosition());
+        this.lookTarget = new Move_Look_Point(MouseInfo.getPointerInfo().getLocation());
         lookingInterfejs = new LookingEnemy();
         moveInterfejs = new Wait();
         attackInerfejs =new NoAttack();
@@ -103,7 +102,7 @@ public class Unit extends ObjectGame {
         this.lookingInterfejs = lookingInterfejs;
     }
 
-    public Move_Look_Target getMoveTarget() {
+    public Move_Look_Point getMoveTarget() {
         return moveTarget;
     }
 
@@ -111,7 +110,7 @@ public class Unit extends ObjectGame {
         this.moveTarget.setPosition(point);
     }
 
-    public Move_Look_Target getLookTarget() {
+    public Move_Look_Point getLookTarget() {
         return lookTarget;
     }
 

@@ -5,11 +5,11 @@ import listeners.KeyGameListener;
 import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
+import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
 import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
-import object.unit.behavior.enemy.looking.LookingPlayer;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
 import threads.BulletFly_Runnable;
@@ -24,6 +24,7 @@ public class ObjectsController {
     private static int number_of_object =0; //with bullet
     private static Set<ObjectGame> objectGameSet = new HashSet<ObjectGame>();
     private static Set<Ammo>bulletSet = new HashSet<Ammo>();
+    private Set<Move_Look_Point>bloodSet = new HashSet<Move_Look_Point>();
     private MoveModule moveModule = new MoveModule();
     private EnemiesGeneratorModule enemiesGeneratorModule = new EnemiesGeneratorModule();
     private Player player;
@@ -129,6 +130,14 @@ public class ObjectsController {
         System.out.println("Objects in game: " + number_of_object);
     }
 
+    public Set<Move_Look_Point> getBloodSet() {
+        return bloodSet;
+    }
+
+    public void setBloodSet(Set<Move_Look_Point> bloodSet) {
+        this.bloodSet = bloodSet;
+    }
+
     public void setEnemySeePlayer(boolean enemySeePlayer) {
         this.enemySeePlayer = enemySeePlayer;
         if (enemySeePlayer) {
@@ -146,5 +155,7 @@ public class ObjectsController {
                 ((Unit)og).setAttackInerfejs(new NoAttack());
             }
         }
+
+
     }
 }

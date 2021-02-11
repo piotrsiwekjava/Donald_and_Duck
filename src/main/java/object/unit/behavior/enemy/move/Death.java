@@ -1,6 +1,7 @@
 package object.unit.behavior.enemy.move;
 
 import object.unit.BodyController;
+import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import objectsController.ObjectsController;
 
@@ -16,16 +17,20 @@ public class Death implements MoveInterfejs {
     private int[] randomsIncrement;
     private double falling;
     private double[] recoil;
+    private boolean blood;
 
     public Death(Unit unit, int ammoStrength) {
         this.unit = unit;
+        setHighOfLastDamage();
+        setRecoilCourse(ammoStrength);
+        this.randomsIncrement = getRandomAnglesRotate();
+    }
+    {
         this.angle = 0;
         this.maxAngle = 80;
         this.increment = 4;
         this.recoil = new double[2];
-        setHighOfLastDamage();
-        setRecoilCourse(ammoStrength);
-        this.randomsIncrement = getRandomAnglesRotate();
+        blood = false;
     }
 
     @Override
@@ -40,6 +45,14 @@ public class Death implements MoveInterfejs {
             }
 
         }
+        else if (!blood){
+            Move_Look_Point bldPoint = new Move_Look_Point(new Point(this.unit.getPosition()));
+            int r = new Random().nextInt(100)+50;
+            if (increment>0) bldPoint.getPosition().translate((int)(-unit.getSize()[1]*r),(int)(unit.getSize()[0]*30));
+            else if(increment<0) bldPoint.getPosition().translate((int)(unit.getSize()[1]*r),-(int)(unit.getSize()[0]*20));
+            objectsController.getBloodSet().add(bldPoint);
+            this.blood = true;
+        }
         this.angle += Math.abs(increment);
         unit.getBodyController().changePointsBodyWhenTorsoRotate();
     }
@@ -53,9 +66,12 @@ public class Death implements MoveInterfejs {
     private void setHighOfLastDamage(){
         int yo = unit.getPosition().y;
         int ydp = unit.getDamagePoint().y;
+        int x0 = unit.getPosition().x;
+        int xdp = unit.getDamagePoint().x;
         int y0size = (int) (unit.getSize()[0] * 70);
         this.falling = (unit.getSize()[0] * 10);
         if ((ydp - yo - y0size)>increment) increment*=(-1);
+        if (x0-xdp<0)increment*=(-1);
     }
     private void setRecoilCourse(int ammoStrenght){
         Point punit = unit.getPosition();

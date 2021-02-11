@@ -29,12 +29,10 @@ public class Drawer {
     public void drawAll(Graphics2D g2d){
         this.g2d = g2d;
         drawLevel();
-        drawObjects();
+        draw_bloods();
+        draw_Objects();
         draw_Bullets();
         playerStatus.loadStatus(g2d);
-        g2d.setColor(Color.BLUE);
-        for (int i=0; i<Sizes.Screen_Width;i+=100)
-        g2d.fillRect(10+i, 500,10,10);
     }
     private void drawLevel(){
         BackGround back = level.getBackground();
@@ -45,7 +43,22 @@ public class Drawer {
             drawObject(building);
     }
 
-    private void drawObjects(){
+    private void draw_bloods(){
+        g2d.setColor(Color.RED);
+        for (ObjectGame og: objectsController.getBloodSet()){
+            int x = og.getPosition().x;
+            int y = og.getPosition().y;
+            int x1 = (int) og.getSize()[0];
+            int y1 = (int) og.getSize()[1];
+            g2d.fillOval(x,y,x1,y1);
+            if (x1<100){
+                og.getPosition().translate(-1,0);
+                og.setSize(new double[]{x1+2,y1+1});
+            }
+        }
+    }
+
+    private void draw_Objects(){
 
         for (ObjectGame og : objectsController.getObjectGSet()){
 

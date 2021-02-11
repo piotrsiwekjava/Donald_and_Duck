@@ -31,7 +31,7 @@ public class ImageGetterAndChanger {
     }
     private BufferedImage getTransparent (BufferedImage im ){
 
-        Image imageWithTransparency = makeColorTransparent(im, Color.WHITE, 2);
+        Image imageWithTransparency = makeColorTransparent(im, Color.WHITE, 1);
         BufferedImage transparentImage = imageToBufferedImage(imageWithTransparency);
         return transparentImage;
     }

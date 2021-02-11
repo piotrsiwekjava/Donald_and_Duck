@@ -1,6 +1,6 @@
 package object.unit.behavior.enemy.looking;
 
-import object.unit.Move_Look_Target;
+import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
@@ -13,7 +13,7 @@ public class LookingEnemy implements LookingInterfejs{
     private int angle = 0, inc =0;
     private int purviewHeight = (int) Sizes.SIZE*400;
     private int purviewWidth = (int) (Sizes.Screen_Width*0.75);
-    private Move_Look_Target lookTarget;
+    private Move_Look_Point lookTarget;
     @Override
     public void look(Unit unit) {
 
