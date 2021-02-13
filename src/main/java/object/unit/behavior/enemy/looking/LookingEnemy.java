@@ -5,6 +5,7 @@ import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.Sizes;
+import threads.Attack_Runnable;
 
 import java.awt.*;
 import java.util.Random;
@@ -16,21 +17,22 @@ public class LookingEnemy implements LookingInterfejs{
     private Move_Look_Point lookTarget;
     @Override
     public void look(Unit unit) {
-        this.lookTarget = unit.getLookTarget();
-        if (angle==0){
-            lookingUpOrDown(); //setInc
+        if (unit.isAlive()) {
+            this.lookTarget = unit.getLookTarget();
+            if (angle == 0) {
+                lookingUpOrDown(); //setInc
+            }
+            angle += inc;
+            lookTarget.getPosition().translate(0, 10 * inc);
+            if (Math.abs(angle) > 45) {
+                setRandomLookTargetPosition();
+            }
+            setUnitSide(unit);
+            if (lookingPlayer(unit)) {
+                ObjectsController.getInstance().setEnemySeePlayer(true);
+                Attack_Runnable.Attack(unit);
+            }
         }
-        angle+=inc;
-        lookTarget.getPosition().translate(0,10*inc);
-        if (Math.abs(angle)>45) {
-            setRandomLookTargetPosition();
-        }
-        setUnitSide(unit);
-        if (lookingPlayer(unit)) {
-            ObjectsController.getInstance().setEnemySeePlayer(true);
-        }
-        unit.attack();
-
     }
     private void lookingUpOrDown(){
         int r = new Random().nextInt(2);

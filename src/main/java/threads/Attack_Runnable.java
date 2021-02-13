@@ -1,6 +1,7 @@
 
 package threads;
 
+        import object.factories.Weapon;
         import object.unit.Unit;
 
 public class Attack_Runnable implements Runnable {
@@ -12,7 +13,7 @@ public class Attack_Runnable implements Runnable {
         this.thread = new Thread(this);
         this.unit = unit;
     }
-    public static Attack_Runnable Shoot(Unit unit) {
+    public static Attack_Runnable Attack(Unit unit) {
         Attack_Runnable wt = new Attack_Runnable(unit);
         wt.thread.start();
         return wt;
@@ -22,11 +23,12 @@ public class Attack_Runnable implements Runnable {
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                if (unit.isAlive() && unit.seePlayer) {
+                if (!unit.isAlive() || !unit.seePlayer) {
                     break;
                 }
                 this.unit.attack();
-                Thread.sleep(10);
+                Weapon weapon = this.unit.getWeapon();
+                Thread.sleep((long) weapon.getFireSpeed());
 
 
             }
