@@ -143,6 +143,7 @@ public class ObjectsController {
         if (enemySeePlayer) {
             for (ObjectGame og: objectGameSet){
                 if (og instanceof Unit && !(og instanceof Player)){
+                    ((Unit)og).seePlayer=true;
                     ((Unit)og).setLookingInterfejs(new Stare());
                     ((Unit)og).setLookTarget(player.getPosition());
                     ((Unit)og).setAttackInerfejs(new Attack());
@@ -151,6 +152,7 @@ public class ObjectsController {
         }
         else for (ObjectGame og: objectGameSet){
             if (og instanceof Unit && !(og instanceof Player)){
+                ((Unit)og).seePlayer=false;
                 ((Unit)og).setLookingInterfejs(new LookingEnemy());
                 ((Unit)og).setAttackInerfejs(new NoAttack());
             }

@@ -52,7 +52,7 @@ public class WeaponsFactory{
             case BAZOOKA:
                 return new Weapon(type,AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000,unit, false);
             case GRENADE:
-                return new Grenade(type, AmmoType.GRENADE, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit, false);
+                return new Grenade(type, AmmoType.GRENADE, position, Sizes.Grenade,image,1,leftAmmo,100,1000,unit, false);
             case KONSTYTUCJA:
                 return new Grenade(type, AmmoType.KONSTYTUCJA, position, Sizes.Grenade,image,1,leftAmmo,1,1000,unit, true);
             default:

@@ -36,6 +36,7 @@ public class Unit extends ObjectGame {
     private int course;
     private double ownLegfast;
     private Point damagePoint;
+    public boolean seePlayer;
 
     public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon) {
         super(position, size);
@@ -85,9 +86,13 @@ public class Unit extends ObjectGame {
     }
 
     private void death(int ammoStrenght){
-        if (moveInterfejs instanceof Death)
+        if (isAlive()) {
+            alive=false;
+            attackInerfejs = new NoAttack();
             lookingInterfejs = new Stare();
             moveInterfejs = new Death(this, ammoStrenght);
+        }
+
     }
 
     public void setMoveInterfejs(MoveInterfejs moveIn){

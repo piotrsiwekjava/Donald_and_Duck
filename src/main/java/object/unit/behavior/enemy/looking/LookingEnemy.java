@@ -16,7 +16,6 @@ public class LookingEnemy implements LookingInterfejs{
     private Move_Look_Point lookTarget;
     @Override
     public void look(Unit unit) {
-
         this.lookTarget = unit.getLookTarget();
         if (angle==0){
             lookingUpOrDown(); //setInc
@@ -29,8 +28,8 @@ public class LookingEnemy implements LookingInterfejs{
         setUnitSide(unit);
         if (lookingPlayer(unit)) {
             ObjectsController.getInstance().setEnemySeePlayer(true);
-            System.out.println("LE prawda3");
         }
+        unit.attack();
 
     }
     private void lookingUpOrDown(){
@@ -57,10 +56,7 @@ public class LookingEnemy implements LookingInterfejs{
     }
     private boolean lookingPlayer(Unit unit){
         if (canSeePlayerInX(unit)) {
-
-            System.out.println("LE prawda1");
             if (canSeePlayerInY(unit)) {
-                System.out.println("LE prawda2");
                 return true;
             }
         }

@@ -35,7 +35,6 @@ public class Death implements MoveInterfejs {
 
     @Override
     public void move(Unit unit) {
-        unit.alive = false;
         if (angle < maxAngle) {
             BodyController bc = unit.getBodyController();
             makeUnitRecoilOneStep();
