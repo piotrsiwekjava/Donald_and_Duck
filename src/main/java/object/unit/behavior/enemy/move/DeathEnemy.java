@@ -8,7 +8,7 @@ import objectsController.ObjectsController;
 import java.awt.*;
 import java.util.Random;
 
-public class Death implements MoveInterfejs {
+public class DeathEnemy implements MoveInterfejs {
     private ObjectsController objectsController = ObjectsController.getInstance();
     private Unit unit;
     private int angle;
@@ -19,7 +19,7 @@ public class Death implements MoveInterfejs {
     private double[] recoil;
     private boolean blood;
 
-    public Death(Unit unit, int ammoStrength) {
+    public DeathEnemy(Unit unit, int ammoStrength) {
         this.unit = unit;
         setHighOfLastDamage();
         setRecoilCourse(ammoStrength);
@@ -35,23 +35,10 @@ public class Death implements MoveInterfejs {
 
     @Override
     public void move(Unit unit) {
-        if (angle < maxAngle) {
-            BodyController bc = unit.getBodyController();
-            makeUnitRecoilOneStep();
-            bc.rotatePart(unit.getBodyParts()[0],increment);
-            for (int i = 1; i<6;i++) {
-                bc.rotatePart(unit.getBodyParts()[i], randomsIncrement[i]);
-            }
-
-        }
-        else if (!blood){
-            Move_Look_Point bldPoint = new Move_Look_Point(new Point(this.unit.getPosition()));
-            int r = new Random().nextInt(100)+50;
-            if (increment>0) bldPoint.getPosition().translate((int)(-unit.getSize()[1]*r),(int)(unit.getSize()[0]*30));
-            else if(increment<0) bldPoint.getPosition().translate((int)(unit.getSize()[1]*r),-(int)(unit.getSize()[0]*20));
-            objectsController.getBloodSet().add(bldPoint);
-            this.blood = true;
-        }
+        if (angle < maxAngle)
+            moveBody();
+        else if (!blood)
+            addBlood();
         this.angle += Math.abs(increment);
         unit.getBodyController().changePointsBodyWhenTorsoRotate();
     }
@@ -62,6 +49,15 @@ public class Death implements MoveInterfejs {
             ri[i] = new Random().nextInt(Math.abs(increment*2))-increment;
         return ri;
     }
+    private void moveBody(){
+        BodyController bc = unit.getBodyController();
+        makeUnitRecoilOneStep();
+        bc.rotatePart(unit.getBodyParts()[0],increment);
+        for (int i = 1; i<6;i++) {
+            bc.rotatePart(unit.getBodyParts()[i], randomsIncrement[i]);
+        }
+    }
+
     private void setHighOfLastDamage(){
         int yo = unit.getPosition().y;
         int ydp = unit.getDamagePoint().y;
@@ -96,5 +92,13 @@ public class Death implements MoveInterfejs {
         else heigth +=recoil[1];
         heigth += falling;
         return heigth;
+    }
+    private void addBlood(){
+        Move_Look_Point bldPoint = new Move_Look_Point(new Point(this.unit.getPosition()),unit);
+        int r = new Random().nextInt(100)+50;
+        if (increment>0) bldPoint.getPosition().translate((int)(-unit.getSize()[1]*r),(int)(unit.getSize()[0]*30));
+        else if(increment<0) bldPoint.getPosition().translate((int)(unit.getSize()[1]*r),-(int)(unit.getSize()[0]*20));
+        objectsController.getBloodSet().add(bldPoint);
+        this.blood = true;
     }
 }

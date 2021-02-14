@@ -8,7 +8,7 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.LookingInterfejs;
 import object.unit.behavior.enemy.looking.Stare;
-import object.unit.behavior.enemy.move.Death;
+import object.unit.behavior.enemy.move.DeathEnemy;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
 import objectsController.ObjectsController;
@@ -90,7 +90,7 @@ public class Unit extends ObjectGame {
             alive=false;
             attackInerfejs = new NoAttack();
             lookingInterfejs = new Stare();
-            moveInterfejs = new Death(this, ammoStrenght);
+            moveInterfejs = new DeathEnemy(this, ammoStrenght);
         }
 
     }

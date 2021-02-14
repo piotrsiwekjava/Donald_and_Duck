@@ -32,6 +32,7 @@ public class ObjectsController {
     private int howManyEnemyNow;
     private boolean canPlay = false;
     private boolean enemySeePlayer = false;
+    private Integer time;
 
     private static ObjectsController objectsController= new ObjectsController();
 
@@ -157,7 +158,16 @@ public class ObjectsController {
                 ((Unit)og).setAttackInerfejs(new NoAttack());
             }
         }
-
-
+    }
+    public void remove_Blood_and_Unit(Move_Look_Point blood){
+        removeThisObject(blood.getUnit());
+        bloodSet.remove(blood);
+        blood=null;
+    }
+    public int getTime(){
+        return time;
+    }
+    public void setTime(Integer time){
+        this.time=time;
     }
 }

@@ -56,7 +56,6 @@ public class AmmoFactory{
                 ammo = new Ammo(type, new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
                 break;
             case GRENADE:
-
                 ammo = new AmmoGrenade(type, new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot,100,false);
                 break;
             case KONSTYTUCJA:

@@ -2,6 +2,7 @@ package frames;
 
 import object.ImageGetterAndChanger;
 import object.enumTypes.WeaponsType;
+import object.factories.Grenade;
 import object.factories.Weapon;
 import object.unit.player.Player;
 
@@ -38,6 +39,13 @@ public class PlayerStatus {
     }
     private void loadWeapon(Graphics2D g2d){
         g2d.drawImage(weaponIm, 150,20,null);
+        if (weapon instanceof Grenade){
+            int lp = ((Grenade)weapon).getLongPress();
+            for(int i=0, r=250, g=0,b=0;i<lp;i++,g+=60,b+=20) {
+                g2d.setColor(new Color(r,g,b));
+                g2d.fillOval(150 + (i * 30), 150, 30, 20);
+            }
+        }
     }
     private void loadAmmo(Graphics2D g2d){
         int ammoInMagazin = weapon.getLeftAmmoinMagazin();

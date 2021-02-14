@@ -6,6 +6,7 @@ import object.ObjectGame;
 import object.ObjectImage;
 import object.factories.Obstacle;
 import object.factories.*;
+import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
@@ -54,6 +55,9 @@ public class Drawer {
             if (x1<100){
                 og.getPosition().translate(-1,0);
                 og.setSize(new double[]{x1+2,y1+1});
+            }
+            else {
+                objectsController.remove_Blood_and_Unit((Move_Look_Point) og);
             }
         }
     }

@@ -24,16 +24,10 @@ class GamePanel extends JPanel {
     private Point lastPoint;
     private int panelWindth;
     private int panelHeight;
-    public Timer getMyTimer(){
-        return myTimer;
-    }
-    public int getTime(){
-        return time;
-    }
     private ObjectsController objectsController;
     private JButton keylistener;
     private Drawer drawer;
-    private int time;
+    private Integer time;
     private int periodOfTime;
     private boolean canDraw =false;
     private Cursor cursor;
@@ -48,6 +42,7 @@ class GamePanel extends JPanel {
         addListener();
         this.addMouseListener(MouseGameListeners.getInstance());
         objectsController = ObjectsController.getInstance();
+        objectsController.setTime(this.time);
         loadCursor();
         this.setCursor(cursor);
     }
@@ -111,5 +106,13 @@ class GamePanel extends JPanel {
     }
     private void showTimeLapseToKeyListener(){
         KeyGameListener.getInstance().timeLapse();
+    }
+
+    public Timer getMyTimer(){
+        return myTimer;
+    }
+
+    public Integer getTime(){
+        return time;
     }
 }
