@@ -1,5 +1,6 @@
 package objectsController;
 
+import frames.GamePanel;
 import level.Level;
 import listeners.KeyGameListener;
 import object.factories.Obstacle;
@@ -16,11 +17,13 @@ import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
 import threads.Live_Walk_Look_Runnable;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ObjectsController {
+    private GamePanel gamePanel;
     private static int number_of_object =0; //with bullet
     private static Set<ObjectGame> objectGameSet = new HashSet<ObjectGame>();
     private static Set<Ammo>bulletSet = new HashSet<Ammo>();
@@ -32,8 +35,6 @@ public class ObjectsController {
     private int howManyEnemyNow;
     private boolean canPlay = false;
     private boolean enemySeePlayer = false;
-    private Integer time;
-
     private static ObjectsController objectsController= new ObjectsController();
 
     private ObjectsController() {
@@ -165,9 +166,9 @@ public class ObjectsController {
         blood=null;
     }
     public int getTime(){
-        return time;
+        return gamePanel.getTime();
     }
-    public void setTime(Integer time){
-        this.time=time;
+    public void setGamePanel(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
     }
 }

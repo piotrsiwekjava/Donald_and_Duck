@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * @author Piotr Siwek
  */
 
-class GamePanel extends JPanel {
+public class GamePanel extends JPanel {
 
 
     private int myTimerDelay;
@@ -27,7 +27,7 @@ class GamePanel extends JPanel {
     private ObjectsController objectsController;
     private JButton keylistener;
     private Drawer drawer;
-    private Integer time;
+    private int time;
     private int periodOfTime;
     private boolean canDraw =false;
     private Cursor cursor;
@@ -42,7 +42,7 @@ class GamePanel extends JPanel {
         addListener();
         this.addMouseListener(MouseGameListeners.getInstance());
         objectsController = ObjectsController.getInstance();
-        objectsController.setTime(this.time);
+        objectsController.setGamePanel(this);
         loadCursor();
         this.setCursor(cursor);
     }
@@ -112,7 +112,7 @@ class GamePanel extends JPanel {
         return myTimer;
     }
 
-    public Integer getTime(){
+    public int getTime(){
         return time;
     }
 }

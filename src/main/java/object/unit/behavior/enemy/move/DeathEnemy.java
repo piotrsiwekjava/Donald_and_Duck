@@ -3,6 +3,7 @@ package object.unit.behavior.enemy.move;
 import object.unit.BodyController;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
+import object.unit.player.Collector;
 import objectsController.ObjectsController;
 
 import java.awt.*;
@@ -37,10 +38,13 @@ public class DeathEnemy implements MoveInterfejs {
     public void move(Unit unit) {
         if (angle < maxAngle)
             moveBody();
-        else if (!blood)
+        else if (!blood) {
             addBlood();
+            givePoints_and_dropItem();
+        }
         this.angle += Math.abs(increment);
         unit.getBodyController().changePointsBodyWhenTorsoRotate();
+
     }
 
     private int[] getRandomAnglesRotate(){
@@ -100,5 +104,15 @@ public class DeathEnemy implements MoveInterfejs {
         else if(increment<0) bldPoint.getPosition().translate((int)(unit.getSize()[1]*r),-(int)(unit.getSize()[0]*20));
         objectsController.getBloodSet().add(bldPoint);
         this.blood = true;
+    }
+    private void givePoints_and_dropItem(){
+        addPoints();
+        dropItem();
+    }
+    private void addPoints(){
+        Collector.getInstance().addPoints(unit.getPoints_for_kill());
+    }
+    private void dropItem(){
+        System.out.println("death enemy: wyrzucam przedmioty");
     }
 }

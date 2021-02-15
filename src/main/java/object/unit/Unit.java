@@ -37,13 +37,15 @@ public class Unit extends ObjectGame {
     private double ownLegfast;
     private Point damagePoint;
     public boolean seePlayer;
+    private int points_for_kill;
 
-    public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon) {
+    public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon, int points_for_kill) {
         super(position, size);
         this.objectsController = ObjectsController.getInstance();
         this.bodyParts=bodyParts;
         this.hp = hp;
         this.weapon = weapon;
+        this.points_for_kill=points_for_kill;
         initiation();
     }
     private void initiation(){
@@ -183,24 +185,7 @@ public class Unit extends ObjectGame {
         return damagePoint;
     }
 
-    //    public boolean removeThisUnit(){
-//        KeyGameListener keyListener = KeyGameListener.getInstance();
-//        try{
-//            for (BodyPart bp: bodyParts){
-//                keyListener.unregisterObjectG(bp);
-//                bp = null;
-//            }
-//            keyListener.unregisterObjectG(this.getWeapon());
-//            keyListener.unregisterObjectG(moveTarget);
-//            keyListener.unregisterObjectG(lookTarget);
-//            objectsController.removeThisObject(this);
-//
-//        }
-//        catch (Exception e){
-//            System.out.println("failure with deletion unit's parts");
-//            return false;
-//        }
-//
-//        return false;
-//    }
+    public int getPoints_for_kill(){
+        return this.points_for_kill;
+    }
 }

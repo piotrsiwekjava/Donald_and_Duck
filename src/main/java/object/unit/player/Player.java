@@ -1,7 +1,7 @@
 package object.unit.player;
 
 import frames.PlayerStatus;
-import object.enumTypes.RankType;
+import object.enumTypes.UnitType;
 import object.factories.BodyFactory;
 import listeners.MouseGameListeners;
 import object.factories.BodyPart;
@@ -11,11 +11,8 @@ import object.factories.WeaponsFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
 import object.unit.behavior.enemy.looking.LookingPlayer;
-import object.unit.behavior.enemy.move.MoveInterfejs;
-import object.unit.behavior.enemy.move.Patrolls;
 import object.unit.behavior.enemy.move.PlayerMove;
 import object.unit.behavior.enemy.move.Wait;
-import objectsController.ObjectsController;
 import settings.Sizes;
 
 import java.awt.*;
@@ -29,17 +26,15 @@ public class Player extends Unit {
     private int whichWeapon=0;
     private int energy;
     private int energySuperAttack = 0;
+    private Collector collector;
     public Player() {
 
         super(build_Player_Position(),
                 Sizes.Soldier_Size,
                 build_Body_Parts(),
-                1000,
-                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120,null)
-//                WeaponsFactory.create(
-//                        WeaponsType.PISTOL,
-//                        build_Player_Position(),
-//                        120)
+                100,
+                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120,null),
+                100
                 );
         getWeapon().setUnit(this);
         energy = 100;
@@ -56,6 +51,7 @@ public class Player extends Unit {
         this.playerStatus = new PlayerStatus(this);
         this.waitlegs = new Wait();
         this.movelegs = new PlayerMove();
+        this.collector = Collector.getInstance();
     }
     private void loadData(){
 
@@ -65,7 +61,7 @@ public class Player extends Unit {
                 Toolkit.getDefaultToolkit().getScreenSize().height/2);
     }
     private static BodyPart[] build_Body_Parts(){
-        return BodyFactory.getInstance().Create_Body(RankType.JARO, build_Player_Position());
+        return BodyFactory.getInstance().Create_Body(UnitType.JARO, build_Player_Position());
     }
 
     public PlayerStatus getPlayerStatus() {
@@ -165,5 +161,9 @@ public class Player extends Unit {
 
     public ArrayList<Weapon> getWeaponSet() {
         return weaponSet;
+    }
+
+    public Collector getCollector() {
+        return collector;
     }
 }

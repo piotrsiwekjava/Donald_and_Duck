@@ -244,7 +244,7 @@ public class BodyController {
         }
     }
     private void setBodySide(int side){
-        resetPosition();
+//        resetPosition();
         if (side == 1) {
             setPositionRight();
         } else if (side == -1) {

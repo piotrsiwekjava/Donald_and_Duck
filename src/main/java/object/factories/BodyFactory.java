@@ -1,7 +1,7 @@
 package object.factories;
 
 import object.ImageGetterAndChanger;
-import object.enumTypes.RankType;
+import object.enumTypes.UnitType;
 import settings.Sizes;
 import java.awt.*;
 import java.awt.image.*;
@@ -22,7 +22,7 @@ public class BodyFactory {
         return bodyFactory;
     }
 
-    public BodyPart[] Create_Body(RankType rankType, Point position){
+    public BodyPart[] Create_Body(UnitType rankType, Point position){
         this.position=position;
         this.size = Sizes.Soldier_Size;
 

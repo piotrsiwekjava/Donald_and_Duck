@@ -16,7 +16,6 @@ public class Grenade extends Weapon{
         this.longPress=0;
     }
     private void throwGrenade() {
-        Point target = new Point(getUnit().getLookTarget().getPosition());
         if (getLeftAmmoinMagazin() == 0) {
             try {
                 this.reload();
@@ -26,7 +25,7 @@ public class Grenade extends Weapon{
         } else if (getLeftAmmoinMagazin() > 0) {
             setLeftAmmoinMagazin(-1);
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(getAmmo_type(), getBarrelTip(), target, getUnit().getSide(), getUnit())
+                    AmmoFactory.create(getAmmo_type(),this)
             );
             if (this.isSuperweapon())((Player)this.getUnit()).setEnergySuperAttack(0);
         }
@@ -34,13 +33,13 @@ public class Grenade extends Weapon{
 
     @Override
     public synchronized void fire() {
-        if (longPress<=3)
-//            this.longPress = ;
-            System.out.println(ObjectsController.getInstance().getTime());
+        if (longPress==0) longPress = ObjectsController.getInstance().getTime();
     }
 
     @Override
     public void triggerRelease() {
+        System.out.println(longPress);
+        longPress = ((ObjectsController.getInstance().getTime()) - longPress);
         shooting=true;
         throwGrenade();
         shooting=false;

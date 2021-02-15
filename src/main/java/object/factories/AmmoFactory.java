@@ -11,8 +11,12 @@ import java.awt.image.BufferedImage;
 public class AmmoFactory{
 
 
-    public static Ammo create(AmmoType type, Point barrelTip, Point target, int side, Unit whoShoot) {
+    public static Ammo create(AmmoType type, Weapon weapon) {
         BufferedImage image = null;
+        Unit whoShoot = weapon.getUnit();
+        int side = whoShoot.getSide();
+        Point barrelTip = weapon.getBarrelTip();
+        Point target = whoShoot.getLookTarget().getPosition();
         String imagePath = "";
         switch (type) {
             case A5MM: {
@@ -69,8 +73,7 @@ public class AmmoFactory{
 
         }
         if (ammo instanceof AmmoGrenade) {
-            Weapon w = whoShoot.getWeapon();
-            int lp = ((Grenade)w).getLongPress();
+            int lp = ((Grenade)weapon).getLongPress()/10;
             if (type.equals(AmmoType.PAPER))((AmmoGrenade) ammo).setDistanceBegin(0.75);
                 else ((AmmoGrenade) ammo).setDistanceBegin(lp);
 

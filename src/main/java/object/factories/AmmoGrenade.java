@@ -43,7 +43,7 @@ public class AmmoGrenade extends Ammo {
     }
 
     public void setDistanceBegin(double distance) {
-        this.distanceBegin = (int)(distance*200);
+        this.distanceBegin = (int)(distance);
         this.distanceLeft = distanceBegin;
         this.setSpeed(distanceBegin/50);
         this.setFly(this.target, this.getSpeed());
@@ -96,7 +96,7 @@ public class AmmoGrenade extends Ammo {
             if (side >0) side=1;
             else side=-1;
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(ammoType, this.getPosition(), pTarget, side,this.getWhoShoot())
+                    AmmoFactory.create(ammoType, getWhoShoot().getWeapon())
             );
         }
     }

@@ -4,6 +4,7 @@ import object.ImageGetterAndChanger;
 import object.enumTypes.WeaponsType;
 import object.factories.Grenade;
 import object.factories.Weapon;
+import object.unit.player.Collector;
 import object.unit.player.Player;
 
 import java.awt.*;
@@ -29,6 +30,7 @@ public class PlayerStatus {
         loadImages(g2d);
         loadAmmo(g2d);
         loadBelts(g2d);
+        loadPoints(g2d);
     }
     private void loadImages(Graphics2D g2d){
         loadHead(g2d);
@@ -41,7 +43,7 @@ public class PlayerStatus {
         g2d.drawImage(weaponIm, 150,20,null);
         if (weapon instanceof Grenade){
             int lp = ((Grenade)weapon).getLongPress();
-            for(int i=0, r=250, g=0,b=0;i<lp;i++,g+=60,b+=20) {
+            for(int i=0, r=250, g=0,b=0;i<lp;i++,g+=1,b+=1) {
                 g2d.setColor(new Color(r,g,b));
                 g2d.fillOval(150 + (i * 30), 150, 30, 20);
             }
@@ -85,6 +87,13 @@ public class PlayerStatus {
         }
         blueBeltFlashes++;
         if (blueBeltFlashes ==6)blueBeltFlashes=0;
+    }
+    private void loadPoints(Graphics2D g2d){
+        Collector collector = Collector.getInstance();
+        int points = collector.getAmount_of_points();
+        g2d.setFont(stringFont);
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(""+points,25,200);
     }
     public void changeWeapon(){
         this.weapon = player.getWeapon();

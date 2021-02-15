@@ -42,7 +42,6 @@ public class Weapon extends ObjectImage {
     }
 
     public synchronized void fire() {
-        Point target = new Point(unit.getLookTarget().getPosition());
         if (leftAmmoinMagazin == 0) {
             try {
                 reload();
@@ -53,7 +52,7 @@ public class Weapon extends ObjectImage {
         else if(leftAmmoinMagazin>0) {
             leftAmmoinMagazin -= 1;
             ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(ammo_type, barrelTip, target, unit.getSide(),unit)
+                    AmmoFactory.create(ammo_type, this)
             );
         }
         if (superweapon)((Player)unit).setEnergySuperAttack(0);

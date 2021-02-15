@@ -1,13 +1,9 @@
 package test;
 
 import frames.GameFrame;
-import object.enumTypes.RankType;
-import object.enumTypes.UnitType;
-import object.factories.SoldierFactory;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class TestRun {

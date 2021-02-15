@@ -1,12 +1,11 @@
 package objectsController;
 
 import level.Level;
-import object.enumTypes.RankType;
 import object.enumTypes.UnitType;
+import object.enumTypes.WhichWeaponType;
 import object.factories.SoldierFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.move.Patrolls;
-import settings.Sizes;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,12 +46,12 @@ class EnemiesGeneratorModule {
         return units;
     }
     private Unit getUnitByNumber(Point point, int i){
-        Unit unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierAK,point,level);
+        Unit unit = SoldierFactory.create(UnitType.SOlDIER, WhichWeaponType.SoldierAK,point,level);
         switch (i){
-                case(1): return unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierAK,point,level);
-                case(2): return unit = SoldierFactory.create(RankType.OFICER,UnitType.SoldierPistol,point,level);
-                case(3): return unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierAK,point,level);
-                case(4): return unit = SoldierFactory.create(RankType.SOlDIER, UnitType.SoldierPistol,point,level);
+                case(1): return unit = SoldierFactory.create(UnitType.OFICER, WhichWeaponType.SoldierAK,point,level);
+                case(2): return unit = SoldierFactory.create(UnitType.OFICER, WhichWeaponType.SoldierPistol,point,level);
+                case(3): return unit = SoldierFactory.create(UnitType.SOlDIER, WhichWeaponType.SoldierAK,point,level);
+                case(4): return unit = SoldierFactory.create(UnitType.SOlDIER, WhichWeaponType.SoldierPistol,point,level);
         }
         return unit;
     }
