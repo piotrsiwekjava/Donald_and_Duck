@@ -5,6 +5,7 @@ import object.enumTypes.WeaponsType;
 import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
+import settings.Sizes;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,11 +35,11 @@ public class Grenade extends Weapon{
     @Override
     public synchronized void fire() {
         if (longPress==0) longPress = ObjectsController.getInstance().getTime();
+        System.out.println("Grenades dsdsa");
     }
 
     @Override
     public void triggerRelease() {
-        System.out.println(longPress);
         longPress = ((ObjectsController.getInstance().getTime()) - longPress);
         shooting=true;
         throwGrenade();
@@ -49,5 +50,13 @@ public class Grenade extends Weapon{
 
     public int getLongPress() {
         return longPress;
+    }
+
+    public int getCurrentPress() {
+        if (longPress!=0) {
+            double eW = Sizes.Screen_Width / 1600;
+            return (int) ((ObjectsController.getInstance().getTime() - longPress)*eW / 100);
+        }
+        return 0;
     }
 }

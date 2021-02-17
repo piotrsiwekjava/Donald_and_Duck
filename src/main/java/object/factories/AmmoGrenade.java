@@ -95,9 +95,8 @@ public class AmmoGrenade extends Ammo {
             int side = (int) (pTarget.getX() - this.getPosition().getX());
             if (side >0) side=1;
             else side=-1;
-            ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(ammoType, getWhoShoot().getWeapon())
-            );
+            Ammo ammo = AmmoFactory.create(ammoType, getWhoShoot().getWeapon(),this.getPosition());
+            addBulletToController(ammo);
         }
     }
     private Point randomPoint(){
@@ -111,5 +110,8 @@ public class AmmoGrenade extends Ammo {
         Unit u = this.getWhoShoot();
         Weapon w = u.getWeapon();
      return w.getAmmo_type();
+    }
+    private void addBulletToController(Ammo ammo){
+        ObjectsController.getInstance().addBullet(ammo);
     }
 }

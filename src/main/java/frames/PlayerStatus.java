@@ -42,10 +42,11 @@ public class PlayerStatus {
     private void loadWeapon(Graphics2D g2d){
         g2d.drawImage(weaponIm, 150,20,null);
         if (weapon instanceof Grenade){
-            int lp = ((Grenade)weapon).getLongPress();
-            for(int i=0, r=250, g=0,b=0;i<lp;i++,g+=1,b+=1) {
+            int cp = ((Grenade)weapon).getCurrentPress();
+            for(int i=0, r=250, g=250,b=0;i<cp;i++,g-=30,b+=0) {
                 g2d.setColor(new Color(r,g,b));
-                g2d.fillOval(150 + (i * 30), 150, 30, 20);
+                System.out.println(g2d.getColor());
+                g2d.fillOval(150 + (i * 10), 150, 30, 20);
             }
         }
     }
@@ -64,7 +65,8 @@ public class PlayerStatus {
     }
     private void redBelt(Graphics2D g2d){
         g2d.setColor(Color.RED);
-        for (int i=0, k=0; i<player.getHp();i+=50,k+=20) {
+        int hp = player.getHp()*10;
+        for (int i=0, k=0; i<hp;i+=50,k+=20) {
             g2d.fillRect(k+500, 20, 30, 20);
         }
     }

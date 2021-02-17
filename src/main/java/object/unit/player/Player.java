@@ -26,7 +26,6 @@ public class Player extends Unit {
     private int whichWeapon=0;
     private int energy;
     private int energySuperAttack = 0;
-    private Collector collector;
     public Player() {
 
         super(build_Player_Position(),
@@ -51,7 +50,6 @@ public class Player extends Unit {
         this.playerStatus = new PlayerStatus(this);
         this.waitlegs = new Wait();
         this.movelegs = new PlayerMove();
-        this.collector = Collector.getInstance();
     }
     private void loadData(){
 
@@ -161,9 +159,5 @@ public class Player extends Unit {
 
     public ArrayList<Weapon> getWeaponSet() {
         return weaponSet;
-    }
-
-    public Collector getCollector() {
-        return collector;
     }
 }
