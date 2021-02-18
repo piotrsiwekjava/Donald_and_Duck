@@ -11,10 +11,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Grenade extends Weapon{
-    private int longPress;
+    private int startPress;
     public Grenade(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image, int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit, boolean isSuperWeapon) {
         super(type, ammo_type, position, size, image, maxAmmoInMagazin, allleftAmmo, reloadSpeed, fireSpeed,unit,isSuperWeapon);
-        this.longPress=0;
+        this.startPress =0;
     }
     private void throwGrenade() {
         if (getLeftAmmoinMagazin() == 0) {
@@ -34,29 +34,33 @@ public class Grenade extends Weapon{
 
     @Override
     public synchronized void fire() {
-        if (longPress==0) longPress = ObjectsController.getInstance().getTime();
-        System.out.println("Grenades dsdsa");
+        if (startPress ==0) startPress = ObjectsController.getInstance().getTime();
     }
 
     @Override
     public void triggerRelease() {
-        longPress = ((ObjectsController.getInstance().getTime()) - longPress);
+        startPress = ((ObjectsController.getInstance().getTime()) - startPress);
         shooting=true;
         throwGrenade();
         shooting=false;
-        this.longPress=0;
+        this.startPress =0;
     }
 
 
-    public int getLongPress() {
-        return longPress;
+    public int getStartPress() {
+        return startPress;
     }
 
     public int getCurrentPress() {
-        if (longPress!=0) {
-            double eW = Sizes.Screen_Width / 1600;
-            return (int) ((ObjectsController.getInstance().getTime() - longPress)*eW / 100);
+        if (startPress !=0) {
+            return currentPressIsIncreasingTo1000();
         }
         return 0;
+    }
+    private int currentPressIsIncreasingTo1000() {
+        double eW = Sizes.Screen_Width / 1600;
+        int currentPress = ( int)((ObjectsController.getInstance().getTime() - startPress) * eW / 100);
+        if (currentPress>1000)currentPress=1000;
+        return currentPress;
     }
 }

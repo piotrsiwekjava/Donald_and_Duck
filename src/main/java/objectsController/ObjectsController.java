@@ -13,6 +13,7 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
+import threads.Attack_Runnable;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
 import threads.Live_Walk_Look_Runnable;
@@ -149,6 +150,7 @@ public class ObjectsController {
                     ((Unit)og).setLookingInterfejs(new Stare());
                     ((Unit)og).setLookTarget(player.getPosition());
                     ((Unit)og).setAttackInerfejs(new Attack());
+                    Attack_Runnable.Attack((Unit) og);
                 }
             }
         }

@@ -65,7 +65,6 @@ public class Drawer {
     private void draw_Objects(){
 
         for (ObjectGame og : objectsController.getObjectGSet()){
-
             if (og instanceof Unit) {
                 drawUnits((Unit)og);
             }

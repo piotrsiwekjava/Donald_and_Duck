@@ -30,7 +30,6 @@ public class LookingEnemy implements LookingInterfejs{
         setUnitSide(unit);
         if (lookingPlayer(unit)) {
             ObjectsController.getInstance().setEnemySeePlayer(true);
-            Attack_Runnable.Attack(unit);
         }
 
     }

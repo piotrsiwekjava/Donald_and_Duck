@@ -34,7 +34,7 @@ public class Shoot_Runnable implements Runnable {
                 }
                 this.weapon.triggerPull();
 
-                Thread.sleep((long) weapon.getFireSpeed());
+                Thread.sleep((long) weapon.getFireSpeed()*10);
 
 
             }

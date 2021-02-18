@@ -7,6 +7,7 @@ import settings.Sizes;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class AmmoFactory{
 
@@ -73,18 +74,39 @@ public class AmmoFactory{
 
         }
         if (ammo instanceof AmmoGrenade) {
-            double eW = Sizes.Screen_Width / 1600;
-            double lp = (((Grenade) weapon).getLongPress() * eW / 2);
-            if (lp > 1000) lp = 1000*eW;
-            if (type.equals(AmmoType.PAPER)) ((AmmoGrenade) ammo).setDistanceBegin(0.75 * eW);
-            else ((AmmoGrenade) ammo).setDistanceBegin(lp);
-
+            setGrenadesDistance(ammo,weapon);
         }
         return ammo;
     }
-    public static Ammo create(AmmoType type, Weapon weapon,Point position){
-        Ammo ammo = create(type,weapon);
-        ammo.setPosition(position);
+    public static Ammo createShardsPaper(AmmoType type, Point position, Point target,int side){
+        BufferedImage image;
+        String imagePath = "weapons\\paper";
+        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
+        if (side == 1) image = ImageGetterAndChanger.getInstance().mirrorImage(image);
+        Ammo ammo;
+        switch (type) {
+            case PAPER:
+                ammo = new AmmoGrenade(type, position, Sizes.Konstytucja, image, 200, target, (int) (Sizes.RUN_Speed * 0.5), null, 50, false);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        setGrenadesDistance(ammo,null);
         return ammo;
     }
+    private static void setGrenadesDistance(Ammo ammo, Weapon weapon){
+        double eW = Sizes.Screen_Width / 1600;
+        double lp;
+        try {
+             lp = (((Grenade) weapon).getStartPress() * eW / 1.5);
+        }
+        catch (Exception e){
+
+            lp= new Random().nextInt(150)+50 * eW;
+        }
+        if (lp > 1000) lp = 1000*eW;
+        AmmoType type = ammo.getType();
+        ((AmmoGrenade) ammo).setDistanceBegin(lp);
+    }
+
 }

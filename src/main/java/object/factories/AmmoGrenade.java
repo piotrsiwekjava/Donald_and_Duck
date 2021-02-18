@@ -95,7 +95,7 @@ public class AmmoGrenade extends Ammo {
             int side = (int) (pTarget.getX() - this.getPosition().getX());
             if (side >0) side=1;
             else side=-1;
-            Ammo ammo = AmmoFactory.create(ammoType, getWhoShoot().getWeapon(),this.getPosition());
+            Ammo ammo = AmmoFactory.createShardsPaper(ammoType,this.getPosition(),pTarget,side);
             addBulletToController(ammo);
         }
     }
