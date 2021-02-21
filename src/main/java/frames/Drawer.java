@@ -2,6 +2,7 @@ package frames;
 
 import level.Level;
 import object.BackGround;
+import object.Item;
 import object.ObjectGame;
 import object.ObjectImage;
 import object.factories.Obstacle;
@@ -65,25 +66,27 @@ public class Drawer {
     private void draw_Objects(){
 
         for (ObjectGame og : objectsController.getObjectGSet()){
-            if (og instanceof Unit) {
-                drawUnits((Unit)og);
-            }
-            else if(og instanceof Obstacle){
-                drawObstacle((Obstacle) og);
+            if (isOnScreen(og)) {
+                if (og instanceof Unit) {
+                    drawUnit((Unit) og);
+                } else if (og instanceof Obstacle || og instanceof Item) {
+                    draw_Obstacle_or_Item((ObjectImage) og);
+                }
             }
         }
     }
-    private void drawUnits(Unit unit){
-        int x = (int)unit.getPosition().getX();
+    private boolean isOnScreen (ObjectGame og){
+        int x = (int)og.getPosition().getX();
         int xm = Sizes.Screen_Width;
         if (x>(-xm*0.1) && x<(xm*1.1))
-            drawUnit(unit);
+            return true;
+        return false;
     }
     private void drawUnit(Unit unit){
         for (BodyPart bp: unit.getBodyParts()){
             drawObjectImage(bp);
         }
-        drawObjectImage(unit.getWeapon());
+            drawObjectImage(unit.getWeapon());
     }
     private void draw_Bullets(){
         for (Ammo ammo: objectsController.getBulletSet()) {
@@ -91,14 +94,17 @@ public class Drawer {
         }
     }
     private void drawObjectImage(ObjectImage o){
-        if(o.getAngle()!=0)rotateAndDraw(o);
-        else drawObject(o);
+        try {
+            if (o.getAngle() != 0) rotateAndDraw(o);
+            else drawObject(o);
+        }
+        catch (Exception e){}
     }
-    private void drawObstacle(Obstacle ob){
-            int x = (int)ob.getPosition().getX();
+    private void draw_Obstacle_or_Item(ObjectImage o){
+            int x = (int)o.getPosition().getX();
             int xm = Sizes.Screen_Width;
             if (x>(-xm*0.1) && x<(xm*1.1))
-                drawObject(ob);
+                drawObject(o);
     }
     private void drawObject (ObjectImage o){
         g2d.drawImage( o.getImage(),

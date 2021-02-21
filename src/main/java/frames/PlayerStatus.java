@@ -46,7 +46,6 @@ public class PlayerStatus {
             for(int i=0, r=250, g=250,b=0;i<cp;i++,g-=30,b+=0) {
                 if (g<0) break;
                 g2d.setColor(new Color(r,g,b));
-                System.out.println(g2d.getColor());
                 g2d.fillOval(150 + (i * 10), 150, 30, 20);
             }
         }

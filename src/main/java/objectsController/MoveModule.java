@@ -5,6 +5,7 @@ import object.ObjectGame;
 import settings.Sizes;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 public class MoveModule {
@@ -46,8 +47,10 @@ public class MoveModule {
                 }
             }
         }
+//        catch (ConcurrentModificationException c){
+//            return true;
+//        }
         catch (NullPointerException e){
-            System.out.println("Przerywam checkTrack");
             return true;
         }
         return true;

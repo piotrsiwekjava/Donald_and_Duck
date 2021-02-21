@@ -3,9 +3,12 @@ package objectsController;
 import frames.GamePanel;
 import level.Level;
 import listeners.KeyGameListener;
+import object.Item;
+import object.ObjectImage;
 import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
+import object.factories.Weapon;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
@@ -56,7 +59,7 @@ public class ObjectsController {
         }
     }
 
-    public void addUnit(Unit u) {
+    void addUnit(Unit u) {
         objectGameSet.add(u);
         number_of_object++;
         showHowManyObjectsGame();
@@ -82,6 +85,9 @@ public class ObjectsController {
         showHowManyObjectsGame();
         if (o.isEffect())
             Explosion_Runnable.Explosion(o,String.valueOf(number_of_object));
+    }
+    public void addItem(Item i){
+        objectGameSet.add(i);
     }
 
     public void removeThisObject(ObjectGame o){

@@ -1,5 +1,7 @@
 package object.unit.behavior.enemy.move;
 
+import object.Item;
+import object.factories.Weapon;
 import object.unit.BodyController;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
@@ -7,6 +9,7 @@ import object.unit.player.Collector;
 import objectsController.ObjectsController;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class DeathEnemy implements MoveInterfejs {
@@ -113,6 +116,13 @@ public class DeathEnemy implements MoveInterfejs {
         Collector.getInstance().addPoints(unit.getPoints_for_kill());
     }
     private void dropItem(){
-        System.out.println("death enemy: wyrzucam przedmioty");
+        Weapon weapon = unit.getWeapon();
+        String str = weapon.getWeapontype().toString();
+        Point p = new Point(weapon.getPosition());
+        double [] s = weapon.getSize();
+        BufferedImage image = weapon.getImage();
+        Item item = new Item(str,p,s,image);
+        unit.setWeapon(null);
+        objectsController.addItem(item);
     }
 }

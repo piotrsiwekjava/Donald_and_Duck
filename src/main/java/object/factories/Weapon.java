@@ -25,8 +25,6 @@ public class Weapon extends ObjectImage {
     private boolean superweapon;
 
 
-
-
     public Weapon(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image,
                   int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit, boolean isSuperWeapon) {
         super(position, size, image);

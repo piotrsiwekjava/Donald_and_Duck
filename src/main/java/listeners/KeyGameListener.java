@@ -141,10 +141,13 @@ public class KeyGameListener extends KeyAdapter {
     }
     public void timeLapse(){
         if (gamestarted) {
-            if (!runpress && (!rightpress && !leftpress && !downpress && !uppress)) {
-                player.changeEnergy(+2);
-                player.setMoveInterfejsInWait();
+            if (!runpress) {
+                player.changeEnergy(+1);
+                if (!rightpress && !leftpress && !downpress && !uppress) {
+                    player.changeEnergy(+1);
+                    player.setMoveInterfejsInWait();
 
+                }
             }
             player.changeEnergySuperAttack(+1);
         }
