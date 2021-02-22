@@ -40,14 +40,17 @@ public class Collector {
         this.amount_of_points = amount_of_points;
     }
 
-    public boolean collectWeapon(WeaponsType type, int count) {
-
-        for (Weapon w : player.getWeaponSet()) {
-            if (w.getWeapontype().equals(type)) {
-                addAmmo(w, count);
-                return true;
-            }
-        }
+    public boolean collectItem(String item_name, int count) {
+        WeaponsType type = WeaponsType.AK_47;
+//        if (item_name.equals("AK_47")){
+//            type = WeaponsType.AK_47;
+//        }
+//        for (Weapon w : player.getWeaponSet()) {
+//            if (w.getWeapontype().equals(type)) {
+//                addAmmo(w, count);
+//                return true;
+//            }
+//        }
         if (player.getWeaponSet().size() < 4) {
             addWeapon(type, count);
             return true;

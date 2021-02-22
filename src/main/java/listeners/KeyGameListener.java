@@ -1,6 +1,8 @@
 package listeners;
 
+import object.Item;
 import object.ObjectGame;
+import object.unit.player.Collector;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.KeyShortCuts;
@@ -129,6 +131,7 @@ public class KeyGameListener extends KeyAdapter {
     }
     private void moveObservers(double x, double y){
         for (ObjectGame o: registeredObjectsG){
+            somethingNearPlayerIsBlocking();
             o.setXY(x,y);
         }
     }
@@ -151,5 +154,28 @@ public class KeyGameListener extends KeyAdapter {
             }
             player.changeEnergySuperAttack(+1);
         }
+    }
+    private boolean somethingNearPlayerIsBlocking(){
+        for (ObjectGame og :objectsController.getObjectGSet()) {
+            if (og instanceof Item) if (isNear(og)) {
+                System.out.println("Key "+ ((Item)og).getName());
+                String name = ((Item)og).getName();
+                Collector.getInstance().collectItem(name,30);
+                objectsController.removeThisObject(og);
+                return false;
+            }
+        }
+        return false;
+    }
+    private boolean isNear(ObjectGame og) {
+        int x = og.getPosition().x;
+        int y = og.getPosition().y;
+        int xp = player.getPosition().x;
+        int yp = player.getPosition().y;
+        int dy = y-yp;
+
+        if (Math.abs(x-xp)<50 && (dy>75 && dy<200))
+            return true;
+        return false;
     }
 }
