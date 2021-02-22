@@ -1,7 +1,9 @@
 package objectsController;
 
 import level.Level;
+import object.Item;
 import object.ObjectGame;
+import object.factories.Obstacle;
 import settings.Sizes;
 
 import java.awt.*;
@@ -32,7 +34,8 @@ public class MoveModule {
         ObjectsController objectsController = ObjectsController.getInstance();
         try {
             for (ObjectGame o : objectsController.getObjectGSet()) {
-                if (!own.equals(o.getPosition())) {                 //check checks if it's not the same object
+                if (!(o instanceof Item) && !own.equals(o.getPosition())) {                 //check checks if it's not the same object
+                    if (o instanceof Obstacle && !isBullet)return true;
                     int xo = (int) o.getPosition().getX() - 2;
                     int xd = (int) (xo + (o.getSize()[0] * (spaceSize)));
                     int ownXd = (int) (own.getX() + (int) shift[0]);

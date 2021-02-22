@@ -58,7 +58,7 @@ public class KeyGameListener extends KeyAdapter {
 
         this.position[0] -= dx;
         this.position[1] -= dy;
-        objectsController.getLevel().pass200m_and_AddEnemy(-dx);
+        objectsController.getLevel().passDistance(-dx);
         moveObservers(dx, dy);
     }
 

@@ -1,8 +1,11 @@
 package objectsController;
 
 import level.Level;
+import object.enumTypes.ObstacleType;
 import object.enumTypes.UnitType;
 import object.enumTypes.WhichWeaponType;
+import object.factories.Obstacle;
+import object.factories.ObstacleFactory;
 import object.factories.SoldierFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.move.Patrolls;
@@ -11,12 +14,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-class EnemiesGeneratorModule {
+class ObjectsGeneratorModule {
     private int level;
     private final int amount_of_enemy = 4;
     private ArrayList <RespawnPoint> respawnPoint;
     private boolean initiationed;
-    EnemiesGeneratorModule (){
+    ObjectsGeneratorModule(){
     }
     private void initiation(){
         this.respawnPoint = new ArrayList<RespawnPoint>();
@@ -55,8 +58,22 @@ class EnemiesGeneratorModule {
         }
         return unit;
     }
+    Obstacle newObstacle (){
+        if (!initiationed) {
+            initiation();
+            initiationed = true;
+        }
+        return ObstacleFactory.create(ObstacleType.BARRELS,getRandomRestPawn());
+    }
     private void getLevelNumber(){
         Level plevel = ObjectsController.getInstance().getLevel();
         this.level = plevel.getNumber();
+    }
+    private Point getRandomRestPawn(){
+        int r = new Random().nextInt(5);
+        int h = new Random().nextInt(50);
+        Point p = new Point(respawnPoint.get(r).getPosition());
+        p.translate(0,h);
+        return p;
     }
 }

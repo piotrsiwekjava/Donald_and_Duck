@@ -40,7 +40,7 @@ public class ObstacleFactory {
                 break;
             }
             case BARRELS: {
-                obstacle = new Obstacle(position, new double[]{Sizes.SIZE * 500, Sizes.SIZE * 500}, image, 100, false, false, imagePath);
+                obstacle = new Obstacle(position, new double[]{Sizes.SIZE * 100, Sizes.SIZE * 220}, image, 100, false, false, imagePath);
                 break;
             }
             default:

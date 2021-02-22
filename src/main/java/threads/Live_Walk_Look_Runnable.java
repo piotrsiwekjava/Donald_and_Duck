@@ -34,8 +34,6 @@ public class Live_Walk_Look_Runnable implements Runnable {
 //                    unit = null;
 //                    break;
 //                }
-
-
             }
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());

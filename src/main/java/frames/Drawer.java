@@ -66,7 +66,7 @@ public class Drawer {
     private void draw_Objects(){
 
         for (ObjectGame og : objectsController.getObjectGSet()){
-            if (isOnScreen(og)) {
+            if(isOnScreen(og)){
                 if (og instanceof Unit) {
                     drawUnit((Unit) og);
                 } else if (og instanceof Obstacle || og instanceof Item) {
@@ -75,7 +75,7 @@ public class Drawer {
             }
         }
     }
-    private boolean isOnScreen (ObjectGame og){
+    private boolean isOnScreen(ObjectGame og){
         int x = (int)og.getPosition().getX();
         int xm = Sizes.Screen_Width;
         if (x>(-xm*0.1) && x<(xm*1.1))

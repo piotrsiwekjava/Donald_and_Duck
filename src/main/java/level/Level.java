@@ -9,6 +9,7 @@ import object.factories.StreetsFactory;
 import objectsController.ObjectsController;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Level {
     private final int number;
@@ -18,6 +19,7 @@ public class Level {
     private Building[] buildings;
     private int distance;
     private int enemyRespawn; //distanceOfLastRespawn;
+    private int toNextObstracle; //distanceToNextObstracle
     private ObjectsController objController;
 
     public Level(int number, String name) {
@@ -26,6 +28,7 @@ public class Level {
         build();
         this.distance = 0;
         this.enemyRespawn=0;
+        this.toNextObstracle = 50;
         this.objController = ObjectsController.getInstance();
         objController.setLevel(this);
     }
@@ -77,12 +80,31 @@ public class Level {
         return distance;
     }
 
-    public void pass200m_and_AddEnemy(int addTodistance) {
+    public void passDistance(int addTodistance) {
         this.distance += addTodistance;
         this.enemyRespawn += addTodistance;
-        if (enemyRespawn>200){
-            objController.addUnitToGame();
-            enemyRespawn=0;
+        toNextObstracle-=addTodistance;
+
+        if (toNextObstracle<=0) {
+            addObstacle();
+            toNextObstracle = randomize_distance_to_nextObstacle();
         }
+        else if (enemyRespawn>200){
+           pass200mAndAddEnemies();
+        }
+    }
+    private void pass200mAndAddEnemies(){
+        objController.addUnitToGame();
+        enemyRespawn=0;
+    }
+    private void addObstacle(){
+        objController.addRandomObstracle();
+    }
+    private int randomize_distance_to_nextObstacle() {
+        int rd = new Random().nextInt(3);
+        if (rd==0)rd=50;
+        else if (rd==1)rd=150;
+        else if (rd==2)rd=250;
+        return rd;
     }
 }

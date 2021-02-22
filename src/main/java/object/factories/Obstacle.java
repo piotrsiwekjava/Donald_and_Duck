@@ -1,6 +1,7 @@
 package object.factories;
 
 import object.ObjectImage;
+import objectsController.ObjectsController;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,9 +23,12 @@ public class Obstacle extends ObjectImage {
 
     @Override
     public void getDamage(int count, Point dmgPoint) {
-        if(!unbreakable)
+        if(!unbreakable) {
             this.damagePoint = dmgPoint;
-            this.hp-=count;
+            this.hp -= count;
+            if (this.hp<=0)
+                ObjectsController.getInstance().removeThisObject(this);
+        }
     }
 
     public boolean isEffect() {

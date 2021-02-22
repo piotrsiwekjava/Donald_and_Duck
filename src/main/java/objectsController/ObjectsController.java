@@ -4,11 +4,9 @@ import frames.GamePanel;
 import level.Level;
 import listeners.KeyGameListener;
 import object.Item;
-import object.ObjectImage;
 import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
-import object.factories.Weapon;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
@@ -21,7 +19,6 @@ import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
 import threads.Live_Walk_Look_Runnable;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +30,7 @@ public class ObjectsController {
     private static Set<Ammo>bulletSet = new HashSet<Ammo>();
     private Set<Move_Look_Point>bloodSet = new HashSet<Move_Look_Point>();
     private MoveModule moveModule = new MoveModule();
-    private EnemiesGeneratorModule enemiesGeneratorModule = new EnemiesGeneratorModule();
+    private ObjectsGeneratorModule objectsGeneratorModule = new ObjectsGeneratorModule();
     private Player player;
     private Level level;
     private int howManyEnemyNow;
@@ -53,7 +50,7 @@ public class ObjectsController {
     }
 
     public void addUnitToGame(){
-        Unit [] units = enemiesGeneratorModule.newUnits();
+        Unit [] units = objectsGeneratorModule.newUnits();
         for (int i=0;i<units.length;i++){
             addUnit(units[i]);
         }
@@ -86,6 +83,11 @@ public class ObjectsController {
         if (o.isEffect())
             Explosion_Runnable.Explosion(o,String.valueOf(number_of_object));
     }
+    public void addRandomObstracle(){
+        Obstacle o = objectsGeneratorModule.newObstacle();
+        addObstacle(o);
+    }
+
     public void addItem(Item i){
         objectGameSet.add(i);
     }
