@@ -45,6 +45,10 @@ public class GamePanel extends JPanel {
         objectsController.setGamePanel(this);
         loadCursor();
         this.setCursor(cursor);
+        playMusic();
+    }
+    private void playMusic(){
+        objectsController.playMusic();
     }
     private void setFrameSizeAndLocation (){
         panelWindth=Sizes.Screen_Width;
