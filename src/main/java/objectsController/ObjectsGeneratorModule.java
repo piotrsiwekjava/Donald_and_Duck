@@ -63,7 +63,7 @@ class ObjectsGeneratorModule {
             initiation();
             initiationed = true;
         }
-        return ObstacleFactory.create(ObstacleType.BARRELS,getRandomRestPawn());
+        return getRandomObject();
     }
     private void getLevelNumber(){
         Level plevel = ObjectsController.getInstance().getLevel();
@@ -71,9 +71,16 @@ class ObjectsGeneratorModule {
     }
     private Point getRandomRestPawn(){
         int r = new Random().nextInt(5);
-        int h = new Random().nextInt(50);
+        int h = new Random().nextInt(50)+100;
         Point p = new Point(respawnPoint.get(r).getPosition());
         p.translate(0,h);
         return p;
+    }
+    private Obstacle getRandomObject(){
+        Obstacle obstacle = ObstacleFactory.create(ObstacleType.BARRELS,getRandomRestPawn());
+        int r = new Random().nextInt(10);
+        if (r>7)
+            obstacle = ObstacleFactory.create(ObstacleType.SCRAPCAR,getRandomRestPawn());
+        return obstacle;
     }
 }

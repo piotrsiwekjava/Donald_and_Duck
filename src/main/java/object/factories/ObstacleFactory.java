@@ -26,6 +26,8 @@ public class ObstacleFactory {
                 imagePath = "obstacle\\barrels";
                 break;
             }
+            case SCRAPCAR:
+                imagePath = "obstacle\\scrapcar";
         }
 
         image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
@@ -40,7 +42,11 @@ public class ObstacleFactory {
                 break;
             }
             case BARRELS: {
-                obstacle = new Obstacle(position, new double[]{Sizes.SIZE * 100, Sizes.SIZE * 220}, image, 100, false, false, imagePath);
+                obstacle = new Obstacle(position, new double[]{Sizes.SIZE * 100, Sizes.SIZE * 220}, image, 200, false, false, imagePath);
+                break;
+            }
+            case SCRAPCAR:{
+                obstacle = new Obstacle(position, new double[]{Sizes.SIZE * 500, Sizes.SIZE * 500}, image, 100, true, false, imagePath);
                 break;
             }
             default:

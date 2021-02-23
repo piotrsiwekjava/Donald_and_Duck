@@ -32,7 +32,7 @@ public class Player extends Unit {
                 Sizes.Soldier_Size,
                 build_Body_Parts(),
                 100,
-                WeaponsFactory.create(WeaponsType.AK_47, build_Player_Position(), 120,null),
+                WeaponsFactory.create(WeaponsType.PISTOL, build_Player_Position(), 100,null),
                 100
                 );
         getWeapon().setUnit(this);
@@ -82,15 +82,13 @@ public class Player extends Unit {
         super.attack();
     }
     private void loadWeaponSet(){
-        Weapon weapon = WeaponsFactory.create(
-                WeaponsType.PISTOL,
-                getPosition(),
-                120,this);
-        weaponSet.add(weapon);
+        Weapon weapon;
         weaponSet.add(getWeapon());
         weapon = WeaponsFactory.create(WeaponsType.GRENADE,getPosition(),5,this);
         weaponSet.add(weapon);
         weapon = WeaponsFactory.create(WeaponsType.KONSTYTUCJA,getPosition(),0,this);
+        weaponSet.add(weapon);
+        weapon = WeaponsFactory.create(WeaponsType.NOWEAPON,getPosition(),0,this);
         weaponSet.add(weapon);
 
     }
@@ -106,7 +104,10 @@ public class Player extends Unit {
     }
     private void changeWeapon(){
         this.getWeapon().shooting=false;
-        setWeapon(weaponSet.get(whichWeapon));
+        Weapon wNext = weaponSet.get(whichWeapon);
+        if (wNext.getWeapontype().equals(WeaponsType.NOWEAPON))
+            swiftWeapon();
+        else setWeapon(wNext);
         getBodyController().setWeapon(getWeapon());
         playerStatus.changeWeapon();
     }
@@ -136,7 +137,10 @@ public class Player extends Unit {
         if (this.energySuperAttack<0) this.energySuperAttack=0;
         else if (this.energySuperAttack>=100) {
             this.energySuperAttack = 100;
-            weaponSet.get(3).setAmmoInMagazin(1);
+            for (Weapon w: weaponSet) {
+                if (w.isSuperweapon())
+                    w.setAmmoInMagazin(1);
+            }
         }
     }
 

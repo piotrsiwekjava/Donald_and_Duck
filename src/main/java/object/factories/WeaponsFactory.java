@@ -4,6 +4,8 @@ import object.ImageGetterAndChanger;
 import object.enumTypes.AmmoType;
 import object.enumTypes.WeaponsType;
 import object.unit.Unit;
+import object.unit.player.Player;
+import objectsController.ObjectsController;
 import settings.Sizes;
 
 import java.awt.*;
@@ -38,13 +40,20 @@ public class WeaponsFactory{
                 imagePath = "weapons\\konstytucja";
                 break;
             }
+            case NOWEAPON: {
+                imagePath = "weapons\\psm";
+            }
         }
+        ImageGetterAndChanger igc = ImageGetterAndChanger.getInstance();
+        image = igc.getTransImg(imagePath);
+        if ((unit instanceof Player) && ObjectsController.getInstance().isCanPlay() && unit.getSide() == 1) image = igc.mirrorImage(image);
 
-        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
 
         switch (type){
+            case NOWEAPON:
+                return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, image, 1, 1,2500,1000,unit, false);
             case FIST:
-                return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, null, Integer.MAX_VALUE, Integer.MAX_VALUE,2500,1000,unit, false);
+                return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, image, 1, 1,2500,1000,unit, false);
             case PISTOL:
                 return new Weapon(type,AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,10000,1000,unit, false);
             case AK_47:

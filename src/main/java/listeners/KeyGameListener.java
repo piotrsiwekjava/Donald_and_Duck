@@ -158,9 +158,8 @@ public class KeyGameListener extends KeyAdapter {
     private boolean somethingNearPlayerIsBlocking(){
         for (ObjectGame og :objectsController.getObjectGSet()) {
             if (og instanceof Item) if (isNear(og)) {
-                System.out.println("Key "+ ((Item)og).getName());
                 String name = ((Item)og).getName();
-                Collector.getInstance().collectItem(name,30);
+                Collector.getInstance().collectItem(name);
                 objectsController.removeThisObject(og);
                 return false;
             }
