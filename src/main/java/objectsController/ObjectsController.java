@@ -14,7 +14,6 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
-import sound.SoundTrackPlayer;
 import threads.Attack_Runnable;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
@@ -185,7 +184,7 @@ public class ObjectsController {
     }
 
     public void playMusic(){
-        soundTrackPlayer.play();
+        soundTrackPlayer.startPlay();
     }
     private void setMusic(int nr){
         soundTrackPlayer.changeMusic(nr);
