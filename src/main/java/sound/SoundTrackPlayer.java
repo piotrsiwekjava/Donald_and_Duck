@@ -1,8 +1,8 @@
 package sound;
 
-public class SoundTrack extends Base{
+public class SoundTrackPlayer extends SoundPlayer {
 
-    public SoundTrack() {
+    public SoundTrackPlayer() {
         changeMusic(2);
     }
 

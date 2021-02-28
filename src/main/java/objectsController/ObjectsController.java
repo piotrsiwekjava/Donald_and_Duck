@@ -14,7 +14,7 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
-import sound.SoundTrack;
+import sound.SoundTrackPlayer;
 import threads.Attack_Runnable;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
@@ -34,7 +34,7 @@ public class ObjectsController {
     private ObjectsGeneratorModule objectsGeneratorModule = new ObjectsGeneratorModule();
     private Player player;
     private Level level;
-    private SoundTrack musicPlayer = new SoundTrack();
+    private SoundTrackPlayer soundTrackPlayer = new SoundTrackPlayer();
     private int howManyEnemyNow;
     private boolean canPlay = false;
     private boolean enemySeePlayer = false;
@@ -185,9 +185,9 @@ public class ObjectsController {
     }
 
     public void playMusic(){
-        musicPlayer.play();
+        soundTrackPlayer.play();
     }
     private void setMusic(int nr){
-        musicPlayer.changeMusic(nr);
+        soundTrackPlayer.changeMusic(nr);
     }
 }

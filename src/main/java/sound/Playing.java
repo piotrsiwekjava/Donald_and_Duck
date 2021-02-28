@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface Playing {
 
-    void play();
-    void stop();
-    void changeMusic(int number);
+    public void play();
+    public void stop();
+    public void changeMusic(int number);
 }
