@@ -18,11 +18,7 @@ public class Grenade extends Weapon{
     }
     private void throwGrenade() {
         if (getLeftAmmoinMagazin() == 0) {
-            try {
                 this.reload();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         } else if (getLeftAmmoinMagazin() > 0) {
             setLeftAmmoinMagazin(-1);
             ObjectsController.getInstance().addBullet(

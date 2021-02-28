@@ -6,6 +6,7 @@ import object.enumTypes.WeaponsType;
 import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
+import sound.SoundPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,14 +42,11 @@ public class Weapon extends ObjectImage {
 
     public synchronized void fire() {
         if (leftAmmoinMagazin == 0) {
-            try {
                 reload();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         else if(leftAmmoinMagazin>0) {
             leftAmmoinMagazin -= 1;
+            giveSound();
             ObjectsController.getInstance().addBullet(
                     AmmoFactory.create(ammo_type, this)
             );
@@ -56,14 +54,19 @@ public class Weapon extends ObjectImage {
         if (superweapon)((Player)unit).setEnergySuperAttack(0);
     }
 
-    protected synchronized void reload() throws InterruptedException {
+    protected synchronized void reload(){
         shooting=false;
-           while(allleftAmmo>0 && leftAmmoinMagazin!=MaxAmmoInMagazin) {
+        try {
+            while (allleftAmmo > 0 && leftAmmoinMagazin != MaxAmmoInMagazin) {
                 leftAmmoinMagazin++;
                 allleftAmmo--;
             }
             wait((long) reloadSpeed);
             shooting = true;
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
     public void triggerPull(){
         shooting = true;
@@ -131,5 +134,12 @@ public class Weapon extends ObjectImage {
 
     public boolean isSuperweapon() {
         return superweapon;
+    }
+
+    private void giveSound(){
+        if (type.equals(WeaponsType.AK_47))
+            SoundPlayer.getMainSoundPlayer().playNewMusicThread(5);
+        else if (type.equals(WeaponsType.PISTOL))
+            SoundPlayer.getMainSoundPlayer().playNewMusicThread(8);
     }
 }

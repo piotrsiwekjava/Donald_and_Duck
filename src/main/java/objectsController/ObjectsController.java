@@ -7,6 +7,7 @@ import object.Item;
 import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
+import object.factories.Weapon;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
@@ -14,6 +15,8 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
+import object.unit.unitTypes.Soldier;
+import sound.SoundPlayer;
 import threads.Attack_Runnable;
 import threads.BulletFly_Runnable;
 import threads.Explosion_Runnable;
@@ -33,8 +36,8 @@ public class ObjectsController {
     private ObjectsGeneratorModule objectsGeneratorModule = new ObjectsGeneratorModule();
     private Player player;
     private Level level;
-    private SoundTrackPlayer soundTrackPlayer = new SoundTrackPlayer();
-    private int howManyEnemyNow;
+    private SoundPlayer soundPlayer = SoundPlayer.getMainSoundPlayer();
+    private int howManyEnemyNow =-1;
     private boolean canPlay = false;
     private boolean enemySeePlayer = false;
     private static ObjectsController objectsController= new ObjectsController();
@@ -93,7 +96,7 @@ public class ObjectsController {
         objectGameSet.add(i);
     }
 
-    public void removeThisObject(ObjectGame o){
+    public synchronized void removeThisObject(ObjectGame o){
         objectGameSet.remove(o);
         number_of_object--;
         if(o instanceof Unit) howManyEnemyNow--;
@@ -153,6 +156,7 @@ public class ObjectsController {
     public void setEnemySeePlayer(boolean enemySeePlayer) {
         this.enemySeePlayer = enemySeePlayer;
         if (enemySeePlayer) {
+            playSoundtrack(2);
             for (ObjectGame og: objectGameSet){
                 if (og instanceof Unit && !(og instanceof Player)){
                     ((Unit)og).seePlayer=true;
@@ -163,12 +167,15 @@ public class ObjectsController {
                 }
             }
         }
-        else for (ObjectGame og: objectGameSet){
-            if (og instanceof Unit && !(og instanceof Player)){
-                ((Unit)og).seePlayer=false;
-                ((Unit)og).setLookingInterfejs(new LookingEnemy());
-                ((Unit)og).setAttackInerfejs(new NoAttack());
+        else {
+            playSoundtrack(1);
+            for (ObjectGame og: objectGameSet) {
+            if (og instanceof Unit && !(og instanceof Player)) {
+                ((Unit) og).seePlayer = false;
+                ((Unit) og).setLookingInterfejs(new LookingEnemy());
+                ((Unit) og).setAttackInerfejs(new NoAttack());
             }
+        }
         }
     }
     public void remove_Blood_and_Unit(Move_Look_Point blood){
@@ -183,10 +190,10 @@ public class ObjectsController {
         this.gamePanel = gamePanel;
     }
 
-    public void playMusic(){
-        soundTrackPlayer.startPlay();
+    public void playSoundtrack(int number){
+        soundPlayer.startPlaySoundTrack(number);
     }
     private void setMusic(int nr){
-        soundTrackPlayer.changeMusic(nr);
+        soundPlayer.changeMusic(nr);
     }
 }

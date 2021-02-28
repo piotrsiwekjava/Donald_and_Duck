@@ -47,9 +47,7 @@ public class GamePanel extends JPanel {
         this.setCursor(cursor);
         playMusic();
     }
-    private void playMusic(){
-        objectsController.playMusic();
-    }
+
     private void setFrameSizeAndLocation (){
         panelWindth=Sizes.Screen_Width;
         panelHeight=Sizes.Screen_Height;
@@ -66,6 +64,9 @@ public class GamePanel extends JPanel {
         this.myTimerDelay=50;
         myTimer = new Timer(myTimerDelay,gameTimer);
         myTimer.start();
+    }
+    private void playMusic(){
+        objectsController.playSoundtrack(1);
     }
 
     ActionListener gameTimer = new ActionListener() {
