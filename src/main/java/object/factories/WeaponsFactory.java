@@ -55,9 +55,9 @@ public class WeaponsFactory{
             case FIST:
                 return new Weapon(type, AmmoType.A5MM, position, new double[]{0.01, 0.01}, image, 1, 1,2500,1000,unit, false);
             case PISTOL:
-                return new Weapon(type,AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,10000,1000,unit, false);
+                return new Weapon(type,AmmoType.A5MM, position, Sizes.Pistol, image,10,leftAmmo,10000,2000,unit, false);
             case AK_47:
-                return new Weapon(type,AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,10000,400,unit, false);
+                return new Weapon(type,AmmoType.A7MM, position, Sizes.AK, image,30,leftAmmo,10000,1000,unit, false);
             case BAZOOKA:
                 return new Weapon(type,AmmoType.MISSILE, position, Sizes.Bazooka, image,1,leftAmmo,10000,1000,unit, false);
             case GRENADE:

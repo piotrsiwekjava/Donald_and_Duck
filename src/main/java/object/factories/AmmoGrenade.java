@@ -19,7 +19,7 @@ public class AmmoGrenade extends Ammo {
     private int sizeField_of_fire;
     private boolean clusterbomb;
     public AmmoGrenade(AmmoType type, Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot, int sizeField_of_fire, boolean isClusterBomb ) {
-        super(type, position, size, image, damage, target, speed, whoShoot);
+        super(type,4, position, size, image, damage, target, speed, whoShoot);
         this.target = target;
         this.exploded = false;
         this.sizeField_of_fire = sizeField_of_fire;

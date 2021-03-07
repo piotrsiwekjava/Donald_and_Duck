@@ -7,7 +7,6 @@ import object.Item;
 import object.factories.Obstacle;
 import object.ObjectGame;
 import object.factories.Ammo;
-import object.factories.Weapon;
 import object.unit.Move_Look_Point;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
@@ -15,7 +14,6 @@ import object.unit.behavior.enemy.attack.NoAttack;
 import object.unit.behavior.enemy.looking.LookingEnemy;
 import object.unit.behavior.enemy.looking.Stare;
 import object.unit.player.Player;
-import object.unit.unitTypes.Soldier;
 import sound.SoundPlayer;
 import threads.Attack_Runnable;
 import threads.BulletFly_Runnable;
@@ -191,7 +189,7 @@ public class ObjectsController {
     }
 
     public void playSoundtrack(int number){
-        soundPlayer.startPlaySoundTrack(number);
+        soundPlayer.startPlay(number);
     }
     private void setMusic(int nr){
         soundPlayer.changeMusic(nr);

@@ -5,6 +5,7 @@ import object.ObjectImage;
 import object.enumTypes.AmmoType;
 import object.unit.Unit;
 import objectsController.ObjectsController;
+import sound.SoundPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,15 +13,18 @@ import java.awt.image.BufferedImage;
 public class Ammo extends ObjectImage {
     private Unit whoShoot;
     private AmmoType type;
+    private int nrtypeAmmo;
     private int damage;
     private double speed;
     private double nX;
     private double nY;
+    private SoundPlayer.MusicThread sound;
     public boolean isBlocked;
 
-    public Ammo(AmmoType type, Point position, double[] size, BufferedImage image, int damage, Point target, double speed, Unit whoShoot) {
+    public Ammo(AmmoType type, int typeAmmo, Point position, double[] size, BufferedImage image, int damage, Point target, double speed, Unit whoShoot) {
         super(position, size, image);
         this.type = type;
+        this.nrtypeAmmo = typeAmmo;
         this.damage = damage;
         this.speed = speed;
         this.whoShoot = whoShoot;
@@ -58,6 +62,7 @@ public class Ammo extends ObjectImage {
             if (o instanceof Unit && !((Unit)o).isAlive())return;
             isBlocked = true;
             o.getDamage(this.damage, new Point(this.getPosition()));
+            giveSound();
         }
     }
 
@@ -87,6 +92,18 @@ public class Ammo extends ObjectImage {
 
     public AmmoType getType() {
         return type;
+    }
+
+    private void giveSound(){
+        int i=0;
+        if (nrtypeAmmo==1) i=9;
+        else if (nrtypeAmmo==2) i=6;
+        else if (nrtypeAmmo==3) i=1;
+        else if (nrtypeAmmo==4) i=1;
+        sound = SoundPlayer.getMainSoundPlayer().playNewMusicThread(i);
+    }
+    private void changeSound(int number){
+        sound.changePlay(number);
     }
 }
 

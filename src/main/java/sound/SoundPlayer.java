@@ -3,44 +3,22 @@ package sound;
 import jaco.mp3.player.MP3Player;
 import settings.Pathes_and_Links;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 public class SoundPlayer{
     private static SoundPlayer soundPlayer = new SoundPlayer();
     private String currentMusicLocation;
     protected ArrayList<String> musicNames;
+    protected ArrayList<File> musicFiles;
     protected String pathToFile;
     private MusicThread soundTrackThread;
     private MP3Player mp3Player;
 
     private SoundPlayer() {
         this.musicNames = new ArrayList<String>();
-        loadPathToSoundTrack();
-
-    }
-
-    public synchronized void startPlaySoundTrack(int number) {
-        System.out.println("Sound Player będę grał");
-        changeMusic(number);
-//        soundTrackThread = new MusicThread();
-//        soundTrackThread.start();
-        try {
-            mp3Player.stop();
-        }
-        catch (Exception e){}
-        mp3Player = new MP3Player(openNewFile(currentMusicLocation));
-        mp3Player.play();
-        mp3Player.setRepeat(true);
-        System.out.println("Sound Player powinnienem grać");
-    }
-
-    public synchronized void stopPlay() {
-        System.out.println("Sound Player + wciskam stop");
-    }
-
-    public synchronized void changeMusic(int number) {
-        currentMusicLocation = pathToFile + musicNames.get(number);
+        this.musicFiles = new ArrayList<File>();
+        loadMusic();
     }
 
     public static SoundPlayer getMainSoundPlayer() {
@@ -50,9 +28,31 @@ public class SoundPlayer{
         return new SoundPlayer();
     }
 
-    private void loadPathToSoundTrack() {
+    public synchronized void startPlay(int number) {
+        System.out.println("Sound Player będę grał");
+        changeMusic(number);
+        try {
+            mp3Player.stop();
+        }
+        catch (Exception e){}
+        mp3Player = new MP3Player(new File(currentMusicLocation));
+        mp3Player.play();
+        mp3Player.setRepeat(true);
+        System.out.println("Sound Player powinnienem grać");
+    }
+
+    public synchronized void stopPlay(){
+        mp3Player.stop();
+    }
+
+    public synchronized void changeMusic(int number) {
+        currentMusicLocation = pathToFile + musicNames.get(number);
+    }
+
+    private void loadMusic() {
         pathToFile = Pathes_and_Links.pathToMusic;
         addToMusicList();
+        addToFileList();
     }
 
     protected void addToMusicList() {
@@ -70,6 +70,18 @@ public class SoundPlayer{
         musicNames.add("sounds\\hitHuman2.mp3");
         musicNames.add("sounds\\hitMiss.mp3");
     }
+    protected void addToFileList() {
+        for (String str : musicNames) {
+            try {
+//                BufferedInputStream bIS = new BufferedInputStream(new FileInputStream(pathToFile+str));
+//                musicFiles.add(bIS);
+                File file = new File(pathToFile + str);
+                musicFiles.add(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public synchronized MusicThread playNewMusicThread(int number) {
         soundTrackThread = new MusicThread(number);
@@ -77,11 +89,7 @@ public class SoundPlayer{
         return soundTrackThread;
     }
 
-    private File openNewFile(String currentMusicLocation) {
-        return new File(currentMusicLocation);
-    }
-
-    class MusicThread extends Thread {
+    public class MusicThread extends Thread {
         private MP3Player mp3_player;
         private int number;
 
@@ -96,23 +104,26 @@ public class SoundPlayer{
         public void run() {
             try {
                 System.out.println("Music thread zaczynam grać");
-                mp3_player = new MP3Player(openNewFile(currentMusicLocation));
+                mp3_player = new MP3Player(musicFiles.get(number));
                 mp3_player.play();
                 try {
                     if (number < 4) {
-                        System.out.println("Music thread powtarzam");
                         mp3_player.setRepeat(true);
                     }
                 }
                 catch (Exception e){
-                    System.out.println("Music thread nie powtarzam");
                     e.printStackTrace();
                 }
 
             } catch (Exception e) {
-                System.out.println("Music thread nie gram");
                 e.printStackTrace();
             }
+        }
+        public void stopplay(){
+            mp3_player.stop();
+        }
+        public void changePlay(int number){
+            mp3_player.addToPlayList(musicFiles.get(number));
         }
 
     }

@@ -52,13 +52,13 @@ public class AmmoFactory{
 
         switch (type) {
             case A5MM:
-                ammo = new Ammo(type, new Point(barrelTip), Sizes.A5MM, image, 20, target, (int) Sizes.RUN_Speed, whoShoot);
+                ammo = new Ammo(type,1, new Point(barrelTip), Sizes.A5MM, image, 20, target, (int) Sizes.RUN_Speed, whoShoot);
                 break;
             case A7MM:
-                ammo = new Ammo(type, new Point(barrelTip), Sizes.A7MM, image, 30, target, (int) (Sizes.RUN_Speed * 1.5), whoShoot);
+                ammo = new Ammo(type,2, new Point(barrelTip), Sizes.A7MM, image, 30, target, (int) (Sizes.RUN_Speed * 1.5), whoShoot);
                 break;
             case MISSILE:
-                ammo = new Ammo(type, new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
+                ammo = new Ammo(type,3, new Point(barrelTip), Sizes.MISSILE, image, 100, target, (int) (Sizes.RUN_Speed * 1.3), whoShoot);
                 break;
             case GRENADE:
                 ammo = new AmmoGrenade(type, new Point(barrelTip), Sizes.Grenade, image, 500, target, (int) (Sizes.RUN_Speed * 0.5), whoShoot, 100, false);
