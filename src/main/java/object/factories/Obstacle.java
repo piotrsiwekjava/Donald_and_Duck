@@ -2,9 +2,11 @@ package object.factories;
 
 import object.ObjectImage;
 import objectsController.ObjectsController;
+import sound.Mixer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Obstacle extends ObjectImage {
 
@@ -23,12 +25,19 @@ public class Obstacle extends ObjectImage {
 
     @Override
     public void getDamage(int count, Point dmgPoint) {
+        giveSound(12);
         if(!unbreakable) {
             this.damagePoint = dmgPoint;
             this.hp -= count;
             if (this.hp<=0)
+                giveSound(20);
                 ObjectsController.getInstance().removeThisObject(this);
         }
+    }
+
+    private void giveSound(int action) {
+        if (action != 20) action = new Random().nextInt(3) + 12;
+        Mixer.getSecondPlayer().playNewMusicThread(action);
     }
 
     public boolean isEffect() {

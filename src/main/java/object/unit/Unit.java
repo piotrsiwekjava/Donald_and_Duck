@@ -13,8 +13,10 @@ import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
 import objectsController.ObjectsController;
 import settings.Sizes;
+import sound.Mixer;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Unit extends ObjectGame {
     private ObjectsController objectsController;
@@ -90,6 +92,7 @@ public class Unit extends ObjectGame {
     private void death(int ammoStrenght){
         if (isAlive()) {
             alive=false;
+            giveSound(19);
             attackInerfejs = new NoAttack();
             lookingInterfejs = new Stare();
             moveInterfejs = new DeathEnemy(this, ammoStrenght);
@@ -157,6 +160,7 @@ public class Unit extends ObjectGame {
 
     @Override
     public void getDamage(int count, Point dmgPoint) {
+        giveSound(11);
         this.damagePoint = dmgPoint;
         this.changeHp(-count);
     }
@@ -187,5 +191,9 @@ public class Unit extends ObjectGame {
 
     public int getPoints_for_kill(){
         return this.points_for_kill;
+    }
+    private void giveSound(int i){
+        if (i!=19) i=new Random().nextInt(2)+10;
+        Mixer.getSecondPlayer().playNewMusicThread(i);
     }
 }

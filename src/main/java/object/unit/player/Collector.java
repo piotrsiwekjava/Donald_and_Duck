@@ -4,8 +4,7 @@ import object.enumTypes.WeaponsType;
 import object.factories.Weapon;
 import object.factories.WeaponsFactory;
 import objectsController.ObjectsController;
-
-import java.lang.reflect.Type;
+import sound.Mixer;
 
 public class Collector {
 
@@ -56,10 +55,17 @@ public class Collector {
             count = 5;
         }
 
-        if (haveYouThisWeapon(type, count)) return true;
+        if (haveYouThisWeapon(type, count)) {
+            giveSound();
+            return true;}
         else
             return addWeapon(type, count);
     }
+
+    private void giveSound() {
+        Mixer.getMainSoundPlayer().playNewMusicThread(18);
+    }
+
     private boolean haveYouThisWeapon(WeaponsType type,int count) {
         for (Weapon w : player.getWeaponSet()) {
             if (w.getWeapontype().equals(type)) {
