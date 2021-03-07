@@ -103,7 +103,7 @@ public class Ammo extends ObjectImage {
         sound = Mixer.getSecondPlayer().playNewMusicThread(i);
     }
     private int setNrOfSound(){
-        int fly=0;
+        int fly=-1;
         if (AmmoType.A5MM.equals(type)) {fly=9;}
         else if (AmmoType.A7MM.equals(type)) {fly=6;}
         else if (AmmoType.GRENADE.equals(type)) {fly=16;}
