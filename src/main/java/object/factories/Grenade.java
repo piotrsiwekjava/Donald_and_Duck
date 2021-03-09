@@ -15,17 +15,30 @@ public class Grenade extends Weapon{
     public Grenade(WeaponsType type, AmmoType ammo_type, Point position, double[] size, BufferedImage image, int maxAmmoInMagazin, int allleftAmmo, int reloadSpeed, int fireSpeed, Unit unit, boolean isSuperWeapon) {
         super(type, ammo_type, position, size, image, maxAmmoInMagazin, allleftAmmo, reloadSpeed, fireSpeed,unit,isSuperWeapon);
         this.startPress =0;
+        this.setSize(new double[]{0.1,0.1});
     }
     private void throwGrenade() {
         if (getLeftAmmoinMagazin() == 0) {
                 this.reload();
         } else if (getLeftAmmoinMagazin() > 0) {
-            setLeftAmmoinMagazin(-1);
-            ObjectsController.getInstance().addBullet(
-                    AmmoFactory.create(getAmmo_type(),this)
-            );
-            if (this.isSuperweapon())((Player)this.getUnit()).setEnergySuperAttack(0);
+            removeGrenadeFromHand();
+            createNewGrenade();
+            if (this.isSuperweapon()) removeSuperEnergy();
         }
+    }
+
+    @Override
+    protected synchronized void reload() {
+        super.reload();
+
+        double [] s = {0.1,0.1};
+        if ((getLeftAmmoinMagazin()+getAllleftAmmo())>0) {
+            if (this.getWeapontype().equals(WeaponsType.GRENADE))
+                s = Sizes.Grenade;
+            else if (this.getWeapontype().equals(WeaponsType.KONSTYTUCJA))
+                s = Sizes.Konstytucja;
+        }
+        this.setSize(s);
     }
 
     @Override
@@ -42,6 +55,18 @@ public class Grenade extends Weapon{
         this.startPress =0;
     }
 
+    private void removeGrenadeFromHand(){
+        this.setSize(new double[]{0.1,0.1});
+        setLeftAmmoinMagazin(-1);
+    }
+    private void createNewGrenade(){
+        ObjectsController.getInstance().addBullet(
+                AmmoFactory.create(getAmmo_type(),this)
+        );
+    }
+    private void removeSuperEnergy(){
+        ((Player)this.getUnit()).setEnergySuperAttack(0);
+    }
 
     public int getStartPress() {
         return startPress;
@@ -59,4 +84,5 @@ public class Grenade extends Weapon{
         if (currentPress>1000)currentPress=1000;
         return currentPress;
     }
+
 }

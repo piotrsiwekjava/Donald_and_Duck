@@ -81,6 +81,12 @@ public class Player extends Unit {
     public void attack() {
         super.attack();
     }
+
+    @Override
+    public void changeHp(int value) {
+//        super.changeHp(value);
+    }
+
     private void loadWeaponSet(){
         Weapon weapon;
         weaponSet.add(getWeapon());
@@ -133,13 +139,14 @@ public class Player extends Unit {
         this.energySuperAttack = energySuperAttack;
     }
     public void changeEnergySuperAttack(int value) {
-        this.energySuperAttack += value;
-        if (this.energySuperAttack<0) this.energySuperAttack=0;
-        else if (this.energySuperAttack>=100) {
+        if (this.energySuperAttack < 0)
+            this.energySuperAttack = 0;
+        if (this.energySuperAttack < 100)
+            this.energySuperAttack += value;
+        else {
             this.energySuperAttack = 100;
-            for (Weapon w: weaponSet) {
-                if (w.isSuperweapon())
-                    w.setAmmoInMagazin(1);
+            for (Weapon w : weaponSet) {
+                if (w.isSuperweapon()) w.addOnlyOneAmmo();
             }
         }
     }

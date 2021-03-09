@@ -100,7 +100,7 @@ public class Ammo extends ObjectImage {
 
     private void giveSound(){
         int i = setNrOfSound();
-        sound = Mixer.getSecondPlayer().playNewMusicThread(i);
+        if (i>0)sound = Mixer.getSecondPlayer().playNewMusicThread(i);
     }
     private int setNrOfSound(){
         int fly=-1;

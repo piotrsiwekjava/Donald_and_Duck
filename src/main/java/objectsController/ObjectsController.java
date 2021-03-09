@@ -100,6 +100,7 @@ public class ObjectsController {
         number_of_object--;
         if(o instanceof Unit) howManyEnemyNow--;
         if (howManyEnemyNow==0) setEnemySeePlayer(false);
+        o=null;
     }
 
     public Set<Ammo> getBulletSet() {
@@ -141,7 +142,7 @@ public class ObjectsController {
     }
 
     private void showHowManyObjectsGame(){
-        System.out.println("Objects in game: " + number_of_object);
+        System.out.println("Enemies in game: " + howManyEnemyNow);
     }
 
     public Set<Move_Look_Point> getBloodSet() {

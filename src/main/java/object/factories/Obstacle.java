@@ -36,8 +36,9 @@ public class Obstacle extends ObjectImage {
     }
 
     private void giveSound(int action) {
-        if (action != 20) action = new Random().nextInt(3) + 12;
-        Mixer.getSecondPlayer().playNewMusicThread(action);
+        int a= action;
+        if (a != 20) a = new Random().nextInt(3) + 12;
+        Mixer.getSecondPlayer().playNewMusicThread(a);
     }
 
     public boolean isEffect() {

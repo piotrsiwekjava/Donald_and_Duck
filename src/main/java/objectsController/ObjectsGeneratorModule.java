@@ -78,9 +78,9 @@ class ObjectsGeneratorModule {
     }
     private Obstacle getRandomObject(){
         Obstacle obstacle = ObstacleFactory.create(ObstacleType.BARRELS,getRandomRestPawn());
-        int r = new Random().nextInt(10);
-        if (r>7)
-            obstacle = ObstacleFactory.create(ObstacleType.SCRAPCAR,getRandomRestPawn());
+//        int r = new Random().nextInt(10);
+//        if (r>7)
+//            obstacle = ObstacleFactory.create(ObstacleType.SCRAPCAR,getRandomRestPawn());
         return obstacle;
     }
 }

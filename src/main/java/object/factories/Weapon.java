@@ -48,7 +48,8 @@ public class Weapon extends ObjectImage {
         }
         else if(leftAmmoinMagazin>0) {
             leftAmmoinMagazin -= 1;
-            giveSound(soundnumber[0]);
+            if (soundnumber[0] > 0)
+                giveSound(soundnumber[0]);
             ObjectsController.getInstance().addBullet(
                     AmmoFactory.create(ammo_type, this)
             );
@@ -56,9 +57,10 @@ public class Weapon extends ObjectImage {
         if (superweapon)((Player)unit).setEnergySuperAttack(0);
     }
 
-    protected synchronized void reload(){
-        shooting=false;
-        giveSound(soundnumber[1]);
+    protected synchronized void reload() {
+        shooting = false;
+        if (soundnumber[1] > 0)
+            giveSound(soundnumber[1]);
         try {
             while (allleftAmmo > 0 && leftAmmoinMagazin != MaxAmmoInMagazin) {
                 leftAmmoinMagazin++;
@@ -66,8 +68,7 @@ public class Weapon extends ObjectImage {
             }
             wait((long) reloadSpeed);
             shooting = true;
-        }
-        catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -144,8 +145,8 @@ public class Weapon extends ObjectImage {
     }
     private void setSoundnumber(){
         this.soundnumber=new int[2];
-        int s=0;
-        int r=0;
+        int s=-1;
+        int r=-1;
         if (type.equals(WeaponsType.AK_47)){
             s = 5; r=4;}
         else if (type.equals(WeaponsType.PISTOL)){
@@ -154,5 +155,9 @@ public class Weapon extends ObjectImage {
             s = 17; r=17;}
         soundnumber[0]=s;
         soundnumber[1]=r;
+    }
+    public void addOnlyOneAmmo() {
+        if ((this.getLeftAmmoinMagazin() + this.getAllleftAmmo() ) == 0)
+            this.setAllleftAmmo(1);
     }
 }
