@@ -1,5 +1,6 @@
 package object.unit;
 
+import listeners.KeyGameListener;
 import object.factories.BodyPart;
 import object.ObjectGame;
 import object.factories.Weapon;
@@ -11,6 +12,7 @@ import object.unit.behavior.enemy.looking.Stare;
 import object.unit.behavior.enemy.move.DeathEnemy;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
+import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.Sizes;
 import sound.Mixer;
@@ -50,6 +52,19 @@ public class Unit extends ObjectGame {
         this.points_for_kill=points_for_kill;
         initiation();
     }
+
+    @Override
+    public void setXY(double ix, double iy) {
+    }
+
+    @Override
+    public void getDamage(int count, Point dmgPoint) {
+        giveSound(11);
+        this.damagePoint = dmgPoint;
+        this.changeHp(-count);
+    }
+
+
     private void initiation(){
         this.alive=true;
         this.moveTarget = new Move_Look_Point(this.getPosition());
@@ -89,13 +104,14 @@ public class Unit extends ObjectGame {
         lookingInterfejs.look(this);
     }
 
-    private void death(int ammoStrenght){
+    protected void death(int ammoStrenght){
         if (isAlive()) {
             alive=false;
             giveSound(19);
             attackInerfejs = new NoAttack();
             lookingInterfejs = new Stare();
             moveInterfejs = new DeathEnemy(this, ammoStrenght);
+
         }
 
     }
@@ -152,17 +168,6 @@ public class Unit extends ObjectGame {
         this.side = side2;
         this.bodyController.changeSide(side2);
 
-    }
-
-    @Override
-    public void setXY(double ix, double iy) {
-    }
-
-    @Override
-    public void getDamage(int count, Point dmgPoint) {
-        giveSound(11);
-        this.damagePoint = dmgPoint;
-        this.changeHp(-count);
     }
 
     public int getCourse() {

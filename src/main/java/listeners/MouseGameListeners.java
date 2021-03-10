@@ -29,7 +29,7 @@ public class MouseGameListeners extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        if (e.getButton()==MouseEvent.BUTTON1) {
+        if (e.getButton()==MouseEvent.BUTTON1 && player.alive) {
             player.mouseIsClick();
         }
     }
@@ -37,7 +37,8 @@ public class MouseGameListeners extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        if (e.getButton()==MouseEvent.BUTTON1) player.mouseRealeas();
+        if (e.getButton()==MouseEvent.BUTTON1 && player.alive)
+            player.mouseRealeas();
     }
 
 }

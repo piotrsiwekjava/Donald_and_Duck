@@ -58,6 +58,7 @@ public class Drawer {
                 og.setSize(new double[]{x1+2,y1+1});
             }
             else {
+                if (!(((Move_Look_Point) og).getUnit() instanceof Player))
                 objectsController.remove_Blood_and_Unit((Move_Look_Point) og);
             }
         }

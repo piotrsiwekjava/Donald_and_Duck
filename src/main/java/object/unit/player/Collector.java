@@ -30,7 +30,6 @@ public class Collector {
     }
 
     public void addPoints(int points) {
-        System.out.println("Collector "+points);
         this.amount_of_points += points;
         player.changeHp(points);
     }

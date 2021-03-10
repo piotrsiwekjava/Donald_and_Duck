@@ -26,7 +26,7 @@ public class KeyGameListener extends KeyAdapter {
     private boolean rightpress;
     private boolean runpress;
     private int keytyped;
-    private boolean gamestarted = false;
+    private boolean canGaming = false;
 
 
     private static KeyGameListener keyListener = new KeyGameListener();
@@ -66,7 +66,7 @@ public class KeyGameListener extends KeyAdapter {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (gamestarted) {
+        if (canGaming) {
             if (e.getKeyChar() == KeyShortCuts.SWITHGUN) {
                 player.swiftWeapon();
             }
@@ -95,7 +95,7 @@ public class KeyGameListener extends KeyAdapter {
             this.runpress = true;
 
         keytyped = e.getKeyCode();
-        if (gamestarted) action();
+        if (canGaming) action();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class KeyGameListener extends KeyAdapter {
             player.setOwnLegfast(Sizes.Leg_Speed);
         }
 
-        action();
+        if (canGaming)action();
     }
 
     public void registerObjectG(ObjectGame o){
@@ -140,10 +140,11 @@ public class KeyGameListener extends KeyAdapter {
     }
     public void setPlayer(Player player){
         this.player=player;
-        gamestarted=true;
+        canGaming =true;
     }
+
     public void timeLapse(){
-        if (gamestarted) {
+        if (canGaming) {
             if (!runpress) {
                 player.changeEnergy(+1);
                 if (!rightpress && !leftpress && !downpress && !uppress) {
@@ -176,5 +177,9 @@ public class KeyGameListener extends KeyAdapter {
         if (Math.abs(x-xp)<50 && (dy>75 && dy<200))
             return true;
         return false;
+    }
+
+    public void setCanGaming(boolean canGaming) {
+        this.canGaming = canGaming;
     }
 }

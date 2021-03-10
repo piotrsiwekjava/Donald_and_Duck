@@ -45,8 +45,8 @@ public class DeathEnemy implements MoveInterfejs {
             addBlood();
             givePoints_and_dropItem();
         }
-        this.angle += Math.abs(increment);
-        unit.getBodyController().changePointsBodyWhenTorsoRotate();
+            this.angle += Math.abs(increment);
+            unit.getBodyController().changePointsBodyWhenTorsoRotate();
 
     }
 

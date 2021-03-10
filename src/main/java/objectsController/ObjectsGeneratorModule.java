@@ -16,7 +16,7 @@ import java.util.Random;
 
 class ObjectsGeneratorModule {
     private int level;
-    private final int amount_of_enemy = 4;
+    private final int amount_of_enemy = 2;
     private ArrayList <RespawnPoint> respawnPoint;
     private boolean initiationed;
     ObjectsGeneratorModule(){
@@ -37,7 +37,7 @@ class ObjectsGeneratorModule {
             initiationed = true;
         }
         getLevelNumber();
-        int random = new Random().nextInt(5)+1;
+        int random = new Random().nextInt(amount_of_enemy)+1;
         Unit[] units = new Unit[random];
         for (int i =0; i<random;i++){
             int r = new Random().nextInt(amount_of_enemy)+1;

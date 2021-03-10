@@ -1,6 +1,8 @@
 package object.unit.player;
 
 import frames.PlayerStatus;
+import listeners.KeyGameListener;
+import object.ObjectGame;
 import object.enumTypes.UnitType;
 import object.factories.BodyFactory;
 import listeners.MouseGameListeners;
@@ -13,6 +15,7 @@ import object.unit.behavior.enemy.attack.Attack;
 import object.unit.behavior.enemy.looking.LookingPlayer;
 import object.unit.behavior.enemy.move.PlayerMove;
 import object.unit.behavior.enemy.move.Wait;
+import objectsController.ObjectsController;
 import settings.Sizes;
 
 import java.awt.*;
@@ -51,20 +54,6 @@ public class Player extends Unit {
         this.waitlegs = new Wait();
         this.movelegs = new PlayerMove();
     }
-    private void loadData(){
-
-    }
-    private static Point build_Player_Position(){
-        return new Point(Toolkit.getDefaultToolkit().getScreenSize().width/3,
-                Toolkit.getDefaultToolkit().getScreenSize().height/2);
-    }
-    private static BodyPart[] build_Body_Parts(){
-        return BodyFactory.getInstance().Create_Body(UnitType.JARO, build_Player_Position());
-    }
-
-    public PlayerStatus getPlayerStatus() {
-        return playerStatus;
-    }
 
     @Override
     public void move() {
@@ -83,9 +72,26 @@ public class Player extends Unit {
     }
 
     @Override
-    public void changeHp(int value) {
-//        super.changeHp(value);
+    protected void death(int ammoStrenght) {
+        super.death(ammoStrenght);
+        playerDeath();
     }
+
+    private void loadData(){
+
+    }
+    private static Point build_Player_Position(){
+        return new Point(Toolkit.getDefaultToolkit().getScreenSize().width/3,
+                Toolkit.getDefaultToolkit().getScreenSize().height/2);
+    }
+    private static BodyPart[] build_Body_Parts(){
+        return BodyFactory.getInstance().Create_Body(UnitType.JARO, build_Player_Position());
+    }
+
+    public PlayerStatus getPlayerStatus() {
+        return playerStatus;
+    }
+
 
     private void loadWeaponSet(){
         Weapon weapon;
@@ -170,5 +176,9 @@ public class Player extends Unit {
 
     public ArrayList<Weapon> getWeaponSet() {
         return weaponSet;
+    }
+    private void playerDeath(){
+        KeyGameListener.getInstance().setCanGaming(false);
+        ObjectsController.getInstance().setEnemySeePlayer(false);
     }
 }
