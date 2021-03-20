@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class AmmoFactory{
 
+    private static BufferedImage BULLETIMAGE;
 
     public static Ammo create(AmmoType type, Weapon weapon) {
         BufferedImage image = null;
@@ -45,7 +46,15 @@ public class AmmoFactory{
                 break;
             }
         }
-        image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
+        if (imagePath.equals("weapons\\bL")) {
+            if (BULLETIMAGE != null) image = BULLETIMAGE;
+            else {
+                image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
+                BULLETIMAGE = image;
+            }
+        }
+        else image = ImageGetterAndChanger.getInstance().getTransImg(imagePath);
+
         if (side == 1) image = ImageGetterAndChanger.getInstance().mirrorImage(image);
 
         Ammo ammo;
