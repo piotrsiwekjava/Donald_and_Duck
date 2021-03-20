@@ -2,14 +2,10 @@ package object.unit.player;
 
 import frames.PlayerStatus;
 import listeners.KeyGameListener;
-import object.ObjectGame;
-import object.enumTypes.UnitType;
-import object.factories.BodyFactory;
 import listeners.MouseGameListeners;
 import object.factories.BodyPart;
 import object.enumTypes.WeaponsType;
 import object.factories.Weapon;
-import object.factories.WeaponsFactory;
 import object.unit.Unit;
 import object.unit.behavior.enemy.attack.Attack;
 import object.unit.behavior.enemy.looking.LookingPlayer;
@@ -26,28 +22,30 @@ public class Player extends Unit {
     private PlayerStatus playerStatus;
     private PlayerMove movelegs;
     private Wait waitlegs;
-    private int whichWeapon=0;
-    private int energy;
+    private int whichWeapon = 0;
+    private int energy = 100;
     private int energySuperAttack = 0;
-    public Player() {
+    public Player(Point startpoint, BodyPart[] bodyparts,ArrayList<Weapon>weaponSet, int points) {
 
-        super(build_Player_Position(),
+        super(startpoint,
                 Sizes.Soldier_Size,
-                build_Body_Parts(),
+                bodyparts,
                 100,
-                WeaponsFactory.create(WeaponsType.PISTOL, build_Player_Position(), 100,null),
-                100
+                weaponSet.get(0),
+                points
                 );
-        getWeapon().setUnit(this);
-        energy = 100;
-        weaponSet= new ArrayList<Weapon>();
-        loadWeaponSet();
+        this.weaponSet= weaponSet;
+        setPlayerStartStatus();
+
+    }
+
+    private void setPlayerStartStatus(){
         this.setSide(1);
-        loadData();
         MouseGameListeners.getInstance().addPlayer(this);
         for (BodyPart bp:getBodyParts()){
             bp.setPlayer(true);
         }
+        assign_owner_to_weapons();
         setLookingInterfejs(new LookingPlayer());
         setAttackInerfejs(new Attack());
         this.playerStatus = new PlayerStatus(this);
@@ -77,33 +75,16 @@ public class Player extends Unit {
         playerDeath();
     }
 
-    private void loadData(){
-
-    }
-    private static Point build_Player_Position(){
-        return new Point(Toolkit.getDefaultToolkit().getScreenSize().width/3,
-                Toolkit.getDefaultToolkit().getScreenSize().height/2);
-    }
-    private static BodyPart[] build_Body_Parts(){
-        return BodyFactory.getInstance().Create_Body(UnitType.JARO, build_Player_Position());
-    }
-
     public PlayerStatus getPlayerStatus() {
         return playerStatus;
     }
 
-
-    private void loadWeaponSet(){
-        Weapon weapon;
-        weaponSet.add(getWeapon());
-        weapon = WeaponsFactory.create(WeaponsType.GRENADE,getPosition(),5,this);
-        weaponSet.add(weapon);
-        weapon = WeaponsFactory.create(WeaponsType.KONSTYTUCJA,getPosition(),0,this);
-        weaponSet.add(weapon);
-        weapon = WeaponsFactory.create(WeaponsType.NOWEAPON,getPosition(),0,this);
-        weaponSet.add(weapon);
-
+    private void assign_owner_to_weapons(){
+        for(Weapon weapon : weaponSet){
+            weapon.setUnit(this);
+        }
     }
+
     public void swiftWeapon(){
         if (weaponSet.size()>(whichWeapon+1))whichWeapon++;
         else whichWeapon=0;

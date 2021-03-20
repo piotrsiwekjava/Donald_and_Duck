@@ -26,7 +26,7 @@ public class Drawer {
     public Drawer(JPanel panel){
         objectsController = ObjectsController.getInstance();
         this.panel = panel;
-        this.level = new Level(2,"desert");
+        this.level = objectsController.getLevel();
     }
     public void drawAll(Graphics2D g2d){
         this.g2d = g2d;
@@ -79,9 +79,7 @@ public class Drawer {
     private boolean isOnScreen(ObjectGame og){
         int x = (int)og.getPosition().getX();
         int xm = Sizes.Screen_Width;
-        if (x>(-xm*0.1) && x<(xm*1.1))
-            return true;
-        return false;
+        return x > (-xm * 0.1) && x < (xm * 1.1);
     }
     private void drawUnit(Unit unit){
         for (BodyPart bp: unit.getBodyParts()){
@@ -99,7 +97,7 @@ public class Drawer {
             if (o.getAngle() != 0) rotateAndDraw(o);
             else drawObject(o);
         }
-        catch (Exception e){}
+        catch (Exception e){e.printStackTrace();}
     }
     private void draw_Obstacle_or_Item(ObjectImage o){
             int x = (int)o.getPosition().getX();

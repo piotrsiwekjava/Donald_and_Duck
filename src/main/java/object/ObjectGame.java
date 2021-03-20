@@ -4,7 +4,7 @@ import listeners.KeyGameListener;
 
 import java.awt.*;
 
-/** ObjectG - Object in Game
+/** ObjectG - Object in mainGame.Game
  *
  */
 public abstract class ObjectGame {
