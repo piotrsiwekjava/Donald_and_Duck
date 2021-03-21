@@ -19,9 +19,9 @@ public class AmmoGrenade extends Ammo {
     private Point target;
     private int sizeField_of_fire;
     private boolean clusterbomb;
-    public AmmoGrenade(AmmoType type, Point position, double[] size, BufferedImage image, int damage, Point target, int speed, Unit whoShoot, int sizeField_of_fire, boolean isClusterBomb ) {
-        super(type, position, size, image, damage, target, speed, whoShoot);
-        this.target = target;
+    public AmmoGrenade(AmmoType type, Point position, double[] size, BufferedImage image, int damage, int speed, Unit whoShoot, int sizeField_of_fire, boolean isClusterBomb ) {
+        super(type, position, size, image, damage, speed, whoShoot);
+        this.target = whoShoot.getLookTarget().getPosition();
         this.exploded = false;
         this.sizeField_of_fire = sizeField_of_fire;
         this.clusterbomb = isClusterBomb;
@@ -47,7 +47,7 @@ public class AmmoGrenade extends Ammo {
         this.distanceBegin = (int)(distance);
         this.distanceLeft = distanceBegin;
         this.setSpeed(distanceBegin/50);
-        this.setFly(this.target, this.getSpeed());
+        this.setFly();
     }
 
     private void setPositionY(){

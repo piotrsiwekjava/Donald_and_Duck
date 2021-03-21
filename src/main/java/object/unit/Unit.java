@@ -1,6 +1,5 @@
 package object.unit;
 
-import listeners.KeyGameListener;
 import object.factories.BodyPart;
 import object.ObjectGame;
 import object.factories.Weapon;
@@ -12,8 +11,6 @@ import object.unit.behavior.enemy.looking.Stare;
 import object.unit.behavior.enemy.move.DeathEnemy;
 import object.unit.behavior.enemy.move.MoveInterfejs;
 import object.unit.behavior.enemy.move.Wait;
-import object.unit.player.Player;
-import objectsController.ObjectsController;
 import settings.Sizes;
 import sound.Mixer;
 
@@ -21,7 +18,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class Unit extends ObjectGame {
-    private ObjectsController objectsController;
     private BodyPart[] bodyParts;
     public boolean alive;
     private int hp;
@@ -36,8 +32,8 @@ public class Unit extends ObjectGame {
      * side - direct of looking -> -1 =Left ; 1=Right
      * course - direct of moving -> -1 =Left ; 1=Right
      */
-    private int side;
-    private int course;
+    private int sideLooking;
+    private int courseMoving;
     private double ownLegfast;
     private Point damagePoint;
     public boolean seePlayer;
@@ -45,7 +41,6 @@ public class Unit extends ObjectGame {
 
     public Unit(Point position, double [] size, BodyPart[] bodyParts, int hp, Weapon weapon, int points_for_kill) {
         super(position, size);
-        this.objectsController = ObjectsController.getInstance();
         this.bodyParts=bodyParts;
         this.hp = hp;
         this.weapon = weapon;
@@ -73,7 +68,7 @@ public class Unit extends ObjectGame {
         moveInterfejs = new Wait();
         attackInerfejs =new NoAttack();
         this.bodyController = new BodyController(this);
-        this.side = -1;
+        this.sideLooking = -1;
         this.weapon.setUnit(this);
         this.ownLegfast = Sizes.Leg_Speed;
     }
@@ -94,7 +89,7 @@ public class Unit extends ObjectGame {
         this.weapon.shooting=true;
         attackInerfejs.attack(weapon);
     }
-    public void stopAtck(){this.weapon.shooting =false;}
+    public void stopAttack(){this.weapon.shooting =false;}
 
     public void move() {
         moveInterfejs.move(this);
@@ -160,22 +155,22 @@ public class Unit extends ObjectGame {
         this.weapon = weapon;
     }
 
-    public int getSide() {
-        return side;
+    public int getSideLooking() {
+        return sideLooking;
     }
 
-    public synchronized void setSide(int side2) {
-        this.side = side2;
+    public synchronized void setSideLooking(int side2) {
+        this.sideLooking = side2;
         this.bodyController.changeSide(side2);
 
     }
 
-    public int getCourse() {
-        return course;
+    public int getCourseMoving() {
+        return courseMoving;
     }
 
-    public void setCourse(int course) {
-        this.course = course;
+    public void setCourseMoving(int courseMoving) {
+        this.courseMoving = courseMoving;
     }
 
     public BodyController getBodyController(){

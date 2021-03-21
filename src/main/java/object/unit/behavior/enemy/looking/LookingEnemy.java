@@ -5,7 +5,6 @@ import object.unit.Unit;
 import object.unit.player.Player;
 import objectsController.ObjectsController;
 import settings.Sizes;
-import threads.Attack_Runnable;
 
 import java.awt.*;
 import java.util.Random;
@@ -49,10 +48,10 @@ public class LookingEnemy implements LookingInterfejs{
     }
     private void setUnitSide (Unit unit){
         if (lookTarget.getPosition().getX()< unit.getPosition().getX()) {
-            if (unit.getSide() != -1) unit.setSide(-1);
+            if (unit.getSideLooking() != -1) unit.setSideLooking(-1);
         }
         else if (lookTarget.getPosition().getX()> unit.getPosition().getX()){
-            if (unit.getSide() != 1) unit.setSide(1);
+            if (unit.getSideLooking() != 1) unit.setSideLooking(1);
         }
     }
     private boolean lookingPlayer(Unit unit){

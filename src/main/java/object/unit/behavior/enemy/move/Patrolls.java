@@ -20,8 +20,8 @@ public class Patrolls implements MoveInterfejs {
             unit.getMoveTarget().setPosition(objectsController.getRandomPointMove());
         }
         if (objectsController.checkTrack(unit.getPosition(),dXY,false)) {
-            if (dXY[0] > 0) unit.setCourse(1);
-            else if (dXY[0] < 0) unit.setCourse(-1);
+            if (dXY[0] > 0) unit.setCourseMoving(1);
+            else if (dXY[0] < 0) unit.setCourseMoving(-1);
             for (ObjectImage o : unit.getBodyParts()) {
                 o.setXY(dXY[0], dXY[1]);
             }

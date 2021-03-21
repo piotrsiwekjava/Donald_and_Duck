@@ -54,8 +54,8 @@ public class ObjectsController {
 
     public void addUnitToGame(){
         Unit [] units = objectsGeneratorModule.newUnits();
-        for (int i=0;i<units.length;i++){
-            addUnit(units[i]);
+        for (Unit unit : units) {
+            addUnit(unit);
         }
     }
 
@@ -110,6 +110,7 @@ public class ObjectsController {
     public Point getRandomPointMove(){
         return moveModule.randomPointMove();
     }
+
     public synchronized boolean checkTrack(Point ownPoint, double[] doubles, boolean isBullet){
         return moveModule.checkTrack(ownPoint,doubles, isBullet);
     }
@@ -156,28 +157,37 @@ public class ObjectsController {
     public void setEnemySeePlayer(boolean enemySeePlayer) {
         this.enemySeePlayer = enemySeePlayer;
         if (enemySeePlayer) {
-            playSoundtrack(2);
-            for (ObjectGame og: objectGameSet){
-                if (og instanceof Unit && !(og instanceof Player)){
-                    ((Unit)og).seePlayer=true;
-                    ((Unit)og).setLookingInterfejs(new Stare());
-                    ((Unit)og).setLookTarget(player.getPosition());
-                    ((Unit)og).setAttackInerfejs(new Attack());
-                    Attack_Runnable.Attack((Unit) og);
-                }
+            enemyAttackPlayer();
+        } else {
+            enemyStopAttackPlayer();
+        }
+    }
+
+    private void enemyAttackPlayer() {
+        playSoundtrack(2);
+        for (ObjectGame og : objectGameSet) {
+            if (og instanceof Unit && !(og instanceof Player)) {
+                ((Unit) og).seePlayer = true;
+                ((Unit) og).setLookingInterfejs(new Stare());
+                ((Unit) og).setLookTarget(player.getPosition());
+                ((Unit) og).setAttackInerfejs(new Attack());
+                Attack_Runnable.Attack((Unit) og);
             }
         }
-        else {
-            playSoundtrack(1);
-            for (ObjectGame og: objectGameSet) {
+    }
+
+    private void enemyStopAttackPlayer() {
+        playSoundtrack(1);
+        for (ObjectGame og : objectGameSet) {
             if (og instanceof Unit && !(og instanceof Player)) {
                 ((Unit) og).seePlayer = false;
                 ((Unit) og).setLookingInterfejs(new LookingEnemy());
                 ((Unit) og).setAttackInerfejs(new NoAttack());
+                ((Unit) og).stopAttack();
             }
         }
-        }
     }
+
     public void remove_Blood_and_Unit(Move_Look_Point blood){
         removeThisObject(blood.getUnit());
         bloodSet.remove(blood);

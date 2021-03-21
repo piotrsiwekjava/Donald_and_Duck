@@ -146,10 +146,10 @@ public class BodyController {
         changePointsBodyWhenTorsoRotate();
     }
     public void looking(){
-        double c = angleLook()* unit.getSide();
+        double c = angleLook()* unit.getSideLooking();
         double a = c * bodyParts[5].getCourseMove();
         double b = c * bodyParts[4].getCourseMove()/2;
-        if (unit.getSide()==1 && b<0)b*=-1;
+        if (unit.getSideLooking()==1 && b<0)b*=-1;
         setAnglePart(bodyParts[0],a/4);
         setAnglePart(bodyParts[1],a*0.75);
         setAnglePart(bodyParts[5],a);
@@ -254,7 +254,7 @@ public class BodyController {
     public void setWeapon(Weapon weapon){
         this.weapon = weapon;
         setWeaponLocate();
-        setBodySide(unit.getSide());
+        setBodySide(unit.getSideLooking());
     }
     private void setWeaponLocate(){
         if (weapon.getWeapontype()== WeaponsType.AK_47) weaponLocate = new Ak47Locate();

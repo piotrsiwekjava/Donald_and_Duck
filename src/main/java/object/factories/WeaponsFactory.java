@@ -46,7 +46,7 @@ public class WeaponsFactory{
         }
         ImageGetterAndChanger igc = ImageGetterAndChanger.getInstance();
         image = igc.getTransImg(imagePath);
-        if ((unit instanceof Player) && ObjectsController.getInstance().isCanPlay() && unit.getSide() == 1) image = igc.mirrorImage(image);
+        if ((unit instanceof Player) && ObjectsController.getInstance().isCanPlay() && unit.getSideLooking() == 1) image = igc.mirrorImage(image);
 
 
         switch (type){

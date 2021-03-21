@@ -11,10 +11,10 @@ public class LookingPlayer implements LookingInterfejs{
         Move_Look_Point lookTarget = unit.getLookTarget();
         lookTarget.setPosition(MouseInfo.getPointerInfo().getLocation());
         if (lookTarget.getPosition().getX()< unit.getPosition().getX()) {
-            if (unit.getSide() != -1) unit.setSide(-1);
+            if (unit.getSideLooking() != -1) unit.setSideLooking(-1);
         }
         else if (lookTarget.getPosition().getX()> unit.getPosition().getX()){
-            if (unit.getSide() != 1) unit.setSide(1);
+            if (unit.getSideLooking() != 1) unit.setSideLooking(1);
         }
     }
 }

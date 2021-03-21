@@ -22,35 +22,34 @@ public class Ammo extends ObjectImage {
     private SoundPlayer.MusicThread sound;
     public boolean isBlocked;
 
-    public Ammo(AmmoType type,Point position, double[] size, BufferedImage image, int damage, Point target, double speed, Unit whoShoot) {
+    public Ammo(AmmoType type,Point position, double[] size, BufferedImage image, int damage, double speed, Unit whoShoot) {
         super(position, size, image);
         this.type = type;
         this.damage = damage;
         this.speed = speed;
         this.whoShoot = whoShoot;
         isBlocked = false;
-        setFly(target,speed);
-
+        setFly();
+        giveSound();
     }
 
     @Override
     public void setXY(double ix, double iy) {
         super.setXY(ix, iy);
     }
-    void setFly(Point target, double speed){
+    void setFly(){
+        Point target = whoShoot.getLookTarget().getPosition();
         double dX=(target.getX()-getPosition().getX());
         double dY=(target.getY()-getPosition().getY());
         double dC=(Math.sqrt(Math.pow(dX,2)+Math.pow(dY,2)));
         if (dC==0) dC=0.01;
         nX = (dX*speed)/dC;
         nY = (dY*speed)/dC;
-        giveSound();
+
     }
     public void fly(){
         if (check_if_you_hit()) {
             getDamageObject();
-            this.setXY(nX,nY);
-
         }
         this.setXY(nX,nY);
 
@@ -76,6 +75,10 @@ public class Ammo extends ObjectImage {
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public double getnX() {
+        return nX;
     }
 
     public double getnY() {

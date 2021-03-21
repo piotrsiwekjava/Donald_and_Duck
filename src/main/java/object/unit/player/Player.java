@@ -40,7 +40,7 @@ public class Player extends Unit {
     }
 
     private void setPlayerStartStatus(){
-        this.setSide(1);
+        this.setSideLooking(1);
         MouseGameListeners.getInstance().addPlayer(this);
         for (BodyPart bp:getBodyParts()){
             bp.setPlayer(true);
